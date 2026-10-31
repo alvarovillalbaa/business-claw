@@ -1,0 +1,465 @@
+{
+  "schemaVersion": "business-claw.source.v1",
+  "repository": "alvarovillalbaa/business-claw",
+  "scope": "Approved source-only server policy and focused authored fake-port verification; live adapters remain unbound",
+  "approval": "Owner: I approve everything",
+  "files": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "gitSha": "ac0c88cd270bb6247b61d155498e21274b591b7b"
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "gitSha": "252be0944bf64aefa24ad752c1b845ccefeb106d"
+    },
+    {
+      "path": "docs/domain-contract.md",
+      "mode": "100644",
+      "gitSha": "d2b15f5956b9652be4ee8a621002ffc860ccbbee"
+    },
+    {
+      "path": "docs/fixtures/invalid-workspace.json",
+      "mode": "100644",
+      "gitSha": "e78ec4a594c44c5709c62e38bf99d44480cc3650"
+    },
+    {
+      "path": "docs/fixtures/workspace.json",
+      "mode": "100644",
+      "gitSha": "f1bacf709e66327443d32249c631977d516a0252"
+    },
+    {
+      "path": "docs/proposals/activation-plan.md",
+      "mode": "100644",
+      "gitSha": "4b79a8d4b10f37e042ddca9febc635c63fa09d54"
+    },
+    {
+      "path": "docs/proposals/browser-checks.md",
+      "mode": "100644",
+      "gitSha": "89c3e56a1bd2b948ced5fa58668d0e035eedaebb"
+    },
+    {
+      "path": "docs/proposals/domain-checks.md",
+      "mode": "100644",
+      "gitSha": "05b3940f4fb48cc21626a55aa3fd36df8922fa34"
+    },
+    {
+      "path": "docs/proposals/identity-data-activation.md",
+      "mode": "100644",
+      "gitSha": "8f464786ee43e9304ec59abf875f33aaa3e924fe"
+    },
+    {
+      "path": "docs/proposals/managed-service-architecture.md",
+      "mode": "100644",
+      "gitSha": "9f9b862f08a1d44a441e273072de2adbec20202e"
+    },
+    {
+      "path": "docs/proposals/runtime-activation.md",
+      "mode": "100644",
+      "gitSha": "692eb7bcfeedbc6ca99aea46daaf52423d996bde"
+    },
+    {
+      "path": "docs/proposals/runtime-checks.md",
+      "mode": "100644",
+      "gitSha": "9097ea1d11806b09162cda227d7ec5729e4802fe"
+    },
+    {
+      "path": "docs/proposals/server-policy-checks.md",
+      "mode": "100644",
+      "gitSha": "eb536906cc3b2caa7cdebcbb6741d92358aed81b"
+    },
+    {
+      "path": "docs/research/2026-10-31/openclaw-artifact-evidence.json",
+      "mode": "100644",
+      "gitSha": "95a7133ad5c55822fbe837cbf984fd55c3dd4e35"
+    },
+    {
+      "path": "docs/research/2026-10-31/openclaw-artifact-provenance.md",
+      "mode": "100644",
+      "gitSha": "803e97b49b47ed6c291a22ac54e8f5df525e4b14"
+    },
+    {
+      "path": "docs/research/2026-10-31/openclaw-runtime-contract.md",
+      "mode": "100644",
+      "gitSha": "ffcf36b2579851ad051a55eb412896fe87ed8a6b"
+    },
+    {
+      "path": "docs/runtime-config-contract.md",
+      "mode": "100644",
+      "gitSha": "7cc67f53e6df85e4fc73cede44f794006a82d961"
+    },
+    {
+      "path": "docs/server-policy-contract.md",
+      "mode": "100644",
+      "gitSha": "b530c4897e39693771b395e1d3571cd713018137"
+    },
+    {
+      "path": "docs/spec.md",
+      "mode": "100644",
+      "gitSha": "e439acb61a90cadde213729f2791e1a24a3fe5bf"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "gitSha": "0779978f4e4cdf6487df51d4c72f6e7a4d3683a1"
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "gitSha": "b5a2b56e4ea505f7b4f83ae8cb661d238e45b3b3"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "gitSha": "68bf048cb595e36db416c5de1075e66db438b88c"
+    },
+    {
+      "path": "runtime/config-observation.mjs",
+      "mode": "100644",
+      "gitSha": "69f812b5a71a3172c78e076c3751bbc19fbc67e6"
+    },
+    {
+      "path": "scripts/check-source.mjs",
+      "mode": "100644",
+      "gitSha": "eb618178b73d5b50c99e39123f936ece04867d52"
+    },
+    {
+      "path": "scripts/run-approved-checks.mjs",
+      "mode": "100644",
+      "gitSha": "ef980adf1959c0bb9e5696ce91ae7763bce5c493"
+    },
+    {
+      "path": "scripts/run-policy-checks.mjs",
+      "mode": "100644",
+      "gitSha": "9ccf3b189b346dbd38404a69cf972bf77dc35ef5"
+    },
+    {
+      "path": "scripts/run-runtime-checks.mjs",
+      "mode": "100644",
+      "gitSha": "17067ba0134bd9987df393feec4b210e10dfbbff"
+    },
+    {
+      "path": "server/access.mjs",
+      "mode": "100644",
+      "gitSha": "652d1da835c07f5456a6230aa2c08384d687d762"
+    },
+    {
+      "path": "server/data.mjs",
+      "mode": "100644",
+      "gitSha": "134a01d1f6de1e4536ccd38afe6c40e93a9c0754"
+    },
+    {
+      "path": "server/membership.mjs",
+      "mode": "100644",
+      "gitSha": "25ad7ea1039057f1a17005a00017ffacb994b3aa"
+    },
+    {
+      "path": "server/policy.mjs",
+      "mode": "100644",
+      "gitSha": "bff0282c01f8584295e4fde1e682d28e0710531d"
+    },
+    {
+      "path": "tests/domain.test.mjs",
+      "mode": "100644",
+      "gitSha": "51313c6d9817b051084a1706bd1c6d8646871d59"
+    },
+    {
+      "path": "tests/runtime-config.test.mjs",
+      "mode": "100644",
+      "gitSha": "cd503bb4b05e3696b2410e9e9f03db9b32067887"
+    },
+    {
+      "path": "tests/server-policy.test.mjs",
+      "mode": "100644",
+      "gitSha": "d7089196c9a14ae678c73f701a7f37fa328eb363"
+    },
+    {
+      "path": "vercel.json",
+      "mode": "100644",
+      "gitSha": "0b37df5fd7a8713a7b9ff84971181abb650579b8"
+    },
+    {
+      "path": "web/app.mjs",
+      "mode": "100644",
+      "gitSha": "51c9052619d839229fdb325f6293e1adcfbf0731"
+    },
+    {
+      "path": "web/domain.mjs",
+      "mode": "100644",
+      "gitSha": "89fd6c7d99fe74bdeb11c94e4b9fcf94fb93a9e6"
+    },
+    {
+      "path": "web/favicon.svg",
+      "mode": "100644",
+      "gitSha": "1d6053b86be59b665739ef33f34c2c7bd8b1e0f8"
+    },
+    {
+      "path": "web/index.html",
+      "mode": "100644",
+      "gitSha": "17380d5c824f897de8b9c7d1ce986f1015a9da42"
+    },
+    {
+      "path": "web/styles.css",
+      "mode": "100644",
+      "gitSha": "84385337fcc894177488f16e9dd952959cb1d7ea"
+    }
+  ],
+  "testFiles": [
+    {
+      "path": "tests/server-policy.test.mjs",
+      "names": [
+        "missing trusted ports fail closed and exposed capability ceilings never admit chat or dispatch",
+        "admission requires a confirmed trusted principal rather than caller identity fields",
+        "application sessions must match the verified handle subject and provider session independently",
+        "revoked expired future-authenticated and overlong application sessions deny admission",
+        "mutation integrity is checked with the verified handle while admitted reads remain available",
+        "active organization and current membership rows are re-read after revocation and role changes",
+        "the role and operation-kind matrix denies member viewer and administrator retirement paths",
+        "foreign organization instance and operation identifiers return no cross-organization workspace",
+        "provision and delete require Owner authentication within five minutes including the exact boundary",
+        "bootstrap generates authoritative organization instance and Owner actor records in one audit",
+        "stable bootstrap retries recover only the same principal request and name without another audit",
+        "bootstrap replay cannot restore a revoked first Owner membership",
+        "request self-review and separate confirmation retain one immutable plan hash across current CAS values",
+        "stale server revisions generations and changed review hashes cannot mutate a current plan",
+        "exact operation and terminal retries require current CAS and do not create duplicate audit records",
+        "intent changes supersede active reviewed plans and identical intent saves add no audit",
+        "CAS refusal and audit failure roll back the domain mutation and its server revision together",
+        "independent serialized transactions permit one concurrent CAS winner and retain exactly one mutation audit",
+        "public records and submitted audits are frozen detached data with server-only actor and minimal metadata",
+        "strict caller records reject authority extras prototypes accessors and malformed targets without getter reads",
+        "invitation plaintext appears only in its first private unbound delivery envelope and never the store or audit",
+        "only a current Owner may invite or alter membership and no direct path can grant Owner",
+        "invite acceptance binds the exact token and confirmed recipient email before any membership write",
+        "expired revoked and inactive-issuer invitations cannot admit a recipient",
+        "a matching invite creates only its specified organization role and returns an idempotent acknowledgment",
+        "accepted token replay cannot restore revocation and re-admission needs a strictly newer invite",
+        "invite acceptance cannot overwrite an active role and explicit role changes or revocation affect the next request",
+        "the last active Owner cannot be demoted or revoked while removing an additional Owner is permitted",
+        "Owner transfer changes both roles only on exact recipient acceptance and replay adds no audit",
+        "Owner transfer rechecks recipient issuer role issuer session and five-minute authentication freshness",
+        "membership invitation and two-role transfer effects roll back atomically when a later write or audit fails",
+        "membership bodies retain current CAS exact foreign-target fences and acknowledgment-only responses"
+      ]
+    }
+  ],
+  "selectedByteHashes": [
+    {
+      "path": ".gitignore",
+      "bytes": 61,
+      "sha256": "da590e07e94edb811dbad2a1b5d17923306371f025c635e6fc6430b74233dd0d"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 2800,
+      "sha256": "7ffb4de875a93f9779310410040ad76a3d8a30afa38ae604abe4ad51d9bba6fa"
+    },
+    {
+      "path": "docs/domain-contract.md",
+      "bytes": 9291,
+      "sha256": "c05735370e8e99df53c987e421e19a5fdaf9d3269e4517401f5e348cb8afcaec"
+    },
+    {
+      "path": "docs/fixtures/invalid-workspace.json",
+      "bytes": 131,
+      "sha256": "2344c1681538ca600455d9a44fe8cf137d1b079329018177cfd5c89b0918c078"
+    },
+    {
+      "path": "docs/fixtures/workspace.json",
+      "bytes": 647,
+      "sha256": "12622463c5c32e03fae4ae3d23a32b5e51fc6f2625804a26be6810049ab190ac"
+    },
+    {
+      "path": "docs/proposals/activation-plan.md",
+      "bytes": 5603,
+      "sha256": "9d51c679e6d8dcc9ca29a1becf7f0b57a5a1c0998765426919f00b331965098f"
+    },
+    {
+      "path": "docs/proposals/browser-checks.md",
+      "bytes": 2888,
+      "sha256": "3630eeef344f61b18d70945c679be2b0b72e6263d829c75b22f6e5be6ae22739"
+    },
+    {
+      "path": "docs/proposals/domain-checks.md",
+      "bytes": 1969,
+      "sha256": "a4939c43b36f30d7894ed99d66e2345522cb664103b13a93a16f9ac3f266946a"
+    },
+    {
+      "path": "docs/proposals/identity-data-activation.md",
+      "bytes": 25084,
+      "sha256": "5b94c15d0f2edd78e05026940df2ebcb834cc0c463f6d8a41252e420c63c12f5"
+    },
+    {
+      "path": "docs/proposals/managed-service-architecture.md",
+      "bytes": 28395,
+      "sha256": "5f740cf88a2a24bfd8874f0f32662a0fa83436e4015d5213340a085490653528"
+    },
+    {
+      "path": "docs/proposals/runtime-activation.md",
+      "bytes": 12284,
+      "sha256": "735321c184d9ab4ea41fc7e9905b29097cd42a92004a0815e5a45b5d4548b232"
+    },
+    {
+      "path": "docs/proposals/runtime-checks.md",
+      "bytes": 3920,
+      "sha256": "31ecc038abb38fce77745c7fe3b06aac4fdf30bae22213bfd74f0b30e2355209"
+    },
+    {
+      "path": "docs/proposals/server-policy-checks.md",
+      "bytes": 4210,
+      "sha256": "4f4efd3618c36bc52f8a14e72893f9131fb3d3b6343fbc0f06e4f72d570adc38"
+    },
+    {
+      "path": "docs/research/2026-10-31/openclaw-artifact-evidence.json",
+      "bytes": 3755,
+      "sha256": "2b4229e85cd179fdd84bf6960aee819df9527fec2b7edc6bd0726e8a5b59b00e"
+    },
+    {
+      "path": "docs/research/2026-10-31/openclaw-artifact-provenance.md",
+      "bytes": 12190,
+      "sha256": "4e7b1a446766e79a5353b592b7fa38c72432e41bc0aebee00a52019714919e66"
+    },
+    {
+      "path": "docs/research/2026-10-31/openclaw-runtime-contract.md",
+      "bytes": 16820,
+      "sha256": "a429c0a16f68a5c40060b89d3e8c7e38640f3239bfaaf6d1d6f2874a5058918f"
+    },
+    {
+      "path": "docs/runtime-config-contract.md",
+      "bytes": 6741,
+      "sha256": "2e84abeca69cbff969ff52aaf45beb486d78c4849cdacafff48386900e276d23"
+    },
+    {
+      "path": "docs/server-policy-contract.md",
+      "bytes": 10745,
+      "sha256": "8404d336701d664d599a1794cc7597e386267d490ea4370786d3e75926f073b9"
+    },
+    {
+      "path": "docs/spec.md",
+      "bytes": 4757,
+      "sha256": "8a854513fd34ff00d1ed4faeabf5d4c57e25d8f95a20319098c44f0ed730ff8f"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1072,
+      "sha256": "5514afb84b7d0fb9a4724cfa43e475666401ea084180d9e1b5d185dd2346f52f"
+    },
+    {
+      "path": "package.json",
+      "bytes": 266,
+      "sha256": "7c6ddd3c488ef6f81d683c079f11e5961ec337b3a6e92ed90b8ed1598c9d1f85"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4479,
+      "sha256": "f4837925c8a5daad2fc4f264df74ab64225863390bdeff527b761bf83dc8d288"
+    },
+    {
+      "path": "runtime/config-observation.mjs",
+      "bytes": 7783,
+      "sha256": "af12dbd3b785803fdf009f0d19496589d1e042009ddece7ab34c2210c21bf432"
+    },
+    {
+      "path": "scripts/check-source.mjs",
+      "bytes": 2384,
+      "sha256": "460f9352f2b6f1b1d82a0a04924eaea9324b41b33939fefc545a1ef95b920988"
+    },
+    {
+      "path": "scripts/run-approved-checks.mjs",
+      "bytes": 5494,
+      "sha256": "28292775a39ecba26fd739a05ab6e4a100414771bbfe8eb43703f6c677519f68"
+    },
+    {
+      "path": "scripts/run-policy-checks.mjs",
+      "bytes": 8488,
+      "sha256": "508803aa0b1aec7d8ca3a14e21557c561062bb61ab45a59f91fe8424e8dd9e7a"
+    },
+    {
+      "path": "scripts/run-runtime-checks.mjs",
+      "bytes": 8044,
+      "sha256": "486a012589195597b75b08d43ba763d4f7315a853003c234be33894c0abc3d2e"
+    },
+    {
+      "path": "server/access.mjs",
+      "bytes": 3603,
+      "sha256": "f99cfe3a6bf9e41f5e1354fe8438d7e961ba28fc84daad2a218ce73fcff1bf6f"
+    },
+    {
+      "path": "server/data.mjs",
+      "bytes": 3726,
+      "sha256": "d2dafa19b13509db190f43d8806b9bec0f262ba5d501b77fa6fa25b08453571e"
+    },
+    {
+      "path": "server/membership.mjs",
+      "bytes": 16209,
+      "sha256": "b66226561c69c1760f148782f894091b65e36ae711ca5ed3b9bea57c78f3d3db"
+    },
+    {
+      "path": "server/policy.mjs",
+      "bytes": 12062,
+      "sha256": "d4de65f8b5b356c8734511ad405c1ea91ed5e63f90eca3e299313c01493df938"
+    },
+    {
+      "path": "tests/domain.test.mjs",
+      "bytes": 15022,
+      "sha256": "1482e6229aac49095e4430069fbcdba43485c8b2442ffbb3f4b9c09d32236ca3"
+    },
+    {
+      "path": "tests/runtime-config.test.mjs",
+      "bytes": 17042,
+      "sha256": "6ca615affb30a2981118ca8e97ef74e6d8dac8b83c9a4344afcb236f70875c01"
+    },
+    {
+      "path": "tests/server-policy.test.mjs",
+      "bytes": 37227,
+      "sha256": "93825db0ca580c2aebbd3d6bfbb8ce014b50685be86fd7f8cc6dc730f8fe14ba"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 195,
+      "sha256": "ad878afb73ee93c3240b2f74f8c9a94c8f9c3364c3cfd6824db2e80d40b7250d"
+    },
+    {
+      "path": "web/app.mjs",
+      "bytes": 27559,
+      "sha256": "99e3b48a59dfabaf9f92596e79aa45b90ff86eac0a2f16fffee737e1a8752513"
+    },
+    {
+      "path": "web/domain.mjs",
+      "bytes": 17481,
+      "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+    },
+    {
+      "path": "web/favicon.svg",
+      "bytes": 270,
+      "sha256": "fd929d179d87be1d6a01c7daea4005a3c0a69ed8cc237b9e200f4e9b9c2f7334"
+    },
+    {
+      "path": "web/index.html",
+      "bytes": 13262,
+      "sha256": "c88cbe93259c32748fb67901a2c5a25b4aec80073ba1aa28451d94b7142e62f2"
+    },
+    {
+      "path": "web/styles.css",
+      "bytes": 20661,
+      "sha256": "4eeabd6fa5caf2cfd8d536b4ba158ee33ffa4038f287fde8307bcb944ddbd9dd"
+    }
+  ],
+  "sourceBytes": 374620,
+  "execution": {
+    "policyCases": 32,
+    "policyCasesExecuted": 0,
+    "preparedDomainCasesPassed": 14,
+    "preparedRuntimeCasesPassed": 18,
+    "preparedBrowserScenarios": 4,
+    "preparedBrowserScenariosExecuted": 0,
+    "dependenciesInstalled": false,
+    "ciChanged": false
+  },
+  "limits": [
+    "No deployed route, real Auth/store binding, migration, email, Gateway, provider/model or paid activation",
+    "Policy tests use independent authored in-memory identity/transaction/clock/random ports only",
+    "Prior domain/runtime passes retain their own immutable source identities"
+  ]
+}

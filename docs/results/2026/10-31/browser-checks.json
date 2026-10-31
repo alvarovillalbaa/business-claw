@@ -1,0 +1,120 @@
+{
+  "kind": "business-claw-preview-browser-attempt",
+  "recordedAt": "2026-10-31T17:08:19.000Z",
+  "updatedAt": "2026-10-31T17:22:46.000Z",
+  "approval": {
+    "ownerReply": "I approve everything",
+    "proposal": "docs/proposals/browser-checks.md",
+    "approvedPreviewSource": "1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477",
+    "scenarioCount": 4,
+    "retained": true
+  },
+  "scope": {
+    "surface": "currently connected supported Chrome",
+    "target": "https://business-claw-alvaro.vercel.app",
+    "maxTaskTabs": 2,
+    "data": "disposable authored local records and files only"
+  },
+  "status": "blocked-browser-connection",
+  "scenarioResults": [
+    { "name": "Setup and reviewed proposal", "status": "unrun", "reason": "No connected Chrome" },
+    { "name": "Stale intent and narrow navigation", "status": "unrun", "reason": "No connected Chrome" },
+    { "name": "Import/export and rejection", "status": "unrun", "reason": "No connected Chrome" },
+    { "name": "Explicit device retention", "status": "unrun", "reason": "No connected Chrome" }
+  ],
+  "connection": {
+    "skill": "chrome:control-chrome",
+    "setup": "completed",
+    "selection": "agent.browsers.get(\"chrome\")",
+    "selectionError": "Browser is not available: chrome",
+    "bootstrapTroubleshootingRead": true,
+    "diagnostic": "agent.browsers.list()",
+    "diagnosticResult": [],
+    "repeatedSelectionAttempts": 2,
+    "automaticRetries": 0,
+    "attempts": [
+      {
+        "recordedAt": "2026-10-31T17:08:19.000Z",
+        "trigger": "Initial approved browser checks",
+        "runtime": "initialized",
+        "selectionError": "Browser is not available: chrome",
+        "diagnosticResult": []
+      },
+      {
+        "recordedAt": "2026-10-31T17:17:32.000Z",
+        "trigger": "Owner reply: Chrome is connected",
+        "runtime": "existing agent and runtime reused",
+        "selectionError": "Browser is not available: chrome",
+        "diagnosticResult": []
+      },
+      {
+        "recordedAt": "2026-10-31T17:22:46.000Z",
+        "trigger": "Owner-approved documented empty-window recovery",
+        "runtime": "one setup retry using the existing setup function; no reset or reimport",
+        "selectionError": "Browser is not available: chrome",
+        "diagnosticResult": null,
+        "additionalDiscoveryAttempted": false
+      }
+    ],
+    "alternateAutomationUsed": false,
+    "recoveryWindowOpened": true,
+    "directProfileOrSessionStoreAccess": false,
+    "chromeTroubleshooting": {
+      "read": true,
+      "recordedAt": "2026-10-31T17:19:33.000Z",
+      "diagnostics": [
+        { "command": "node scripts/chrome-is-running.js --browser chrome --check", "exitCode": 0, "running": true },
+        { "command": "node scripts/installed-browsers.js --json", "exitCode": 0, "chromeInstalled": true },
+        { "command": "node scripts/check-extension-installed.js --browser chrome --json", "exitCode": 0, "installed": true, "registered": true, "enabled": true },
+        { "command": "node scripts/check-native-host-manifest.js --browser chrome --json", "exitCode": 0, "correct": true }
+      ],
+      "privateProfilePathsRetained": false,
+      "transportCauseEstablished": false,
+      "separateRefreshOrReconnectApiDocumented": false,
+      "documentedNextStep": "Requires permission: open about:blank in extension-selected profile; wait two seconds; retry browser-client setup once. If still unavailable, user reinstalls Browser plugin through ChatGPT plugin UI.",
+      "nextStepExecuted": true,
+      "approvedRecovery": {
+        "command": "node scripts/open-chrome-window.js --browser chrome",
+        "exitCode": 0,
+        "status": "opened",
+        "target": "about:blank in existing extension-selected profile",
+        "waitMilliseconds": 2000,
+        "setupAndSelectionRetries": 1,
+        "selectionError": "Browser is not available: chrome",
+        "furtherRecoveryAttempted": false,
+        "documentedUserAction": "Reinstall Browser plugin through the ChatGPT plugin UI."
+      }
+    },
+    "installationOrConfigurationChange": false
+  },
+  "sourceInspection": {
+    "kind": "read-only local Git identities",
+    "currentSource": "3b39c2b4cffc3a26787c729c9a675f3c0336289a",
+    "approvedPreviewSource": "1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477",
+    "allFiveWebPathsModesAndBlobsMatch": true,
+    "webLeaves": [
+      { "path": "web/app.mjs", "mode": "100644", "type": "blob", "gitSha": "51c9052619d839229fdb325f6293e1adcfbf0731" },
+      { "path": "web/domain.mjs", "mode": "100644", "type": "blob", "gitSha": "89fd6c7d99fe74bdeb11c94e4b9fcf94fb93a9e6" },
+      { "path": "web/favicon.svg", "mode": "100644", "type": "blob", "gitSha": "1d6053b86be59b665739ef33f34c2c7bd8b1e0f8" },
+      { "path": "web/index.html", "mode": "100644", "type": "blob", "gitSha": "17380d5c824f897de8b9c7d1ce986f1015a9da42" },
+      { "path": "web/styles.css", "mode": "100644", "type": "blob", "gitSha": "84385337fcc894177488f16e9dd952959cb1d7ea" }
+    ],
+    "servedSourceVerified": false,
+    "servedDeploymentVerified": false,
+    "publicAccessVerified": false
+  },
+  "browserActions": {
+    "taskTabsCreated": 0,
+    "approvedBlankRecoveryWindowsOpened": 1,
+    "pagesNavigated": 0,
+    "viewportChanges": 0,
+    "uiActions": 0,
+    "fileChooserActions": 0,
+    "downloads": 0,
+    "deviceStorageActions": 0,
+    "fixturesCreatedOrChanged": 0,
+    "screenshotsCreated": 0
+  },
+  "cleanup": "No preview task tab, fixture, download or device record was created. One approved blank recovery window may remain open because no supported browser handle was obtained for cleanup.",
+  "proofLimits": "Source equivalence is not served-byte or browser behavior proof. All four browser scenarios remain unrun. No live-service acceptance is established."
+}

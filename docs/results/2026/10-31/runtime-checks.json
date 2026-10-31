@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "business-claw.runtime-checks.v1",
+  "approvedBy": "Owner reply: I approve everything",
+  "source": "3b39c2b4cffc3a26787c729c9a675f3c0336289a",
+  "recordedAt": "2026-10-31T17:08:53.379Z",
+  "node": "v26.8.2",
+  "cases": [
+    "opaque raw CAS tokens are independent of source application tokens and absent-file raw null is valid",
+    "missing application tokens stay unavailable while two present unequal tokens are unapplied",
+    "snapshot validity requires a source token and invalid snapshots cannot carry one",
+    "reconciliation rejects each different organization instance generation installation and release binding",
+    "an observation before the receipt is rejected and an equal-time observation is allowed",
+    "set reports persistence only even when a later matching snapshot observes application",
+    "apply and patch preserve restart-required reported-applied and unavailable restart evidence",
+    "committed-unapplied retains its receipt outcome when a matching later read observes application",
+    "a successful no-op never credits persistence or recovery from a later applied snapshot",
+    "empty changed paths without noop still reports an authored persistence attempt",
+    "raw revision mismatch or missing CAS loses write attribution without hiding current application",
+    "rejection and publication failure establish no persistence even beside a later applied snapshot",
+    "lost acknowledgment and generic unavailable outcomes cannot impersonate committed receipts",
+    "strict records reject extra credential config inherited hidden symbol and accessor properties without reads",
+    "changed path arrays must be dense ordinary unique enumerable data without accessor reads",
+    "malformed identities generations timestamps text and bounded arrays fail without truncation",
+    "normalizers and reconciliation return frozen detached data without mutating or freezing inputs",
+    "receipt shape rules and exact reconciliation DTOs reject nullable fields and enriched outputs"
+  ],
+  "totals": {
+    "tests": 18,
+    "suites": 0,
+    "pass": 18,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "controller": {
+    "source": "3b39c2b4cffc3a26787c729c9a675f3c0336289a",
+    "started": true,
+    "exitCode": 0,
+    "signal": null,
+    "interrupted": null,
+    "timedOut": false,
+    "stop": null,
+    "stdoutBytes": 4698,
+    "stderrBytes": 0,
+    "totals": {
+      "tests": 18,
+      "suites": 0,
+      "pass": 18,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "sourceGuardPassed": true,
+    "failed": false
+  },
+  "controllerExitCode": 0,
+  "inputs": [
+    {
+      "path": "runtime/config-observation.mjs",
+      "bytes": 7783,
+      "sha256": "af12dbd3b785803fdf009f0d19496589d1e042009ddece7ab34c2210c21bf432"
+    },
+    {
+      "path": "tests/runtime-config.test.mjs",
+      "bytes": 17042,
+      "sha256": "6ca615affb30a2981118ca8e97ef74e6d8dac8b83c9a4344afcb236f70875c01"
+    },
+    {
+      "path": "scripts/run-runtime-checks.mjs",
+      "bytes": 8044,
+      "sha256": "486a012589195597b75b08d43ba763d4f7315a853003c234be33894c0abc3d2e"
+    },
+    {
+      "path": "docs/results/2026/10-31/runtime-source.json",
+      "bytes": 12401,
+      "sha256": "2cb25e3468e5e043b602132e8f087146448aada214c0bb5657bc6876639ef5ee"
+    }
+  ],
+  "limits": [
+    "Pure authored data checks only; no browser, database, network or Gateway",
+    "No authentication, production tenancy, provider, backup/restore or full service proof"
+  ]
+}

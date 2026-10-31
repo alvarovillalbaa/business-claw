@@ -7,6 +7,10 @@
 - web/domain.mjs owns strict portable organization/instance/operation data and
   pure lifecycle transitions. The browser uses that contract without forking
   field names, validation, revisions or ownership checks. Keep it dependency-free.
+- server/policy.mjs owns the source-only access/lifecycle boundary; access.mjs,
+  membership.mjs and data.mjs share its strict adapter DTOs. Current principal,
+  application session and membership checks use trusted ports inside the required
+  atomic transaction. No deployed route or live Auth/store binding exists.
 - Domain review/confirmation records are workflow data, not authentication or a
   grant of execution authority. Provider commands remain data until an approved
   server-side adapter authenticates, authorizes and binds the actual target.
@@ -22,6 +26,10 @@
 - Follow supplied AGENTS.md sections 7/14: newly authored Business Claw tests,
   browser checks, dependencies and CI need their own exact execution approval.
   Clero's 72-check approval does not authorize Business Claw execution.
+- The owner's 31 October "I approve everything" clears the prepared 14-domain,
+  18-runtime and four-browser scopes plus focused local fake-port verification
+  of the approved backend-policy source. Exact source seals/receipts own those
+  identities and limits; this is not authority for future external/paid bindings.
 - Do not run local builds/installs under a failed Storage Guard preflight. Syntax,
   static imports, JSON/link/HTML references and whitespace inspection are safe.
 - Persist source, publication, checks and limits in docs/results/. Mark adapters

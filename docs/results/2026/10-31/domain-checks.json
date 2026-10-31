@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "business-claw.domain-checks.v1",
+  "observedDate": "2026-10-31",
+  "approval": {
+    "reply": "I approve everything",
+    "scope": "Original 14 domain cases at immutable 1b5dcc8 only; separate runtime/browser scopes remain separate"
+  },
+  "source": {
+    "commit": "1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477",
+    "sealPath": "docs/results/2026/10-31/source.json",
+    "sealGitBlob": "09f4ef5bb0f0c088e5d06ca66928138374eacfde",
+    "sealSha256": "2c34c86fdb7a505346569bcd280d4b8d73a7f9be2646b37398bb73d87d271245",
+    "controllerPath": "scripts/run-approved-checks.mjs",
+    "controllerSha256": "28292775a39ecba26fd739a05ab6e4a100414771bbfe8eb43703f6c677519f68",
+    "testPath": "tests/domain.test.mjs",
+    "testSha256": "1482e6229aac49095e4430069fbcdba43485c8b2442ffbb3f4b9c09d32236ca3",
+    "originalControllerUnchanged": true
+  },
+  "environment": {
+    "node": "v26.8.2",
+    "childEnvironment": {
+      "TZ": "UTC"
+    },
+    "outerControllerEnvironment": {
+      "TZ": "UTC"
+    },
+    "dependencyInstallation": false
+  },
+  "execution": {
+    "attempts": 1,
+    "command": [
+      "node",
+      "scripts/run-approved-checks.mjs",
+      "1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477"
+    ],
+    "childCommand": [
+      "node",
+      "--test",
+      "--test-concurrency=1",
+      "--test-reporter=tap",
+      "--test-timeout=10000",
+      "tests/domain.test.mjs"
+    ],
+    "startedAt": "2026-10-31T17:09:19.515Z",
+    "finishedAt": "2026-10-31T17:09:20.782Z",
+    "controllerExit": 0,
+    "controllerSignal": null,
+    "outerExit": 0,
+    "interrupted": null,
+    "outerStop": null,
+    "child": {
+      "source": "1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477",
+      "started": true,
+      "exitCode": 0,
+      "signal": null,
+      "stop": null,
+      "stdoutBytes": 3622,
+      "stderrBytes": 0,
+      "totals": {
+        "tests": 14,
+        "suites": 0,
+        "pass": 14,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "sourceGuardPassed": true,
+      "failed": false
+    },
+    "totals": {
+      "tests": 14,
+      "suites": 0,
+      "pass": 14,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "cases": [
+      "new workspaces are detached frozen plans and never claim connected or ready infrastructure",
+      "canonical JSON roundtrips one organization and accepts only data-only null-prototype records",
+      "strict records and dense arrays reject unknown hidden symbol accessor and inherited fields",
+      "ownership generation and revision validation reject transplanted and impossible records",
+      "setup intents are exact bounded public settings and credential-like input fails with safe codes",
+      "JSON imports reject malformed oversized unsafe schema and timestamp data without echoing it",
+      "request identities are idempotent only for the same actor kind and immutable plan",
+      "reviewed and confirmed workflow data produces only explicit unbound command proposals",
+      "invalid transitions cannot skip review revise completed decisions or manufacture success",
+      "cancellation preserves reviewed plans and removes proposals at every active workflow stage",
+      "intent revisions supersede active plans while identical terminal retries remain harmless",
+      "snapshot guards reject stale revisions generations and time before considering retries",
+      "unverified observations remain non-authoritative and require owned targets valid links and times",
+      "portable operation and observation history has explicit limits without dropping existing data"
+    ]
+  },
+  "capture": {
+    "controllerStdout": {
+      "bytes": 1663,
+      "sha256": "d976ad2a3c912b4aad50d899ae89e805a3d986d097455379fc8c63fd8616f36c",
+      "text": "{\"cases\":[\"new workspaces are detached frozen plans and never claim connected or ready infrastructure\",\"canonical JSON roundtrips one organization and accepts only data-only null-prototype records\",\"strict records and dense arrays reject unknown hidden symbol accessor and inherited fields\",\"ownership generation and revision validation reject transplanted and impossible records\",\"setup intents are exact bounded public settings and credential-like input fails with safe codes\",\"JSON imports reject malformed oversized unsafe schema and timestamp data without echoing it\",\"request identities are idempotent only for the same actor kind and immutable plan\",\"reviewed and confirmed workflow data produces only explicit unbound command proposals\",\"invalid transitions cannot skip review revise completed decisions or manufacture success\",\"cancellation preserves reviewed plans and removes proposals at every active workflow stage\",\"intent revisions supersede active plans while identical terminal retries remain harmless\",\"snapshot guards reject stale revisions generations and time before considering retries\",\"unverified observations remain non-authoritative and require owned targets valid links and times\",\"portable operation and observation history has explicit limits without dropping existing data\"],\"totals\":{\"tests\":14,\"suites\":0,\"pass\":14,\"fail\":0,\"cancelled\":0,\"skipped\":0,\"todo\":0}}\n{\"source\":\"1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477\",\"started\":true,\"exitCode\":0,\"signal\":null,\"stop\":null,\"stdoutBytes\":3622,\"stderrBytes\":0,\"totals\":{\"tests\":14,\"suites\":0,\"pass\":14,\"fail\":0,\"cancelled\":0,\"skipped\":0,\"todo\":0},\"sourceGuardPassed\":true,\"failed\":false}\n"
+    },
+    "controllerStderr": {
+      "bytes": 5194,
+      "sha256": "8a82b0c796a93d234b33e809bb3a2ddfce91f152a10f617e1bb3c478126ac386",
+      "text": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+    },
+    "warning": {
+      "count": 49,
+      "distinctMessages": 1,
+      "message": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead",
+      "classification": "Nonfatal macOS Git confstr temporary-directory fallback under stripped controller environment; all Git/source guards succeeded"
+    },
+    "rawChildTapRetained": false
+  },
+  "guards": {
+    "preflightExactHead": true,
+    "preflightDetached": true,
+    "preflightClean": true,
+    "sealMatchesCommit": true,
+    "controllerPreGuardPassed": true,
+    "controllerPostGuardPassed": true,
+    "postflightExactHead": true,
+    "postflightClean": true,
+    "postflightWhitespacePassed": true
+  },
+  "cleanup": {
+    "taskId": "business-claw-domain-checks.yikrCe",
+    "worktreeOwned": true,
+    "openFileAuditAfterAllPostflightCommands": "No processes reported by lsof; exit 1, empty output",
+    "initialConcurrentAudit": "Reported only concurrently running postflight Git/shell commands; repeated sequentially after they finished",
+    "removedWithoutForce": true,
+    "worktreeRemoveExit": 0,
+    "emptyTaskRootRemoveExit": 0,
+    "temporaryDirectoryAbsent": true,
+    "remainingWorktrees": 1,
+    "mainHeadUnchanged": "3b39c2b4cffc3a26787c729c9a675f3c0336289a",
+    "sourceOrIndexMutation": false
+  },
+  "limits": [
+    "Authored in-memory domain fixtures only",
+    "No build, installation, DB, server, browser, live Auth, Gateway, provider/model or paid call",
+    "Passing these 14 cases does not prove browser storage, organization isolation, live runtime readiness or full managed-service delivery",
+    "Actual controller output retained; raw child TAP was validated inside the unchanged approved controller but not retained",
+    "The original immutable source was used; current main was not substituted"
+  ]
+}

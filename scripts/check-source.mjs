@@ -6,18 +6,18 @@ import { execFileSync } from 'node:child_process';
 // A static-host build check. Do not import product modules or execute authored tests.
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const web = path.join(root, 'web');
-const modules = ['domain.mjs', 'app.mjs'];
+const modules = [[web, 'domain.mjs'], [web, 'app.mjs'], [path.join(root, 'runtime'), 'config-observation.mjs']];
 let imports = 0;
-for (const name of modules) {
-  const filename = path.join(web, name);
+for (const [moduleRoot, name] of modules) {
+  const filename = path.join(moduleRoot, name);
   const stat = fs.lstatSync(filename);
   if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 512 * 1024) throw new Error(`Invalid owned module: ${name}`);
   execFileSync(process.execPath, ['--check', filename], { stdio: 'pipe' });
   const text = fs.readFileSync(filename, 'utf8');
   for (const match of text.matchAll(/\bfrom\s+["']([^"']+)["']/g)) {
     if (!match[1].startsWith('./')) throw new Error(`Unexpected product import in ${name}`);
-    const target = path.resolve(web, match[1]);
-    if (!target.startsWith(`${web}${path.sep}`) || !fs.statSync(target).isFile()) throw new Error(`Missing local import in ${name}`);
+    const target = path.resolve(moduleRoot, match[1]);
+    if (!target.startsWith(`${moduleRoot}${path.sep}`) || !fs.statSync(target).isFile()) throw new Error(`Missing local import in ${name}`);
     imports++;
   }
 }

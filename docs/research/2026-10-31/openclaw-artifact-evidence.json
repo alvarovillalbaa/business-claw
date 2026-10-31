@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "business-claw.upstream-artifact-evidence.v1",
+  "observedDate": "2026-10-31",
+  "purpose": "Read-only upstream evidence inventory; not an approved dependency or deployable lock",
+  "repository": "openclaw/openclaw",
+  "release": {
+    "tag": "v2026.10.9",
+    "sourceCommit": "8b18b5578f66eab1501cba4cef2310d88bfb9a41",
+    "publishedAt": "2026-10-29T15:54:35Z",
+    "releaseObjectImmutable": false,
+    "url": "https://github.com/openclaw/openclaw/releases/tag/v2026.10.9"
+  },
+  "producer": {
+    "runId": 40863629117,
+    "attempt": 1,
+    "workflowCommit": "8b18b5578f66eab1501cba4cef2310d88bfb9a41",
+    "amd64JobId": 123412963288,
+    "sealJobId": 123417254839,
+    "jobsConclusion": "success",
+    "preparedManifestSha256ReportedByPublisher": "6ad45ed08cdc3654b8a54da4683e97118b1ffe5b9e0d2efe4b3c8040c951bae5",
+    "url": "https://github.com/openclaw/openclaw/actions/runs/40863629117"
+  },
+  "preparedLinuxAmd64Default": {
+    "evidence": "Producer build log; local OCI bytes not downloaded or verified here",
+    "platform": "linux/amd64",
+    "indexDigest": "sha256:9dfd4a9b9d80e9886f1d788f237acbf81f19231aab680fcaec6952e9f75fc3ea",
+    "imageManifestDigest": "sha256:deab8686a863c1d2255a43bb4677f4907b9af45aff340c062834d16756fd4ff8",
+    "configDigest": "sha256:45c1d4b884bb02fc6592faeff85a267e3585b7ce455110f6982d8ee14c00c352",
+    "attestationManifestDigest": "sha256:b707b749681a252bbbf7a3e12d8f7c31fcb8df2f71d8538950d8cdc6cde03cc3",
+    "runtimeBase": "node:24.22.1-bookworm-slim",
+    "runtimeBaseDigest": "sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205",
+    "runtimeBaseEvidence": "Source-declared multiarch base input also reported in build metadata; final image OS/config not independently inspected"
+  },
+  "publisher": {
+    "runId": 40896462808,
+    "jobId": 123562749746,
+    "workflowCommit": "ee860ffb31039c05bacacd3387c05649c0ea7033",
+    "releaseSourceCommit": "8b18b5578f66eab1501cba4cef2310d88bfb9a41",
+    "producerRunId": 40863629117,
+    "producerAttempt": 1,
+    "imageTagSuffix": "",
+    "jobConclusion": "success",
+    "reportedDefaultAndSlimMultiarchDigest": "sha256:1a2a3ce113e435039dbeac5ae261759bb4759908563d91c81059e896b38c5d98",
+    "reportedBrowserMultiarchDigest": "sha256:dceb7a2abe931f1cbe0e7f9babc48d93e763ff9efe07cd7310f98f25777ca62e",
+    "reportedPlatforms": ["linux/amd64", "linux/arm64"],
+    "evidence": "Publisher log plus immutable publisher source mapping; repository names are masked in log lines",
+    "url": "https://github.com/openclaw/openclaw/actions/runs/40896462808/job/123562749746",
+    "mappingSource": "https://github.com/openclaw/openclaw/blob/ee860ffb31039c05bacacd3387c05649c0ea7033/scripts/docker-release-artifacts.mjs#L891"
+  },
+  "qualification": {
+    "currentRegistryRead": false,
+    "manifestClosureVerifiedLocally": false,
+    "cryptographicSignerVerified": false,
+    "sbomOrLicenseReviewed": false,
+    "sandboxQualified": false,
+    "backupRestoreQualified": false,
+    "servingRuntimeVerified": false,
+    "activationApproved": false
+  },
+  "limits": [
+    "Upstream publication receipt is not a fresh GHCR tag or byte read",
+    "Prepared platform and publication indexes differ; digest kinds must not be interchanged",
+    "The upstream attestation check proves descriptor and predicate presence, not trusted cryptographic signer identity",
+    "No image layers, container, install, build, local product import, test, cloud resource or model call was used",
+    "A small manifest artifact download returned a host file reference; its ZIP/manifest bytes were not read or independently hashed",
+    "Direct release-asset read failed local DNS; connected GitHub asset URL was unsupported and web fetch had a cache miss"
+  ]
+}

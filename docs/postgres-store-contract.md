@@ -102,6 +102,14 @@ were still unavailable to this author; no connection metadata is invented here.
 The live schema was not applied and no backend test/driver import ran while
 authoring. Root owns disposable Postgres 17 integration proof before live DDL.
 
+Activation update: root subsequently passed all14 disposable-Postgres cases
+within the116-case integrated CI scope, then applied this exact schema to the
+dedicated project as migration `20261031191243_business_claw_private_control_plane`.
+Live catalog/grant checks and security advisors passed. The
+[activation receipt](results/2026/10-31/backend-activation.md) owns that later
+proof and remaining production connection/Auth/mail gates. Do not replay the
+first schema against this existing project.
+
 Primary references: [node-postgres transactions](https://node-postgres.com/features/transactions),
 [TLS configuration](https://node-postgres.com/features/ssl),
 [pool lifecycle](https://node-postgres.com/apis/pool), and

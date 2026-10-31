@@ -5,8 +5,8 @@ isolated runtime boundary per organization. The product is in development.
 
 The source includes a private Postgres store, authenticated same-origin API and
 server-workspace dashboard alongside the browser-local preview. A dedicated
-free Supabase database is provisioned. Actual production environment and Auth
-delivery configuration remain incomplete, so the hosted workspace reports
+free Supabase database and its private schema are provisioned. Production
+environment and Auth delivery configuration remain incomplete, so the workspace reports
 setup pending. No Gateway, model, chat, Notion connector or runtime is connected.
 
 The chosen outcome is a managed service. The preview and portable data are its
@@ -88,8 +88,11 @@ owns the separate 32 fake-port cases and their actual execution status.
 The [four browser scenarios](docs/results/2026/10-31/browser-checks.md) remain
 approved; one is partial and three unrun after a plugin-worker version failure.
 The [Auth/HTTP receipt](docs/results/2026/10-31/auth-http-checks.md) owns its
-separate focused fake-port results. The latest backend activation receipt links
-hosted dependency, real disposable-Postgres and client checks when completed.
+separate focused fake-port results. The latest
+[backend activation receipt](docs/results/2026/10-31/backend-activation.md)
+records116 passing integrated cases, the applied schema/grants and three
+successful public HTTP checks. These do not qualify live accounts, delivery,
+runtime execution or the new dashboard's browser behavior.
 Later source does not rewrite an earlier checked identity. Static validation
 imports no product module and runs no test controller. The live managed service
 remains unfinished.

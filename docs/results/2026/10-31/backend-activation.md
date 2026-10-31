@@ -67,8 +67,7 @@ The new [Auth/HTTP checks](auth-http-checks.md) passed26/26 after correcting a
 malformed-provider error normalization defect; the first25/26 result is retained.
 The [client checks](server-client-checks.md) passed12/12 with fake fetch only.
 Neither scope used a live identity, mail, database or browser. The14 real-store
-cases are prepared for a disposable PG17 service; their outcome remains pending
-until that exact source runs in CI.
+cases subsequently passed in the integrated run below.
 
 Current primary guidance inspected: [connection modes and copied pooler host](https://supabase.com/docs/guides/database/connecting-to-postgres),
 [project pausing](https://supabase.com/docs/guides/platform/free-project-pausing),
@@ -77,3 +76,69 @@ Current primary guidance inspected: [connection modes and copied pooler host](ht
 fetch was unsupported; its official HTML index was inspected instead. These
 sources explain platform behavior, while resource status above comes from the
 connected account readbacks.
+
+## Integrated source and live schema verified
+
+Source **`260541c40a445ba714dcf67b6e6d546cabeb1407`**, tree
+`481c6b286ee8b45c3ff14b63027aef17e6835343`, implements the private Postgres
+store, native Auth/HTTP API, and separate server dashboard. The
+[integrated run](https://github.com/alvarovillalbaa/business-claw/actions/runs/41233004544)
+passed **116/116 cases**:64 existing,26 Auth/HTTP,12 client and14 actual
+PostgreSQL transaction cases. Failures, cancellations, skips, TODOs and suites
+were all zero. The disposable service used ordinary PG17 with an Auth-shaped
+UUID fixture table and fake identity evidence, not real Supabase accounts.
+Its container cleanup step succeeded. These cases prove their declared
+transaction/rollback/CAS/access scope, not public Auth or two actual customers.
+
+The12-module static validator also passed, with20 relative imports,4 builtins,
+one pinned dependency import and130 HTML IDs. It imports no product code and
+runs no product test. Exact Vercel production
+`dpl_F4jXDXwqAJswQVXhFJaYJ5JemERP` was read back READY at260541c, with the
+canonical alias; the build installed the lock without lifecycle scripts.
+
+Only after that success, a fresh live preflight again found no Auth users,
+Storage objects, Business Claw schema or Business Claw roles. The tested schema
+SHA-256 `93a38cf7dce3fa30ed0d6f89cebdf3e4cee0fd76eee3e168a63d3c562f26d0a3`
+was applied once to `hmmfkbxhrfrfubqnizxd` as migration
+**`20261031191243_business_claw_private_control_plane`**. Live readback confirms:
+
+- All seven private tables have enabled and forced RLS.
+- `bc_bff` and `bc_pool_login` are neither superuser nor RLS-bypass roles and
+  do not inherit privileges. The login was created without a password binding.
+- anon/authenticated/service_role have no private-schema, organization-table
+  or encrypted-envelope access; BFF audit UPDATE/DELETE is denied.
+- Auth users, organizations, application sessions and audit rows remain zero.
+- Supabase's security advisor returns an empty lint list.
+
+These private-role policies do not independently authenticate tenants; the
+server policy owns current identity/membership admission. No production
+fixture, fake Auth account or customer record was inserted.
+
+## Deployed HTTP behavior and remaining limits
+
+Local Node fetches failed to reach the deployment. Vercel's connected fetch
+could not find/access it and public web fetch was unavailable. The supported
+fallback was a second bounded public CI job with no credentials or dependency
+installation. Its [three read-only requests](https://github.com/alvarovillalbaa/business-claw/actions/runs/41233380669)
+at source `c93f1125bd6aba6dbd6a9c89b71083dc4d817423` passed:
+
+- `/`:200 HTML,20,391 bytes, with server and local-import markup.
+- `/api/v1/auth/session`:503,41 bytes, exact `backend_unconfigured` JSON.
+- `/api/v1/orgs`:503,41 bytes, the same fixed JSON.
+
+Both API responses require private/no-store caching. This is anonymous HTTP
+serving/fail-closed evidence, not browser interaction or live authentication.
+Only temporary CI/probe files changed after260541c; all product modules remain
+byte-identical. The temporary workflows and one-off HTTP probe are removed
+after their successful runs; their exact code remains in Git history.
+
+Vercel production environment access, the copied pooler endpoint/role secret,
+Auth callback configuration and real SMTP delivery remain unresolved. The
+owner was asked for the non-secret pooler hostname and a connection access
+update while these checks continued. No environment value or credential was
+created to work around the403. See [the concrete configuration handoff](../../../backend-configuration.md).
+Actual login/logout/recovery, two real organization flows and the new dashboard's
+desktop/mobile browser behavior remain unverified. The previous browser scope
+is still one partial/three unrun because of its plugin-worker version failure.
+Gateway/chat/Notion/memory/self-building runtime activation and the complete
+managed service/portfolio objective remain unfinished.

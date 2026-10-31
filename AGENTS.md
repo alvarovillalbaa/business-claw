@@ -17,6 +17,12 @@
 - Domain review/confirmation records are workflow data, not authentication or a
   grant of execution authority. Provider commands remain data until an approved
   server-side adapter authenticates, authorizes and binds the actual target.
+- runtime/compute-provider.mjs owns the bounded provider protocol; artifact-admission.mjs
+  qualifies exact metadata only through a trusted verifier. server/runtime-ledger.mjs
+  owns worker reservations/CAS/history. None supplies a live authorizer, worker
+  credential, paid manifest, provider token or running Gateway. Do not bind
+  portable confirmations directly to these ports. Runtime tests use T2 mocks
+  under tests/unit/ and T3 disposable Postgres under tests/integration/.
 - The initial public preview is browser-local and uses authored/imported records.
   State clearly that no hosted runtime is connected. Never report a successful
   provision, chat, connector, model call or actual readiness from a local draft.

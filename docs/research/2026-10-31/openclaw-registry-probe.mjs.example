@@ -1,0 +1,73 @@
+// Inactive public-metadata probe. Run with: node --input-type=module < this-file
+// No environment, Docker, packages, image layers, registry writes or private credentials.
+import { createHash } from 'node:crypto';
+const host = 'https://ghcr.io', repository = 'openclaw/openclaw', tag = '2026.10.9';
+const source = '8b18b5578f66eab1501cba4cef2310d88bfb9a41';
+const previousIndex = 'sha256:1a2a3ce113e435039dbeac5ae261759bb4759908563d91c81059e896b38c5d98';
+const media = 'application/json, application/vnd.oci.image.index.v1+json, application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json';
+let token = null, requests = 0, bytesRead = 0;
+const problem = code => { const error = new Error(code); error.code = code; throw error; };
+const hash = bytes => `sha256:${createHash('sha256').update(bytes).digest('hex')}`;
+const digest = value => typeof value === 'string' && /^sha256:[a-f0-9]{64}$/.test(value);
+async function read(url, { limit = 1048576, allow = [] } = {}) {
+  const target = new URL(url); let current = target, redirects = 0;
+  while (true) {
+    if (++requests > 20) problem('request_limit');
+    if (current.protocol !== 'https:' || current.username || current.password || (current.port && current.port !== '443') || !['ghcr.io', 'pkg-containers.githubusercontent.com'].includes(current.hostname)) problem('redirect_rejected');
+    const controller = new AbortController(), timeout = setTimeout(() => controller.abort(), 10000); let reader;
+    try {
+      const response = await fetch(current, { redirect: 'manual', signal: controller.signal, headers: { Accept: media, ...(token && current.origin === host ? { Authorization: `Bearer ${token}` } : {}) } });
+      if ([301, 302, 303, 307, 308].includes(response.status)) {
+        await response.body?.cancel(); if (++redirects > 3 || !response.headers.get('location')) problem('redirect_rejected');
+        current = new URL(response.headers.get('location'), current); continue;
+      }
+      if (allow.includes(response.status)) { await response.body?.cancel(); return { status: response.status, challenge: response.headers.get('www-authenticate'), bytes: null, value: null }; }
+      if (!response.ok) problem('registry_http_failure');
+      if (Number(response.headers.get('content-length') ?? 0) > limit) problem('body_limit');
+      reader = response.body?.getReader(); if (!reader) problem('body_missing');
+      const chunks = []; let length = 0;
+      while (true) { const part = await reader.read(); if (part.done) break; length += part.value.byteLength; bytesRead += part.value.byteLength; if (length > limit || bytesRead > 8 * 1048576) problem('body_limit'); chunks.push(part.value); }
+      const bytes = Buffer.concat(chunks), value = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+      const advertised = response.headers.get('docker-content-digest'); if (advertised && advertised !== hash(bytes)) problem('digest_header_mismatch');
+      return { status: response.status, bytes, value };
+    } finally { clearTimeout(timeout); controller.abort(); if (reader) await reader.cancel().catch(() => {}); }
+  }
+}
+async function manifest(reference) { return read(`${host}/v2/${repository}/manifests/${reference}`); }
+async function main() {
+  let index = await read(`${host}/v2/${repository}/manifests/${tag}`, { allow: [401] });
+  if (index.status === 401) {
+    const challenge = index.challenge ?? '';
+    if (!/^Bearer\s/i.test(challenge) || !challenge.includes('realm="https://ghcr.io/token"') || !challenge.includes('service="ghcr.io"') || !challenge.includes('scope="repository:openclaw/openclaw:pull"')) problem('challenge_rejected');
+    const response = await read(`${host}/token?service=ghcr.io&scope=repository%3Aopenclaw%2Fopenclaw%3Apull`, { limit: 16384 });
+    token = response.value.token ?? response.value.access_token;
+    if (typeof token !== 'string' || token.length < 16 || token.length > 16000 || /[^\x21-\x7e]/.test(token)) problem('token_invalid');
+    index = await manifest(tag);
+  }
+  if (index.value.schemaVersion !== 2 || !Array.isArray(index.value.manifests) || index.value.manifests.length > 128) problem('index_invalid');
+  const selected = index.value.manifests.filter(item => item.platform?.os === 'linux' && item.platform?.architecture === 'amd64' && item.platform.variant === undefined);
+  if (selected.length !== 1 || !digest(selected[0].digest)) problem('platform_ambiguous');
+  const image = await manifest(selected[0].digest);
+  if (hash(image.bytes) !== selected[0].digest || image.bytes.length !== selected[0].size || !digest(image.value.config?.digest)) problem('manifest_mismatch');
+  const config = await read(`${host}/v2/${repository}/blobs/${image.value.config.digest}`, { limit: 262144 });
+  if (hash(config.bytes) !== image.value.config.digest || config.bytes.length !== image.value.config.size) problem('config_mismatch');
+  const descriptors = index.value.manifests.filter(item => item.annotations?.['vnd.docker.reference.type'] === 'attestation-manifest' && item.annotations?.['vnd.docker.reference.digest'] === selected[0].digest);
+  if (descriptors.length > 4) problem('attestation_limit');
+  const attestations = [];
+  for (const descriptor of descriptors) {
+    if (!digest(descriptor.digest)) problem('attestation_invalid'); const receipt = await manifest(descriptor.digest);
+    if (hash(receipt.bytes) !== descriptor.digest || receipt.bytes.length !== descriptor.size || !Array.isArray(receipt.value.layers) || receipt.value.layers.length > 64) problem('attestation_mismatch');
+    const predicates = receipt.value.layers.map(item => item.annotations?.['in-toto.io/predicate-type']).filter(item => ['https://spdx.dev/Document', 'https://slsa.dev/provenance/v1'].includes(item));
+    attestations.push({ digest: descriptor.digest, bytes: receipt.bytes.length, predicates: [...new Set(predicates)].sort() });
+  }
+  const labels = config.value.config?.Labels ?? {}, revision = /^[a-f0-9]{40}$/.test(labels['org.opencontainers.image.revision'] ?? '') ? labels['org.opencontainers.image.revision'] : null;
+  const version = /^v?20\d\d\.\d{1,2}\.\d{1,2}$/.test(labels['org.opencontainers.image.version'] ?? '') ? labels['org.opencontainers.image.version'] : null;
+  return { schemaVersion: 'business-claw.registry-probe.v1', observedAt: new Date().toISOString(), repository: `ghcr.io/${repository}`, tag,
+    indexDigest: hash(index.bytes), indexBytes: index.bytes.length, matchesPreviousPublisherIndex: hash(index.bytes) === previousIndex,
+    platform: 'linux/amd64', manifestDigest: hash(image.bytes), manifestBytes: image.bytes.length, configDigest: hash(config.bytes), configBytes: config.bytes.length,
+    configPlatformMatches: config.value.os === 'linux' && config.value.architecture === 'amd64', runtimeUserIsNode: config.value.config?.User === 'node',
+    labels: { revision, version, releaseSourceMatches: revision === source, releaseVersionMatches: version === tag }, attestations,
+    qualification: { registryMetadataRead: true, signatureVerified: false, publisherProvenanceVerified: false, schemaProtocolQualified: false, layersDownloaded: false, runtimeExecuted: false, artifactAdmitted: false }, requests, bytesRead };
+}
+try { process.stdout.write(`${JSON.stringify(await main())}\n`); }
+catch (error) { process.stdout.write(`${JSON.stringify({ schemaVersion: 'business-claw.registry-probe.v1', status: 'failed', reason: /^[a-z_]{1,64}$/.test(error?.code ?? '') ? error.code : 'registry_unavailable', requests, bytesRead, artifactAdmitted: false })}\n`); process.exitCode = 1; }

@@ -51,6 +51,13 @@ target; it has no transport, live adapter or readiness claim. The
 and [artifact provenance research](docs/research/2026-10-31/openclaw-artifact-provenance.md)
 record upstream evidence and remaining qualification gaps.
 
+The [compute adapter](docs/compute-provider-contract.md) and
+[durable operation journal](docs/runtime-ledger-contract.md) preserve exact
+resource identity and reconcile uncertain requests without creating a second
+server. The [artifact gate](docs/artifact-admission-contract.md) requires an
+independently trusted verifier before admitting runtime metadata. These source
+ports have no live worker, provider credential or dispatch authority.
+
 The [server policy boundary](docs/server-policy-contract.md) resolves current
 identity, application session and organization membership through trusted ports.
 It owns role-checked lifecycle, invitation and Owner-transfer decisions with

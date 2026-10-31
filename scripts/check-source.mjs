@@ -8,7 +8,8 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const web = path.join(root, 'web');
 const modules = ['web/domain.mjs', 'web/app.mjs', 'web/server-client.mjs', 'runtime/config-observation.mjs',
   'server/data.mjs', 'server/access.mjs', 'server/policy.mjs', 'server/membership.mjs',
-  'server/postgres-store.mjs', 'server/auth.mjs', 'server/http.mjs', 'api/v1.mjs'];
+  'server/postgres-store.mjs', 'server/auth.mjs', 'server/http.mjs', 'api/v1.mjs',
+  'runtime/compute-provider.mjs', 'runtime/artifact-admission.mjs', 'server/runtime-ledger.mjs'];
 const modulePaths = new Set(modules.map(name => path.join(root, name)));
 let imports = 0, builtins = 0, dependencies = 0;
 for (const name of modules) {
@@ -18,7 +19,7 @@ for (const name of modules) {
   execFileSync(process.execPath, ['--check', filename], { stdio: 'pipe' });
   const text = fs.readFileSync(filename, 'utf8');
   for (const match of text.matchAll(/(?:\bfrom\s+|\bimport\(\s*)["']([^"']+)["']/g)) {
-    if ((name.startsWith('server/') || name.startsWith('api/')) && match[1] === 'node:crypto') { builtins++; continue; }
+    if ((name.startsWith('server/') || name.startsWith('api/') || name.startsWith('runtime/')) && match[1] === 'node:crypto') { builtins++; continue; }
     if (name === 'api/v1.mjs' && match[1] === 'pg') { dependencies++; continue; }
     if (!match[1].startsWith('./') && !match[1].startsWith('../')) throw new Error(`Unexpected product import in ${name}`);
     const target = path.resolve(moduleRoot, match[1]);

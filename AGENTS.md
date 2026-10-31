@@ -30,6 +30,13 @@
   18-runtime and four-browser scopes plus focused local fake-port verification
   of the approved backend-policy source. Exact source seals/receipts own those
   identities and limits; this is not authority for future external/paid bindings.
+- The owner's later "Means 'Keep going'. Do all the work" approves the named
+  free-capacity packet and necessary Auth/store/API/dashboard implementation,
+  pinned pg dependency, focused checks and temporary public CI (20-minute cap).
+  Dearweek may be paused only after the packet's empty-data recheck. Use the
+  dedicated Business Claw project; do not spend money or activate customer
+  runtime resources. Never bypass provider permissions or claim mail delivery
+  or a working database connection before actual qualification.
 - Do not run local builds/installs under a failed Storage Guard preflight. Syntax,
   static imports, JSON/link/HTML references and whitespace inspection are safe.
 - Persist source, publication, checks and limits in docs/results/. Mark adapters

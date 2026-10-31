@@ -1,0 +1,47 @@
+name: Backend checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/backend-checks.yml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'server/**'
+      - 'api/**'
+      - 'db/**'
+      - 'tests/**'
+      - 'web/**'
+      - 'scripts/check-source.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.13.0'
+      - name: Generate pinned dependency lock
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Record generated lock for source handoff
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { createHash } from 'node:crypto';
+          const bytes = fs.readFileSync('package-lock.json');
+          console.log('BC_LOCKFILE_SHA256=' + createHash('sha256').update(bytes).digest('hex'));
+          console.log('BC_LOCKFILE_BASE64=' + bytes.toString('base64'));
+          NODE
+      - name: Install from generated lock without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Existing focused source checks
+        run: node --test tests/domain.test.mjs tests/runtime-config.test.mjs tests/server-policy.test.mjs
+      - name: Static source validation
+        run: npm run build

@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "business-claw.source.v1",
+  "repository": "alvarovillalbaa/business-claw",
+  "scope": "Initial managed-control-plane foundation and browser-local preview; full hosted product unfinished",
+  "files": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "gitSha": "ac0c88cd270bb6247b61d155498e21274b591b7b"
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "gitSha": "0fe7f55535a5c97e1c5b27b6003a00ce00210f39"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "gitSha": "0779978f4e4cdf6487df51d4c72f6e7a4d3683a1"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "gitSha": "71a0fcdb918d19b7518b17da75245d44bff4555c"
+    },
+    {
+      "path": "docs/domain-contract.md",
+      "mode": "100644",
+      "gitSha": "d2b15f5956b9652be4ee8a621002ffc860ccbbee"
+    },
+    {
+      "path": "docs/fixtures/invalid-workspace.json",
+      "mode": "100644",
+      "gitSha": "e78ec4a594c44c5709c62e38bf99d44480cc3650"
+    },
+    {
+      "path": "docs/fixtures/workspace.json",
+      "mode": "100644",
+      "gitSha": "f1bacf709e66327443d32249c631977d516a0252"
+    },
+    {
+      "path": "docs/proposals/browser-checks.md",
+      "mode": "100644",
+      "gitSha": "89c3e56a1bd2b948ced5fa58668d0e035eedaebb"
+    },
+    {
+      "path": "docs/proposals/domain-checks.md",
+      "mode": "100644",
+      "gitSha": "05b3940f4fb48cc21626a55aa3fd36df8922fa34"
+    },
+    {
+      "path": "docs/proposals/managed-service-architecture.md",
+      "mode": "100644",
+      "gitSha": "9f9b862f08a1d44a441e273072de2adbec20202e"
+    },
+    {
+      "path": "docs/spec.md",
+      "mode": "100644",
+      "gitSha": "e439acb61a90cadde213729f2791e1a24a3fe5bf"
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "gitSha": "b5a2b56e4ea505f7b4f83ae8cb661d238e45b3b3"
+    },
+    {
+      "path": "scripts/check-source.mjs",
+      "mode": "100644",
+      "gitSha": "e832aa0fdf582c6da3d8acf34c737e596178cf19"
+    },
+    {
+      "path": "scripts/run-approved-checks.mjs",
+      "mode": "100644",
+      "gitSha": "ef980adf1959c0bb9e5696ce91ae7763bce5c493"
+    },
+    {
+      "path": "tests/domain.test.mjs",
+      "mode": "100644",
+      "gitSha": "51313c6d9817b051084a1706bd1c6d8646871d59"
+    },
+    {
+      "path": "vercel.json",
+      "mode": "100644",
+      "gitSha": "0b37df5fd7a8713a7b9ff84971181abb650579b8"
+    },
+    {
+      "path": "web/app.mjs",
+      "mode": "100644",
+      "gitSha": "51c9052619d839229fdb325f6293e1adcfbf0731"
+    },
+    {
+      "path": "web/domain.mjs",
+      "mode": "100644",
+      "gitSha": "89fd6c7d99fe74bdeb11c94e4b9fcf94fb93a9e6"
+    },
+    {
+      "path": "web/favicon.svg",
+      "mode": "100644",
+      "gitSha": "1d6053b86be59b665739ef33f34c2c7bd8b1e0f8"
+    },
+    {
+      "path": "web/index.html",
+      "mode": "100644",
+      "gitSha": "17380d5c824f897de8b9c7d1ce986f1015a9da42"
+    },
+    {
+      "path": "web/styles.css",
+      "mode": "100644",
+      "gitSha": "84385337fcc894177488f16e9dd952959cb1d7ea"
+    }
+  ],
+  "testFiles": [
+    {
+      "path": "tests/domain.test.mjs",
+      "names": [
+        "new workspaces are detached frozen plans and never claim connected or ready infrastructure",
+        "canonical JSON roundtrips one organization and accepts only data-only null-prototype records",
+        "strict records and dense arrays reject unknown hidden symbol accessor and inherited fields",
+        "ownership generation and revision validation reject transplanted and impossible records",
+        "setup intents are exact bounded public settings and credential-like input fails with safe codes",
+        "JSON imports reject malformed oversized unsafe schema and timestamp data without echoing it",
+        "request identities are idempotent only for the same actor kind and immutable plan",
+        "reviewed and confirmed workflow data produces only explicit unbound command proposals",
+        "invalid transitions cannot skip review revise completed decisions or manufacture success",
+        "cancellation preserves reviewed plans and removes proposals at every active workflow stage",
+        "intent revisions supersede active plans while identical terminal retries remain harmless",
+        "snapshot guards reject stale revisions generations and time before considering retries",
+        "unverified observations remain non-authoritative and require owned targets valid links and times",
+        "portable operation and observation history has explicit limits without dropping existing data"
+      ]
+    }
+  ],
+  "selectedByteHashes": [
+    {
+      "path": ".gitignore",
+      "bytes": 61,
+      "sha256": "da590e07e94edb811dbad2a1b5d17923306371f025c635e6fc6430b74233dd0d"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 2164,
+      "sha256": "5b4885e6cfd33dc71579d6693dcb4872801ab8483807bde334b00b2bd3b42a6c"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1072,
+      "sha256": "5514afb84b7d0fb9a4724cfa43e475666401ea084180d9e1b5d185dd2346f52f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2569,
+      "sha256": "743a42f0778c0dadaf0ee3b81bd02714e1ef9fe201cf4f20e080f9ae880f8ad0"
+    },
+    {
+      "path": "docs/domain-contract.md",
+      "bytes": 9291,
+      "sha256": "c05735370e8e99df53c987e421e19a5fdaf9d3269e4517401f5e348cb8afcaec"
+    },
+    {
+      "path": "docs/fixtures/invalid-workspace.json",
+      "bytes": 131,
+      "sha256": "2344c1681538ca600455d9a44fe8cf137d1b079329018177cfd5c89b0918c078"
+    },
+    {
+      "path": "docs/fixtures/workspace.json",
+      "bytes": 647,
+      "sha256": "12622463c5c32e03fae4ae3d23a32b5e51fc6f2625804a26be6810049ab190ac"
+    },
+    {
+      "path": "docs/proposals/browser-checks.md",
+      "bytes": 2888,
+      "sha256": "3630eeef344f61b18d70945c679be2b0b72e6263d829c75b22f6e5be6ae22739"
+    },
+    {
+      "path": "docs/proposals/domain-checks.md",
+      "bytes": 1969,
+      "sha256": "a4939c43b36f30d7894ed99d66e2345522cb664103b13a93a16f9ac3f266946a"
+    },
+    {
+      "path": "docs/proposals/managed-service-architecture.md",
+      "bytes": 28395,
+      "sha256": "5f740cf88a2a24bfd8874f0f32662a0fa83436e4015d5213340a085490653528"
+    },
+    {
+      "path": "docs/spec.md",
+      "bytes": 4757,
+      "sha256": "8a854513fd34ff00d1ed4faeabf5d4c57e25d8f95a20319098c44f0ed730ff8f"
+    },
+    {
+      "path": "package.json",
+      "bytes": 266,
+      "sha256": "7c6ddd3c488ef6f81d683c079f11e5961ec337b3a6e92ed90b8ed1598c9d1f85"
+    },
+    {
+      "path": "scripts/check-source.mjs",
+      "bytes": 1910,
+      "sha256": "3b2260213b5dd0b5fe808a33c7e36c144b640fb3be9fee5a6d0e2628956215ba"
+    },
+    {
+      "path": "scripts/run-approved-checks.mjs",
+      "bytes": 5494,
+      "sha256": "28292775a39ecba26fd739a05ab6e4a100414771bbfe8eb43703f6c677519f68"
+    },
+    {
+      "path": "tests/domain.test.mjs",
+      "bytes": 15022,
+      "sha256": "1482e6229aac49095e4430069fbcdba43485c8b2442ffbb3f4b9c09d32236ca3"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 195,
+      "sha256": "ad878afb73ee93c3240b2f74f8c9a94c8f9c3364c3cfd6824db2e80d40b7250d"
+    },
+    {
+      "path": "web/app.mjs",
+      "bytes": 27559,
+      "sha256": "99e3b48a59dfabaf9f92596e79aa45b90ff86eac0a2f16fffee737e1a8752513"
+    },
+    {
+      "path": "web/domain.mjs",
+      "bytes": 17481,
+      "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+    },
+    {
+      "path": "web/favicon.svg",
+      "bytes": 270,
+      "sha256": "fd929d179d87be1d6a01c7daea4005a3c0a69ed8cc237b9e200f4e9b9c2f7334"
+    },
+    {
+      "path": "web/index.html",
+      "bytes": 13262,
+      "sha256": "c88cbe93259c32748fb67901a2c5a25b4aec80073ba1aa28451d94b7142e62f2"
+    },
+    {
+      "path": "web/styles.css",
+      "bytes": 20661,
+      "sha256": "4eeabd6fa5caf2cfd8d536b4ba158ee33ffa4038f287fde8307bcb944ddbd9dd"
+    }
+  ],
+  "sourceBytes": 156064,
+  "staticChecks": {
+    "javascriptModules": 5,
+    "relativeImports": 2,
+    "allNamedImportsResolved": true,
+    "typescriptParser": "5.9.3",
+    "testsExecuted": 0,
+    "productImportsExecuted": 0,
+    "uniqueTemplateIds": 68,
+    "literalScriptIdReferences": 55,
+    "ariaLabelReferences": 13,
+    "localAssets": 3,
+    "svgParsed": true,
+    "jsonFiles": 4,
+    "utf8Whitespace": true,
+    "literalNetworkOrRawHtmlSinks": 0
+  },
+  "execution": {
+    "domainCases": 14,
+    "domainCasesExecuted": 0,
+    "browserScenarios": 4,
+    "browserScenariosExecuted": 0,
+    "localNode": "26.8.2",
+    "dependenciesInstalled": false,
+    "activeWorkflows": 0
+  },
+  "limits": [
+    "Source/build proof is not browser/Auth/isolation/real-service proof",
+    "All live adapters and operational policy bindings remain unbound/proposed",
+    "No local build/install/product import/test execution/model call"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "business-claw.workspace.v1",
+  "revision": 0,
+  "createdAt": "2026-10-01T00:00:00.000Z",
+  "updatedAt": "2026-10-01T00:00:00.000Z",
+  "organization": { "id": "10000000-0000-4000-8000-000000000001", "name": "Authored <workspace>" },
+  "instance": {
+    "id": "10000000-0000-4000-8000-000000000002",
+    "orgId": "10000000-0000-4000-8000-000000000001",
+    "generation": 1,
+    "revision": 0,
+    "desiredSetup": { "purpose": "Plan an authored example", "provider": "unselected", "channel": "web-chat", "notion": "off", "memory": "workspace", "selfBuilding": "review-required" }
+  },
+  "operations": [],
+  "observations": []
+}

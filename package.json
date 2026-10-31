@@ -1,0 +1,9 @@
+{
+  "name": "business-claw",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Organization-scoped managed OpenClaw control-plane source",
+  "engines": { "node": ">=24.21.0" },
+  "scripts": { "build": "node scripts/check-source.mjs" }
+}

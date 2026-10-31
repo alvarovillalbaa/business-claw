@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A browser-local preview of Business Claw's organization control plane. Prepare and review desired setup without connecting a hosted runtime.">
+  <title>Business Claw · Control-plane preview</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to workspace</a>
+  <aside id="sidebar" class="sidebar" aria-label="Workspace navigation">
+    <a class="brand" href="#overview" aria-label="Business Claw overview"><span class="brand-mark" aria-hidden="true">bc.</span><span>business<span class="brand-second">claw</span></span></a>
+    <p class="rail-label">ORGANIZATION WORKBENCH</p>
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary">
+      <a href="#overview" data-view="overview" aria-current="page"><span aria-hidden="true">◫</span> Overview</a>
+      <a href="#configuration" data-view="configuration"><span aria-hidden="true">≡</span> Desired setup</a>
+      <a href="#operations" data-view="operations"><span aria-hidden="true">↗</span> Operation ledger <span id="operation-count" class="nav-count">0</span></a>
+      <a href="#workspace" data-view="workspace"><span aria-hidden="true">↓</span> Workspace data</a>
+    </nav>
+    <div class="rail-note"><span class="connection-dot" aria-hidden="true"></span><strong>Local workspace</strong><p>One organization. A deliberate record of the next change.</p></div>
+    <div class="rail-footer"><span class="local-avatar" aria-hidden="true">L</span><div><strong>This browser</strong><span>Local records · no account</span></div></div>
+  </aside>
+  <div class="main-shell">
+    <header class="topbar">
+      <button id="menu-toggle" class="icon-button mobile-only" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">☰</button>
+      <p>Control plane <span aria-hidden="true">/</span> <span id="breadcrumb">Overview</span></p>
+      <span class="preview-label">PREVIEW ENVIRONMENT</span>
+    </header>
+    <main id="main" tabindex="-1">
+      <div class="preview-banner"><span class="banner-symbol" aria-hidden="true">i</span><p><strong>Local preview — no hosted runtime connected.</strong> Records stay in this browser until you save or export them. Proposed commands do not run.</p></div>
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <div id="error" class="error" role="alert" tabindex="-1" hidden></div>
+      <section id="welcome" class="welcome" aria-labelledby="welcome-title">
+        <div class="welcome-copy"><p class="eyebrow">YOUR ORGANIZATION, FIRST</p><h1 id="welcome-title">A clearer place<br>to start your Claw.</h1><p class="lede">Describe the assistant your team needs. Keep its desired setup, reviewable changes and runtime boundary together.</p><div class="welcome-facts"><p><span>01</span> Create a local organization record</p><p><span>02</span> Shape a bounded setup intent</p><p><span>03</span> Review proposed lifecycle commands</p></div></div>
+        <form id="create-form" class="create-form">
+          <p class="eyebrow">NEW ORGANIZATION WORKSPACE</p><h2>Give it a home.</h2>
+          <label for="create-name">Organization name</label><input id="create-name" name="name" required maxlength="80" autocomplete="organization" placeholder="Your organization">
+          <label for="create-purpose">What should your assistant help with?</label><input id="create-purpose" name="purpose" required maxlength="280" placeholder="Help our team find decisions and prepare weekly updates.">
+          <p id="create-limits" class="field-note">A short, non-secret purpose. You can refine the desired setup next.</p>
+          <button class="button primary" type="submit">Create local workspace <span aria-hidden="true">↗</span></button>
+          <p class="privacy-note">No signup, credentials or upload. You can also <button id="welcome-import" class="text-button" type="button">import a workspace JSON file</button>.</p>
+          <button id="cancel-create" class="text-button" type="button" hidden>Return to current workspace</button>
+        </form>
+      </section>
+      <div id="organization-workspace" hidden>
+        <div class="workspace-heading"><div><p class="eyebrow">ORGANIZATION WORKSPACE</p><h1 id="organization-name"></h1><p id="organization-purpose" class="lede compact"></p></div><div class="organization-picker"><span class="small-label">ONE LOCAL WORKSPACE</span><p id="organization-short-id" class="field-note"></p><button id="new-organization" type="button" class="text-button">New organization workspace</button></div></div>
+        <section id="view-overview" class="view" aria-labelledby="overview-title">
+          <div class="section-heading"><h2 id="overview-title">The whole picture.</h2><span class="pill neutral">No runtime connected</span></div>
+          <div class="metric-row"><div><span>RUNTIME</span><strong>Unbound</strong><p>No serving identity observed</p></div><div><span>DESIRED SETUP</span><strong id="setup-revision">—</strong><p>Local intent revision</p></div><div><span>OPERATIONS</span><strong id="overview-operation-count">0</strong><p>Recorded proposals</p></div><div><span>STORAGE</span><strong id="save-state">In this tab</strong><p id="save-detail">Explicit save or export to retain</p></div></div>
+          <div class="overview-grid"><section class="panel runtime-panel" aria-labelledby="instance-title"><div class="panel-heading"><h3 id="instance-title">Instance boundary</h3><span class="small-label">LOCAL RECORD</span></div><p class="body-copy">The planned target for this organization. Runtime details will appear here when a service is connected.</p><dl id="instance-details" class="detail-list"></dl><button class="button secondary" data-go="operations" type="button">Prepare an operation <span aria-hidden="true">↗</span></button></section><section class="panel intent-panel" aria-labelledby="intent-title"><div class="panel-heading"><h3 id="intent-title">Desired setup</h3><button class="text-button" data-go="configuration" type="button">Edit intent ↗</button></div><dl id="setup-summary" class="detail-list"></dl><p class="field-note">Your current product-level intent.</p></section></div>
+          <div class="section-heading integration-heading"><h2>Ready to connect, later.</h2><span class="muted">Live adapters are outside this preview</span></div>
+          <div class="capability-grid"><section class="capability"><span class="capability-icon" aria-hidden="true">N</span><h3>Notion</h3><span class="pill neutral">Unconnected</span><p>Organization consent, endpoint verification and credentials are still required.</p><button type="button" class="button unavailable" disabled>Connection unavailable</button></section><section class="capability"><span class="capability-icon" aria-hidden="true">⌘</span><h3>Memory</h3><span class="pill neutral">No source bound</span><p>Your preference is recorded as intent. No notes, durable files or index have been read.</p><button type="button" class="button unavailable" disabled>Memory unavailable</button></section><section class="capability"><span class="capability-icon" aria-hidden="true">↳</span><h3>Team chat</h3><span class="pill neutral">Offline</span><p>No conversation or assistant session is connected. No message can be sent here.</p><button type="button" class="button unavailable" disabled>Chat unavailable</button></section></div>
+        </section>
+        <section id="view-configuration" class="view" aria-labelledby="configuration-title" hidden>
+          <div class="section-heading"><div><p class="eyebrow">DESIRED, NOT APPLIED</p><h2 id="configuration-title">Shape the setup.</h2></div><span id="configuration-revision" class="pill neutral"></span></div>
+          <div class="configuration-grid"><form id="configuration-form" class="panel configuration-form"><div id="configuration-fields"></div><div class="form-actions"><button id="apply-setup" class="button primary" type="submit">Save local intent</button><button id="reset-setup" class="button secondary" type="button">Discard form edits</button></div><p id="configuration-state" class="field-note" role="status"></p></form><aside class="configuration-aside"><p class="eyebrow">FROM INTENT TO REVIEW</p><h3>Make the next change clear.</h3><p>Give your assistant a focused purpose and choose the capabilities you want your organization to use.</p><ol><li>Describe the desired behavior.</li><li>Save the setup intent.</li><li>Prepare an operation against that revision.</li><li>Review the exact plan in the ledger.</li></ol><p class="aside-note">Changing intent supersedes active proposals. Keep passwords, tokens and private credentials out of these fields.</p></aside></div>
+        </section>
+        <section id="view-operations" class="view" aria-labelledby="operations-title" hidden>
+          <div class="section-heading"><div><p class="eyebrow">REVIEWABLE, NEVER EXECUTED HERE</p><h2 id="operations-title">An operation ledger.</h2></div><span class="pill neutral">Execution unbound</span></div>
+          <form id="operation-form" class="operation-composer panel"><div><label for="operation-kind">Proposed operation</label><select id="operation-kind"></select></div><p id="operation-target" class="operation-target"></p><button class="button primary" type="submit">Prepare proposal <span aria-hidden="true">+</span></button><p id="operation-hint" class="field-note">Each proposal retains its exact target and desired setup revision for review.</p></form>
+          <div class="ledger-heading"><h3>History</h3><p id="ledger-summary" class="muted"></p></div><div id="operation-list" class="operation-list"></div>
+        </section>
+      </div>
+      <section id="view-workspace" class="view" aria-labelledby="data-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">YOUR LOCAL RECORDS</p><h2 id="data-title">Keep a deliberate copy.</h2></div><span class="pill neutral">No automatic upload</span></div>
+        <div class="data-grid"><section class="panel"><span class="data-icon" aria-hidden="true">↓</span><h3>Export workspace JSON</h3><p>Download validated organization, setup and operation records. This is planning data, not a runtime backup or deployable configuration.</p><button id="export-workspace" type="button" class="button primary">Export JSON</button></section><section class="panel"><span class="data-icon" aria-hidden="true">↥</span><h3>Import a workspace</h3><p>Replace this tab's workspace with a validated file. Imported labels stay literal and no commands are executed.</p><label class="button secondary file-button" for="import-file">Choose JSON file</label><input id="import-file" type="file" accept="application/json,.json"><p id="import-limit" class="field-note"></p></section><section class="panel"><span class="data-icon" aria-hidden="true">◉</span><h3>On this device</h3><p id="device-status">Checking for an explicitly saved copy.</p><div class="data-actions"><button id="save-device" type="button" class="button secondary">Save device copy</button><button id="load-device" type="button" class="text-button">Load saved copy</button><button id="clear-device" type="button" class="text-button danger-text">Remove saved copy</button></div><p class="field-note">Browser storage can be cleared or unavailable. Export a file for a separate copy.</p></section></div>
+        <div class="data-summary"><h3>Workspace contents</h3><dl id="workspace-details" class="detail-list"></dl></div>
+      </section>
+      <footer class="page-footer"><span>Business Claw</span><p>Organization workbench · control-plane preview</p><span>This browser <span class="connection-dot" aria-hidden="true"></span></span></footer>
+    </main>
+  </div>
+  <dialog id="review-dialog" aria-labelledby="review-title"><div class="dialog-heading"><div><p class="eyebrow">EXACT LOCAL PROPOSAL</p><h2 id="review-title">Review the change.</h2></div><button id="close-review" type="button" class="icon-button" aria-label="Close review">×</button></div><p id="review-description" class="body-copy"></p><dl id="review-details" class="detail-list"></dl><h3 id="review-plan-title">Recorded operation plan</h3><pre id="review-command" class="command-preview"></pre><p class="inline-note">This records a local workflow decision. No command will run and no permission is granted.</p><form id="review-form"><label class="check-label"><input id="review-acknowledgment" type="checkbox" required><span>I reviewed this exact proposal and understand that nothing will run.</span></label><div class="dialog-actions"><button id="record-review" class="button primary" type="submit">Record local review</button><button id="cancel-review" class="button secondary" type="button">Close</button></div></form></dialog>
+  <noscript><p class="noscript">Business Claw's local workspace needs JavaScript. No hosted runtime is connected, and no operation has been performed.</p></noscript>
+</body>
+</html>

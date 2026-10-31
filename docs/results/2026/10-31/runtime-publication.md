@@ -1,7 +1,8 @@
 # Runtime data source publication
 
-31 October 2026. Publication is being prepared; the remote source/build receipt
-below must be completed from actual readbacks, not inferred from this document.
+31 October 2026. Source published to personal `alvarovillalbaa/business-claw`
+at **`a06a34402aa402f38f39b20557376ac68d60f4f2`**; its exact static Vercel
+production deployment is READY. The managed service remains unfinished.
 
 This publishes the original pure runtime configuration observation/receipt
 module, its18 authored cases, inactive activation proposals and upstream
@@ -43,6 +44,37 @@ module/test, local build, server/browser, database, provider/model call or image
 was executed. Upstream CI logs provide publication evidence, not a fresh OCI
 registry read, trusted signer decision or Business Claw runtime acceptance.
 
-Remote commit/tree equality, exact static deployment and outstanding limits
-will be recorded after actual publication. Full managed-service and portfolio
-completion remain unproven.
+## Actual remote and hosted receipt
+
+GitHub main readback equals source **a06a344**, parented by original1b5dcc8.
+Tree **`ba40a7593b84ba23ffed9faf872c4f6757c6c3aa`** is complete/non-truncated;
+all40 leaf paths/modes/types/blobs match the local index/native tree. The new
+seal covers **32 non-results inputs, 276,784 bytes** and18 exact unique case names.
+Working bytes match their fingerprints. Publication used a lease against old
+main1b5dcc8, without force or branch creation; the local native checkout was
+synchronized to the same commit after readback. Native Git transport succeeded
+for the exact commit fetch; no alternate Auth grant or integration-permission
+bypass was used.
+
+Vercel **`dpl_4jh2QMaGsgTJ2t1df23FmcENHWqw`** reports READY/production,
+GitHub sourcea06a344 and canonical alias
+[business-claw-alvaro.vercel.app](https://business-claw-alvaro.vercel.app).
+Hosted Node26.13.0 ran the existing install command `node --version`, then the
+static validator reported **3 modules, 1 relative import, 68 HTML IDs, zero
+product tests and zero product imports**. Build completed in467ms; that is a
+single hosted build receipt, not a performance benchmark or service acceptance.
+
+An unauthenticated HTTPS HEAD to the canonical alias returned **200** with
+`text/html`; the owned temporary header file was removed. This proves that
+observed HTTP response only. No browser, JavaScript interaction, Auth, persistent
+store, Gateway, customer isolation, model, Notion or full product acceptance ran.
+
+The dedicated runtime controller/proposal also received source-only review;
+a catchable-parent-interruption cleanup gap was repaired before source freeze.
+SIGINT/TERM/HUP now retain owned child termination/escalation and the final
+source guard. Neither controller nor the18 cases has been executed.
+
+This receipt-only update changes no sealed source input. A later results-only
+main still requires its own exact head/deployment readback; never infer it from
+this earlier source deployment. The execution approval must name the final
+published immutable commit, and all live activation gates remain open.

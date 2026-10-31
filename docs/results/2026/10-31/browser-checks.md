@@ -1,78 +1,71 @@
-# Approved preview browser checks — connection unavailable
+# Approved preview browser checks — partial result
 
-31 October 2026, updated 17:22 UTC. **All four scenarios remain UNRUN.** The owner's
-“I approve everything” covers the existing [four-scenario proposal](../../../proposals/browser-checks.md).
-Approval is retained; this connection failure does not require a repeated request.
+31 October 2026, 18:18 UTC. **One scenario is PARTIAL; three remain UNRUN.**
+The owner's “I approve everything” covers the existing
+[four-scenario proposal](../../../proposals/browser-checks.md). That approval
+remains valid. Only disposable authored records were used.
 
-The approved surface is the currently connected Chrome browser, with at most
-two task tabs and disposable authored local records/files. The
-`chrome:control-chrome` skill was read before the initial 17:08 UTC attempt.
-Setup completed,
-but the supported `agent.browsers.get("chrome")` selection returned exactly:
+## Connection chronology
 
-```text
-Browser is not available: chrome
-```
+| Attempt | Observed result |
+| --- | --- |
+| 17:08 UTC, initial selection | `Browser is not available: chrome`; discovery `[]`. |
+| 17:17 UTC, owner reported connected | Same selector error and empty discovery; no automatic recovery loop. |
+| 17:19 UTC, prescribed diagnostics | Chrome installed/running, extension registered/enabled, native-host manifest correct; all four checks exited zero. |
+| 17:22 UTC, approved recovery | One official `about:blank` window opened; after two seconds, one setup/selection retry returned the same error. |
+| After owner-reported reinstall | Chrome connected; complete browser guidance was read, including the tool-truncated accessibility subsection. One canonical-preview task tab opened. |
+| During cancellation | CDP click timed out; `getJsDialog()` then timed out and the tool automatically reset its kernel. |
 
-The skill's required bootstrap guidance was read. Its single read-only
-`agent.browsers.list()` diagnostic returned `[]`. Browser work stopped there.
-No alternate automation, direct profile/session-store access, installation, recovery window,
-configuration change or automatic retry occurred.
+The session name was “🔎 Business Claw preview checks.” Accessibility inspection
+reported a missing packaged `browser-accessibility.wasm.br`; the same Chrome
+tab's supported Playwright DOM/locator surface worked. No page evaluation, raw
+storage access, profile/session-store access or alternate automation was used.
 
-At 17:17 UTC, the owner replied “Chrome is connected.” One new selection was
-then attempted using the same `agent` and browser runtime, without resetting or
-reinstalling it. `agent.browsers.get("chrome")` again returned exactly
-`Browser is not available: chrome`. The single read-only discovery diagnostic
-again returned `[]`. This owner-triggered retry stopped before navigation;
-there was no recovery loop or alternate control surface.
+## Actual UI evidence
 
-The Chrome-specific troubleshooting guidance was then read. All four prescribed
-read-only diagnostics exited zero: Chrome is installed and running, the selected
-extension is registered/enabled, and the Chrome native-host manifest is correct.
-These checks establish the reported installation state; they do not establish
-a working transport or identify why discovery remains empty. No raw profile
-paths or session data are retained in this receipt.
+At 1440 × 1000, Workspace data reported **“No saved device copy.”** Then:
 
-The documented next step when all checks pass requires permission to open an
-`about:blank` window in the extension-selected profile, then wait two seconds
-and retry setup once. If that still fails, the guide directs the user to
-reinstall the Browser plugin through the ChatGPT plugin UI. It documents no
-separate client reconnect/transport-refresh API. No window, setup retry, reset,
-installation or native-host repair was performed during these diagnostics.
-
-The owner then authorized the documented minimal recovery step under the current
-approval. At 17:22 UTC, `scripts/open-chrome-window.js --browser chrome` exited
-zero with `status: opened`, requesting one `about:blank` window in the existing
-extension-selected profile. After a two-second wait, one browser-runtime setup
-and Chrome selection retry again returned `Browser is not available: chrome`.
-No reset, runtime reimport, installation, configuration change, alternate
-automation or further retry occurred. The guide's next action is for the user
-to reinstall the Browser plugin through the ChatGPT plugin UI.
+- Created `BC Browser Fixture 2026-10-31`.
+- Changed purpose to `Équipe 🌊 · authored decisions`, selected organization-owned
+  provider intent, requested Notion, and turned memory/self-building off.
+  Reselected the sole supported `web-chat` channel. Saved setup reached revision 2.
+- Prepared a provision proposal and inspected its exact organization, instance,
+  generation and plan.
+- Recorded local review and separate confirmation. The immutable reviewed plan
+  matched the requested plan. The confirmed command showed `proposal-only`,
+  `adapter: unbound`, and `executionAuthority: not-granted`.
 
 | Approved scenario | Result |
 | --- | --- |
-| Setup and reviewed proposal | UNRUN — no connected Chrome |
-| Stale intent and narrow navigation | UNRUN — no connected Chrome |
-| Import/export and rejection | UNRUN — no connected Chrome |
-| Explicit device retention | UNRUN — no connected Chrome |
+| Setup and reviewed proposal | PARTIAL — verified through confirmation; cancellation unverified. |
+| Stale intent and narrow navigation | UNRUN. |
+| Import/export and rejection | UNRUN. |
+| Explicit device retention | UNRUN; initial saved-copy status only. |
 
-No preview task tab was created, no preview page navigated, and no desktop/narrow viewport,
-DOM, dialog, file chooser, download, import/export or device-storage action was
-exercised. No fixture or existing workspace was changed. The approved blank
-window may remain open: no supported browser handle was obtained to close it.
-There is no product failure or browser pass result from these attempts.
+The cancellation click error was `Timed out after 2967ms waiting for CDP command
+Input.dispatchMouseEvent`. No complete scenario pass or product failure is
+established.
 
-The intended target is `https://business-claw-alvaro.vercel.app`. Its served
-source/deployment and public accessibility were **not verified by these browser
-attempt**. Read-only local Git inspection confirmed that all five `web/` paths,
-modes and blob identities at current source
-`3b39c2b4cffc3a26787c729c9a675f3c0336289a` match the original approved preview
-source `1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477`. This establishes source
-equivalence, not the identity or behavior of bytes served to a browser.
+## Control interruption and cleanup
 
-The [machine-readable receipt](browser-checks.json) records the exact connection
-results and unchanged web identities. Browser acceptance remains open until the
-supported connection is available. The separate domain/runtime check results
-are owned by their own receipts; this report makes no claim about their runs or
-about live Auth, organization isolation, Gateway/provider behavior or completion
-of the managed service.
+Fresh setup could not find the removed `chrome/26.1007.30912/scripts/browser-client.mjs`.
+The owner verified the updated official Chrome package `26.1013.40934`; its
+current troubleshooting guides were read. One setup attempt with that client
+failed because the trusted worker still imported the removed
+`browser/26.1007.30912/scripts/browser-service.mjs`. Recovery stopped. No extra
+window, agent-requested reset, install, configuration repair or further retry occurred.
+
+One unsaved fixture tab and its cancellation confirmation may remain open; its
+tab ID was not captured before the reset. Fixture IDs are in the JSON receipt.
+The desktop viewport override could not be explicitly reset. The earlier blank
+recovery window may also remain. **No device copy, upload, import or download
+was created.** No screenshot was captured. No alternate cleanup was attempted.
+
+The public canonical preview was accessible. The task owner's fresh Vercel
+readback binds `business-claw-alvaro.vercel.app` to READY production
+`dpl_zyFoB714iqqj9UyuJpqA8DsETC4j`, source
+`4342fd7813c737d91849516303feb099150f4181`. Its unchanged five-file web source
+matches original approved preview `1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477`;
+the earlier local Git identity inspection is retained in
+[the JSON receipt](browser-checks.json). This is provider metadata plus visible
+public UI, not a browser-fetched byte comparison or live-service acceptance.

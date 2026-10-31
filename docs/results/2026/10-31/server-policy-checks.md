@@ -60,9 +60,23 @@ Hosted Node26.13.0 static validation reported **7 modules, 8 relative imports,
 2 builtin imports and68 HTML IDs**, with zero product imports/tests. No API
 route or live Auth/store binding was deployed by that static build.
 
-This receipt/result-only follow-up changes no sealed source input. Any final
-results-only main/deployment still needs its own exact readback; this source
-deployment does not silently prove a different head.
+The results-only follow-up was published at
+**`4342fd7813c737d91849516303feb099150f4181`**, tree
+`9691b2b258bd968dc6ec330345065496414e09fb`. Its complete, non-truncated GitHub
+tree matches all57 local leaf paths, modes and blobs; native HEAD/index agree.
+All40 sealed source inputs retain their tested identities and working-byte
+fingerprints. The later local capacity proposal is outside that published tree.
+
+Exact Vercel production **`dpl_zyFoB714iqqj9UyuJpqA8DsETC4j`** reports READY
+at4342fd7, with the canonical alias. Its detailed build log repeats the same
+7-module static result on Node26.13.0, with zero product imports/tests. These
+readbacks establish source/static publication, not live backend acceptance.
+
+After the owner reinstalled the Browser plugin, Chrome connected and the
+separate browser scope partially exercised its first scenario. A package-version
+mismatch then blocked supported control. The other three scenarios remain
+unrun; [the browser receipt](browser-checks.md) owns the substeps, exact errors
+and fixture-tab cleanup limit. No complete browser scenario passed.
 
 ## Live activation remains open
 

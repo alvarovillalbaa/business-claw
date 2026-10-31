@@ -1,7 +1,7 @@
 {
   "kind": "business-claw-preview-browser-attempt",
   "recordedAt": "2026-10-31T17:08:19.000Z",
-  "updatedAt": "2026-10-31T17:22:46.000Z",
+  "updatedAt": "2026-10-31T18:18:32.000Z",
   "approval": {
     "ownerReply": "I approve everything",
     "proposal": "docs/proposals/browser-checks.md",
@@ -15,22 +15,23 @@
     "maxTaskTabs": 2,
     "data": "disposable authored local records and files only"
   },
-  "status": "blocked-browser-connection",
+  "status": "partial-browser-control-interruption",
   "scenarioResults": [
-    { "name": "Setup and reviewed proposal", "status": "unrun", "reason": "No connected Chrome" },
-    { "name": "Stale intent and narrow navigation", "status": "unrun", "reason": "No connected Chrome" },
-    { "name": "Import/export and rejection", "status": "unrun", "reason": "No connected Chrome" },
-    { "name": "Explicit device retention", "status": "unrun", "reason": "No connected Chrome" }
+    { "name": "Setup and reviewed proposal", "status": "partial", "reason": "Setup, review and confirmation observed; cancellation interrupted by browser control failure" },
+    { "name": "Stale intent and narrow navigation", "status": "unrun", "reason": "Control interrupted before scenario" },
+    { "name": "Import/export and rejection", "status": "unrun", "reason": "No chooser or download action attempted" },
+    { "name": "Explicit device retention", "status": "unrun", "reason": "Initial no-saved-copy status inspected; retention actions not attempted" }
   ],
   "connection": {
     "skill": "chrome:control-chrome",
     "setup": "completed",
     "selection": "agent.browsers.get(\"chrome\")",
-    "selectionError": "Browser is not available: chrome",
+    "historicalSelectionError": "Browser is not available: chrome",
+    "currentSelection": "Chrome selected successfully after owner-reported reinstall; subsequent interaction failed",
     "bootstrapTroubleshootingRead": true,
     "diagnostic": "agent.browsers.list()",
     "diagnosticResult": [],
-    "repeatedSelectionAttempts": 2,
+    "repeatedSelectionAttempts": 3,
     "automaticRetries": 0,
     "attempts": [
       {
@@ -54,6 +55,28 @@
         "selectionError": "Browser is not available: chrome",
         "diagnosticResult": null,
         "additionalDiscoveryAttempted": false
+      },
+      {
+        "recordedAt": "2026-10-31T18:18:32.000Z",
+        "trigger": "Owner reply: Browser plugin reinstalled",
+        "runtime": "fresh setup through the previously imported function",
+        "selectionError": null,
+        "browser": { "name": "Chrome", "type": "extension", "id": "1" },
+        "sessionName": "🔎 Business Claw preview checks",
+        "selectedDocumentationRead": true,
+        "toolTruncatedAccessibilitySectionReadSeparately": true,
+        "interactionSurface": "same Chrome tab Playwright DOM snapshots and locators; no page evaluation",
+        "controlErrors": [
+          "ENOENT: packaged browser-accessibility.wasm.br for version 26.1007.30912 missing",
+          "Timed out after 2967ms waiting for CDP command Input.dispatchMouseEvent while clicking Cancel proposal",
+          "getJsDialog call timed out; tool reported automatic kernel reset",
+          "Module not found: previously documented chrome/26.1007.30912/scripts/browser-client.mjs",
+          "Updated official chrome/26.1013.40934 client setup: cannot find browser/26.1007.30912/scripts/browser-service.mjs imported from trusted worker"
+        ],
+        "updatedOfficialPluginGuidesRead": ["bootstrap-troubleshooting", "browser-troubleshooting"],
+        "updatedOfficialClientSetupAttempts": 1,
+        "agentRequestedKernelResets": 0,
+        "additionalWindowOrReinstallAttempted": false
       }
     ],
     "alternateAutomationUsed": false,
@@ -89,7 +112,7 @@
   },
   "sourceInspection": {
     "kind": "read-only local Git identities",
-    "currentSource": "3b39c2b4cffc3a26787c729c9a675f3c0336289a",
+    "earlierInspectedSource": "3b39c2b4cffc3a26787c729c9a675f3c0336289a",
     "approvedPreviewSource": "1b5dcc8b155012b1c9d1abaa327bfe5ecaeac477",
     "allFiveWebPathsModesAndBlobsMatch": true,
     "webLeaves": [
@@ -100,21 +123,58 @@
       { "path": "web/styles.css", "mode": "100644", "type": "blob", "gitSha": "84385337fcc894177488f16e9dd952959cb1d7ea" }
     ],
     "servedSourceVerified": false,
-    "servedDeploymentVerified": false,
-    "publicAccessVerified": false
+    "servedDeploymentVerified": true,
+    "servedDeploymentEvidenceSource": "Task owner's fresh Vercel get_deployment readback",
+    "providerDeployment": {
+      "id": "dpl_zyFoB714iqqj9UyuJpqA8DsETC4j",
+      "readyState": "READY",
+      "target": "production",
+      "githubCommitSha": "4342fd7813c737d91849516303feb099150f4181",
+      "canonicalAlias": "business-claw-alvaro.vercel.app",
+      "immutableHostname": "business-claw-alvaro-if0vc7zm0-my-team-4f230354.vercel.app",
+      "immutableHostnameVisited": false
+    },
+    "currentLocalSource": "4342fd7813c737d91849516303feb099150f4181",
+    "webWorkingTreeCleanAtInspection": true,
+    "publicAccessVerified": true,
+    "browserFetchedFiveFileByteComparison": false
   },
   "browserActions": {
-    "taskTabsCreated": 0,
+    "taskTabsCreated": 1,
     "approvedBlankRecoveryWindowsOpened": 1,
-    "pagesNavigated": 0,
-    "viewportChanges": 0,
-    "uiActions": 0,
+    "pagesNavigated": 1,
+    "viewportChanges": 1,
+    "desktopViewport": { "width": 1440, "height": 1000 },
+    "narrowViewportAttempted": false,
+    "viewportExplicitlyReset": false,
+    "uiActions": null,
+    "uiActionCountBasis": "Not instrumented; verified substeps are recorded separately",
     "fileChooserActions": 0,
     "downloads": 0,
     "deviceStorageActions": 0,
-    "fixturesCreatedOrChanged": 0,
+    "fixturesCreatedOrChanged": 1,
     "screenshotsCreated": 0
   },
-  "cleanup": "No preview task tab, fixture, download or device record was created. One approved blank recovery window may remain open because no supported browser handle was obtained for cleanup.",
-  "proofLimits": "Source equivalence is not served-byte or browser behavior proof. All four browser scenarios remain unrun. No live-service acceptance is established."
+  "observedFixture": {
+    "organizationName": "BC Browser Fixture 2026-10-31",
+    "organizationId": "240eddc3-5e3a-4314-bdc9-cff67df58c55",
+    "instanceId": "fcabce24-9bd1-4c32-b0bd-7da1d89a3f7b",
+    "operationId": "6dfed2c0-9d62-4e81-9fa4-b67155b2e391",
+    "workflowActorId": "15a4024a-5793-4373-9c9f-b904c5313fb2",
+    "initialSavedDeviceCopy": "none reported by UI",
+    "desiredSetupRevision": 2,
+    "desiredSetup": { "purpose": "Équipe 🌊 · authored decisions", "provider": "organization-owned", "channel": "web-chat", "notion": "requested", "memory": "off", "selfBuilding": "off" },
+    "fixedChannelReselected": true,
+    "observedOperationStates": ["requested", "reviewed", "confirmed"],
+    "immutablePlanPreservedAcrossReview": true,
+    "confirmedCommand": { "mode": "proposal-only", "adapter": "unbound", "executionAuthority": "not-granted" },
+    "cancellationVerified": false,
+    "savedToDevice": false,
+    "exported": false,
+    "tabId": null,
+    "tabIdUnavailableReason": "Not captured before automatic tool kernel reset",
+    "taskTabDescription": "Canonical Business Claw preview; operation ledger for BC Browser Fixture 2026-10-31"
+  },
+  "cleanup": "The unsaved fixture task tab and cancellation confirmation may remain open; no supported handle was obtained after interruption. The desktop viewport override could not be explicitly reset. The earlier approved blank recovery window may also remain. No saved device copy, import or download was created; no alternate cleanup control was used.",
+  "proofLimits": "One scenario is partial and three are unrun; no complete scenario pass or product failure is established. Provider alias/source metadata and visible public UI are not a browser-fetched five-file byte comparison or live-service acceptance."
 }

@@ -40,3 +40,9 @@ login/session/logout, CSRF/cache behavior, two-organization access, concurrent
 revision/replay behavior and mail flows. Disposable Postgres and fake Auth tests
 cannot replace those live checks. Runtime/chat/MCP remain unavailable until
 their separate infrastructure and consent bindings exist.
+
+The separately owned [runtime journal](runtime-ledger-contract.md) is applied
+to this same dedicated project; its [activation receipt](results/2026/10-31/runtime-journal-activation.md)
+records the tested SQL and actual grants. Its worker role is isolated from the
+BFF and has no credential or dispatch binding. Do not reuse the BFF password or
+connection as a runtime worker identity.

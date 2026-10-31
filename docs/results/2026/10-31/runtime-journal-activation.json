@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-31",
+  "project": {
+    "id": "hmmfkbxhrfrfubqnizxd",
+    "name": "Business Claw",
+    "organization": "Clous",
+    "region": "eu-central-1",
+    "status": "ACTIVE_HEALTHY",
+    "plan": "Free"
+  },
+  "authorization": "Owner's current instruction to keep going and do all the work; approved free backend implementation. No paid compute or customer runtime was activated.",
+  "source": {
+    "commit": "81f16570e6cd6c9abe3c04e11fb4a1e138bba75b",
+    "tree": "b9939ef94381b534a3784bc0afca71f31b79cbcf",
+    "sql": "db/runtime-ledger.sql",
+    "sha256": "252b6633913533f43f0c69348d0f99f9e9a9ccfdc5cbbd4186ac81797e8fbf90"
+  },
+  "before": {
+    "audit": 0,
+    "database": "postgres",
+    "sessions": 0,
+    "authUsers": 0,
+    "runtimeRoles": [],
+    "organizations": 0,
+    "runtimeTables": [],
+    "postgresVersion": "170011"
+  },
+  "verification": {
+    "roles": [
+      {
+        "name": "bc_runtime_login",
+        "login": true,
+        "inherit": false,
+        "createDb": false,
+        "bypassRls": false,
+        "superuser": false,
+        "createRole": false
+      },
+      {
+        "name": "bc_runtime_worker",
+        "login": false,
+        "inherit": false,
+        "createDb": false,
+        "bypassRls": false,
+        "superuser": false,
+        "createRole": false
+      }
+    ],
+    "counts": {
+      "audit": 0,
+      "events": 0,
+      "sessions": 0,
+      "authUsers": 0,
+      "operations": 0,
+      "organizations": 0
+    },
+    "tables": [
+      {
+        "rls": true,
+        "name": "runtime_operation_events",
+        "forcedRls": true
+      },
+      {
+        "rls": true,
+        "name": "runtime_operations",
+        "forcedRls": true
+      }
+    ],
+    "policies": [
+      {
+        "name": "runtime_event_append",
+        "roles": [
+          "bc_runtime_worker"
+        ],
+        "table": "runtime_operation_events",
+        "command": "INSERT"
+      },
+      {
+        "name": "runtime_event_read",
+        "roles": [
+          "bc_runtime_worker"
+        ],
+        "table": "runtime_operation_events",
+        "command": "SELECT"
+      },
+      {
+        "name": "runtime_insert",
+        "roles": [
+          "bc_runtime_worker"
+        ],
+        "table": "runtime_operations",
+        "command": "INSERT"
+      },
+      {
+        "name": "runtime_read",
+        "roles": [
+          "bc_runtime_worker"
+        ],
+        "table": "runtime_operations",
+        "command": "SELECT"
+      },
+      {
+        "name": "runtime_update",
+        "roles": [
+          "bc_runtime_worker"
+        ],
+        "table": "runtime_operations",
+        "command": "UPDATE"
+      }
+    ],
+    "migration": {
+      "name": "business_claw_runtime_operation_journal",
+      "version": "20261031201223"
+    },
+    "workerMembership": 1,
+    "workerPrivileges": {
+      "eventInsert": true,
+      "eventSelect": true,
+      "eventMutation": false,
+      "sessionAccess": false,
+      "operationDelete": false,
+      "operationInsert": true,
+      "operationSelect": true,
+      "operationUpdate": true,
+      "authEnvelopeAccess": false,
+      "organizationAccess": false
+    },
+    "deniedJournalRoles": [
+      {
+        "role": "anon",
+        "events": false,
+        "operations": false
+      },
+      {
+        "role": "authenticated",
+        "events": false,
+        "operations": false
+      },
+      {
+        "role": "bc_bff",
+        "events": false,
+        "operations": false
+      },
+      {
+        "role": "bc_pool_login",
+        "events": false,
+        "operations": false
+      },
+      {
+        "role": "bc_runtime_login",
+        "events": false,
+        "operations": false
+      },
+      {
+        "role": "service_role",
+        "events": false,
+        "operations": false
+      }
+    ]
+  },
+  "securityAdvisors": {
+    "lints": []
+  },
+  "checks": {
+    "runId": 41237699243,
+    "sourceCommit": "81f16570e6cd6c9abe3c04e11fb4a1e138bba75b",
+    "conclusion": "success",
+    "newCases": 51,
+    "actualPostgresCases": 14,
+    "failures": 0,
+    "skips": 0,
+    "cancellations": 0,
+    "todos": 0,
+    "productionDataUsed": false
+  },
+  "limits": [
+    "Catalog/DDL acceptance is not a bound worker or actual application database connection.",
+    "No worker password, admission service, live provider token, paid manifest, allocation or Gateway was supplied.",
+    "BFF/browser roles cannot read the journal; trusted worker role policies are not per-tenant grants.",
+    "Actual Auth delivery, two-customer acceptance, production environment access and exact transaction-pooler hostname remain pending."
+  ]
+}

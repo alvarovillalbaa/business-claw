@@ -41,3 +41,9 @@ manifest or automatic queue binding is supplied here. A browser-local or server
 confirmation record alone cannot dispatch. The existing API keeps runtime/chat
 unavailable. Real provider acceptance, backup/restore, private ingress and
 running Gateway readiness remain separate requirements.
+
+The [check receipt](results/2026/10-31/compute-artifact-journal-checks.md) records
+the focused authored/disposable checks. The separate
+[database activation receipt](results/2026/10-31/runtime-journal-activation.md)
+records the applied additive SQL and actual role/RLS readback. Neither binds a
+live worker or provider.

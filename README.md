@@ -100,6 +100,11 @@ separate focused fake-port results. The latest
 records116 passing integrated cases, the applied schema/grants and three
 successful public HTTP checks. These do not qualify live accounts, delivery,
 runtime execution or the new dashboard's browser behavior.
+The later [compute, artifact and journal checks](docs/results/2026/10-31/compute-artifact-journal-checks.md)
+passed51/51 new cases, including14 disposable PostgreSQL cases. Their bounded
+registry probe retrieved exact image metadata without running an image or
+qualifying its signer. The [runtime journal activation](docs/results/2026/10-31/runtime-journal-activation.md)
+records its applied private tables and isolated role grants; no worker is bound.
 Later source does not rewrite an earlier checked identity. Static validation
 imports no product module and runs no test controller. The live managed service
 remains unfinished.

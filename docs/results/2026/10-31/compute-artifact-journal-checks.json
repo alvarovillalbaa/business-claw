@@ -1,0 +1,402 @@
+{
+  "schemaVersion": "business-claw.compute-artifact-journal-checks.v1",
+  "date": "2026-10-31",
+  "status": "passed",
+  "source": {
+    "repository": "alvarovillalbaa/business-claw",
+    "commit": "81f16570e6cd6c9abe3c04e11fb4a1e138bba75b",
+    "tree": "b9939ef94381b534a3784bc0afca71f31b79cbcf",
+    "url": "https://github.com/alvarovillalbaa/business-claw/commit/81f16570e6cd6c9abe3c04e11fb4a1e138bba75b",
+    "workflow": ".github/workflows/runtime-checks.yml",
+    "workflowGitBlob": "3df3051b7c090b48e157c0ea8088e71cdbecd51d",
+    "workflowSha256": "b3596ea00aeb9e44bb858787b582282ec399c0b0472547c7268bbd88db73b277"
+  },
+  "ci": {
+    "runId": 41237699243,
+    "url": "https://github.com/alvarovillalbaa/business-claw/actions/runs/41237699243",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "createdAt": "2026-10-31T20:11:04Z",
+    "updatedAt": "2026-10-31T20:11:42Z",
+    "runner": "ubuntu-24.04 / 24.04.5",
+    "node": "v26.13.0",
+    "postgres": "17.11 (Debian 17.11-1.pgdg13+2)",
+    "postgresImage": "postgres:17",
+    "postgresImageDigest": "sha256:31ba9c94a03ada9988f2bb493a22a75eef3a185884533e5cdbcd498ea835b08f",
+    "jobs": [
+      {
+        "id": 124644842611,
+        "name": "runtime",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Initialize containers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install pinned lock without lifecycle scripts",
+            "conclusion": "success"
+          },
+          {
+            "name": "Provider artifact and durable-journal cases without live services",
+            "conclusion": "success"
+          },
+          {
+            "name": "Static source validation",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Stop containers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 124644842834,
+        "name": "registry-metadata",
+        "status": "completed",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Read bounded anonymous GHCR metadata without image layers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  },
+  "command": [
+    "node",
+    "--test",
+    "--test-reporter=tap",
+    "--test-concurrency=1",
+    "tests/unit/compute-provider.test.mjs",
+    "tests/unit/artifact-admission.test.mjs",
+    "tests/integration/runtime-ledger.test.mjs"
+  ],
+  "totals": {
+    "tests": 51,
+    "suites": 0,
+    "pass": 51,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 5784.988764
+  },
+  "caseIdentity": {
+    "expected": 51,
+    "actual": 51,
+    "unique": 51,
+    "exactIdentitySet": true,
+    "orderedSourceGroupsMatched": true,
+    "orderedOkMatched": true,
+    "missing": [],
+    "unexpected": [],
+    "observedFileOrder": [
+      "tests/integration/runtime-ledger.test.mjs",
+      "tests/unit/artifact-admission.test.mjs",
+      "tests/unit/compute-provider.test.mjs"
+    ],
+    "comparison": "Literal source names fetched at the immutable commit exactly match the 51 unique TAP subtests and their numbered ok lines; Node reports files in the observed order, which differs from command argument order."
+  },
+  "caseGroups": [
+    {
+      "kind": "postgres-journal",
+      "path": "tests/integration/runtime-ledger.test.mjs",
+      "count": 14,
+      "gitBlob": "f6a6e3a1c2d6a3e1f67a27220be49324419531d3",
+      "sha256": "b72c4649c893384260eb7c15f8fa8148584dc43bd2036f198d4702e6c1926870",
+      "bytes": 19840,
+      "caseNames": [
+        "first reservation durably commits the current receipt and its first history event",
+        "exact reservation replay retains the committed receipt without another history event",
+        "concurrent real clients acquire a reservation exactly once",
+        "a globally reused request ID cannot create a second operation row",
+        "changed fence binding release and request hash cannot reacquire an existing operation",
+        "concurrent receipt CAS permits one winner and appends only its committed revision",
+        "an established server ID cannot be replaced or erased through a later receipt",
+        "action history accepts an append but refuses erasure reordering and replacement",
+        "runtime worker can read history but cannot update delete or truncate committed events",
+        "forced RLS journal tables and role grants exclude BFF and all browser identities",
+        "runtime credentials cannot read Auth envelopes or mutate ordinary organization state",
+        "an actual event insertion failure rolls back both first reservation and receipt CAS",
+        "lost real COMMIT acknowledgments never reacquire reservations or duplicate committed revisions",
+        "a restarted compute adapter reconciles a lost allocation acknowledgment without a second POST"
+      ]
+    },
+    {
+      "kind": "compute-fake-transport",
+      "path": "tests/unit/compute-provider.test.mjs",
+      "count": 16,
+      "gitBlob": "057a359f052e6347b65935fdb8b811f8ded492a1",
+      "sha256": "70f9346b6ca6bb2cbefb038f3fdffbc8116579f8f4d6a796f9ed2fe0d578cc54",
+      "bytes": 20673,
+      "caseNames": [
+        "missing trusted ports and malformed caller IDs cannot dispatch or consult admission",
+        "creation preflights owned dependencies and persists asynchronous IDs without credentials or readiness",
+        "action success and exact powered-off observation are both required after asynchronous creation",
+        "lost creation acknowledgement recovers by stable owned request labels and never resends allocation",
+        "missing ambiguous or paginated lost-ack recovery cannot allocate another server",
+        "foreign dependencies and withdrawn fresh admission fail before provider mutation",
+        "every existing-target owner label and stored ID is checked before power or deletion",
+        "new power operation keeps creation identity and reconciles running state without a readiness grant",
+        "graceful shutdown is explicit and never silently forces poweroff",
+        "deletion needs absent exact resource and terminal action while retaining external resource limits",
+        "wrong action resources duplicate IDs and failed provider actions never establish successful compute",
+        "provider rejection rate limits malformed bodies and server failures remain bounded redacted outcomes",
+        "transport deadline aborts a hung creation and its next attempt only observes",
+        "durable reservation and CAS failures do not permit a second mutation or false persistence result",
+        "strict DTOs reject getters inheritance sparse arrays unsafe IDs and contradictory receipts without mutation",
+        "backward clocks missing operations and mismatched server topology stay fenced without writes"
+      ]
+    },
+    {
+      "kind": "artifact-fake-verifier",
+      "path": "tests/unit/artifact-admission.test.mjs",
+      "count": 21,
+      "gitBlob": "0a4eb50ef40513b745eca2cdc85a37495c202a9c",
+      "sha256": "b18de02ee6d268f4a9bb20dc52381e40bf1e455d28b4523c6d336470402521e2",
+      "bytes": 16535,
+      "caseNames": [
+        "policy normalization is detached strict and immutable",
+        "policy requires known unique nonempty capabilities and exact digest algorithms",
+        "inspection verifies linked metadata and produces stable policy and artifact hashes",
+        "an unbound verifier cannot admit valid-looking metadata",
+        "fully bound trusted test proof qualifies only the artifact and never enables execution",
+        "signed-source and unsigned-predicate claims do not replace publisher verification",
+        "proof cannot be swapped between subjects policies or publisher identities",
+        "missing unknown and unverified capability evidence fails closed",
+        "expired future stale and overlong verification receipts are refused",
+        "verifier failures are finite and do not copy external error details",
+        "changed metadata bytes cannot borrow an approved digest",
+        "duplicate and ambiguous platform descriptors are refused independently of hashes",
+        "manifest descriptor sizes digests and media types must bind the supplied config",
+        "root user source drift and platform drift do not satisfy runtime metadata checks",
+        "schema protocol version and required methods must match the exact reviewed contract",
+        "invalid UTF8 malformed JSON nesting and oversized metadata are bounded before verification",
+        "evidence must be nonempty unique canonical bytes within the combined budget",
+        "accessors hidden symbols custom prototypes and sparse authority arrays are refused",
+        "candidate mutation during verification cannot change the detached admitted identity",
+        "proof time may advance during verification but a backwards trusted clock cannot admit",
+        "a verifier resolving from its deadline abort cannot race into admission"
+      ]
+    }
+  ],
+  "staticSourceCheck": {
+    "kind": "static-source-check",
+    "modules": 15,
+    "relativeImports": 23,
+    "builtinImports": 6,
+    "dependencyImports": 1,
+    "uniqueIds": 130,
+    "productTestsExecuted": 0,
+    "productImportsExecuted": 0
+  },
+  "cleanup": {
+    "serviceStopStep": "success",
+    "containerRemoved": true,
+    "networkRemoved": true,
+    "orphanProcessCleanupLogged": true
+  },
+  "logs": {
+    "runtime": {
+      "jobId": 124644842611,
+      "url": "https://github.com/alvarovillalbaa/business-claw/actions/runs/41237699243/job/124644842611",
+      "decodedUtf8": {
+        "utf8Bytes": 58990,
+        "sha256": "7fe2ecae2d0188beffa0bf44df7635c94420c67457ee8fbd04e4362eeb2fee44"
+      }
+    },
+    "registry": {
+      "jobId": 124644842834,
+      "url": "https://github.com/alvarovillalbaa/business-claw/actions/runs/41237699243/job/124644842834",
+      "decodedUtf8": {
+        "utf8Bytes": 17828,
+        "sha256": "f8b9e1fc9a62bf9cac023c09e9da366646553cb219a5979af7508e14c2abd207"
+      }
+    },
+    "hashEncoding": "SHA-256 of exact connector-decoded log text encoded UTF-8, including the leading BOM; no raw logs or registry bearer token retained."
+  },
+  "tap": {
+    "sha256": "d9399b4e4a15d6e94a5ba1def4f6f53b25b81f8237d4fa51d950c382a11c7029",
+    "utf8Bytes": 12087,
+    "encoding": "Timestamp-prefix-stripped TAP section from TAP version 13 through duration_ms, with one terminal newline; diagnostic body retained in this digest, not persisted as another artifact."
+  },
+  "registry": {
+    "jobId": 124644842834,
+    "jsonLineSha256": "31dbe1c6a57b404c492ab63a68484f7a84027059c68ce376ba60e9e986824dc8",
+    "jsonLineUtf8Bytes": 1173,
+    "jsonLineEncoding": "Exact compact JSON output line, no timestamp prefix or terminal newline.",
+    "receipt": {
+      "schemaVersion": "business-claw.registry-probe.v1",
+      "observedAt": "2026-10-31T20:11:16.118Z",
+      "repository": "ghcr.io/openclaw/openclaw",
+      "tag": "2026.10.9",
+      "indexDigest": "sha256:1a2a3ce113e435039dbeac5ae261759bb4759908563d91c81059e896b38c5d98",
+      "indexBytes": 1611,
+      "matchesPreviousPublisherIndex": true,
+      "platform": "linux/amd64",
+      "manifestDigest": "sha256:deab8686a863c1d2255a43bb4677f4907b9af45aff340c062834d16756fd4ff8",
+      "manifestBytes": 8067,
+      "configDigest": "sha256:45c1d4b884bb02fc6592faeff85a267e3585b7ce455110f6982d8ee14c00c352",
+      "configBytes": 28592,
+      "configPlatformMatches": true,
+      "runtimeUserIsNode": true,
+      "labels": {
+        "revision": "8b18b5578f66eab1501cba4cef2310d88bfb9a41",
+        "version": "2026.10.9",
+        "releaseSourceMatches": true,
+        "releaseVersionMatches": true
+      },
+      "attestations": [
+        {
+          "digest": "sha256:b707b749681a252bbbf7a3e12d8f7c31fcb8df2f71d8538950d8cdc6cde03cc3",
+          "bytes": 1113,
+          "predicates": [
+            "https://slsa.dev/provenance/v1",
+            "https://spdx.dev/Document"
+          ]
+        }
+      ],
+      "qualification": {
+        "registryMetadataRead": true,
+        "signatureVerified": false,
+        "publisherProvenanceVerified": false,
+        "schemaProtocolQualified": false,
+        "layersDownloaded": false,
+        "runtimeExecuted": false,
+        "artifactAdmitted": false
+      },
+      "requests": 7,
+      "bytesRead": 39452
+    }
+  },
+  "followUpEvidence": {
+    "journalActivation": {
+      "markdown": "runtime-journal-activation.md",
+      "json": "runtime-journal-activation.json",
+      "projectId": "hmmfkbxhrfrfubqnizxd",
+      "migration": "20261031201223_business_claw_runtime_operation_journal",
+      "evidenceSource": "Read the separate root-authored live migration/catalog receipt; this check author did not issue a database query.",
+      "limits": "Catalog proof does not bind a worker, password, application connection, paid manifest or provider."
+    },
+    "sourceDeployment": {
+      "provider": "Vercel",
+      "id": "dpl_2WsdvhS7oTyR2UXgUXKoPM6paFi8",
+      "url": "https://business-claw-alvaro-bvvqxbav7-my-team-4f230354.vercel.app",
+      "canonicalAlias": "https://business-claw-alvaro.vercel.app",
+      "status": "READY",
+      "target": "production",
+      "sourceCommit": "81f16570e6cd6c9abe3c04e11fb4a1e138bba75b",
+      "createdAt": "2026-10-31T20:11:05.136Z",
+      "readyAt": "2026-10-31T20:11:12.071Z",
+      "evidenceSource": "Independent connected Vercel get_deployment read by exact deployment ID with Git metadata.",
+      "limits": "READY/production/exact SHA/alias is deployment metadata, not HTTP, browser, Auth, live compute or running Gateway acceptance."
+    }
+  },
+  "reviewedSourceInputs": [
+    {
+      "path": "runtime/compute-provider.mjs",
+      "gitBlob": "8ff0b041077a3f606492b2416d04e381db111e11",
+      "sha256": "8ff206c15421c2605f874ff70e194474de2b38d21775e631ccbbcfe480ee8c06",
+      "bytes": 21411
+    },
+    {
+      "path": "runtime/artifact-admission.mjs",
+      "gitBlob": "7cce89060e717f0f8501a0a51672490a2d3eadb7",
+      "sha256": "3d8a523af08a896e91a724b617a54e841acb50dccfbe41886fcdfe3734ca41b7",
+      "bytes": 13310
+    },
+    {
+      "path": "server/runtime-ledger.mjs",
+      "gitBlob": "a9981e6e11972a6b6caf2aed6536da7a67e89a22",
+      "sha256": "e7c3baf913618e9c9fdc51dd901a3aada8403ec34d4534ee0921ec7a7f9a5ad0",
+      "bytes": 6316
+    },
+    {
+      "path": "db/runtime-ledger.sql",
+      "gitBlob": "d1b60ef3cca2ae1bf96ccbca0242279c01c411aa",
+      "sha256": "252b6633913533f43f0c69348d0f99f9e9a9ccfdc5cbbd4186ac81797e8fbf90",
+      "bytes": 3612
+    },
+    {
+      "path": "db/schema.sql",
+      "gitBlob": "137b9d465a10e4e629d8748658b71c868ad86aa1",
+      "sha256": "93a38cf7dce3fa30ed0d6f89cebdf3e4cee0fd76eee3e168a63d3c562f26d0a3",
+      "bytes": 7691
+    },
+    {
+      "path": "docs/research/2026-10-31/openclaw-registry-probe.mjs.example",
+      "gitBlob": "ef77ae148186bbf98a112020420f112597563308",
+      "sha256": "e0e650d5aec7930f9c79ef404cc7e0054eb52812e2b07dd7adfc07ba8fb4382b",
+      "bytes": 7641
+    }
+  ],
+  "meaningfulPostgresScope": [
+    "Real PostgreSQL clients compete for one durable first reservation and one CAS winner.",
+    "Current receipt and append-only event commit atomically; a real event-trigger failure rolls both back.",
+    "A wrapper executes real COMMIT then drops its acknowledgement; restart/replay recovers the committed reservation/revision without duplicate events.",
+    "Established server/action IDs, operation/request uniqueness and exact binding/fence/hash remain fenced.",
+    "Real role/forced-RLS and least-grant cases deny BFF/browser journal access and deny runtime credentials Auth-envelope/session access or workspace mutation.",
+    "An injected fake Hetzner transport loses a create acknowledgement; a restarted adapter uses the real journal and owned GET recovery without a second POST."
+  ],
+  "limits": [
+    "All 51 passing cases are this immutable CI scope, separate from earlier local or backend/UI checks.",
+    "PostgreSQL was a fresh authored CI service with an auth.users stub, not Supabase or customer data; this does not prove live database/auth/session setup or production organization isolation.",
+    "Compute transport and artifact verifier were authored fakes; no live Hetzner allocation, paid resource, model, Notion call or serving Gateway was exercised.",
+    "The separate registry job performed seven anonymous pull-only metadata requests. No layers were downloaded or image installed/executed.",
+    "Digest and OCI source/version/non-root metadata linkage do not authenticate publisher provenance or prove signature, schema/protocol, sandbox, backup/restore or runtime readiness. Registry artifactAdmitted remains false.",
+    "This receipt records CI outcome and retrieved metadata; it does not apply SQL, bind worker/provider credentials, approve spend, activate dispatch/chat or prove full managed-service completion."
+  ]
+}

@@ -46,6 +46,11 @@
   dedicated Business Claw project; do not spend money or activate customer
   runtime resources. Never bypass provider permissions or claim mail delivery
   or a working database connection before actual qualification.
+- That same current all-work instruction also cleared the bounded compute,
+  artifact and durable-journal source, 51 focused checks, temporary public CI,
+  anonymous metadata-only registry probe and additive private journal DDL.
+  Their actual immutable outcomes are in docs/results/2026/10-31/. No paid
+  resource, provider account, trusted signer or live runtime is thereby bound.
 - Do not run local builds/installs under a failed Storage Guard preflight. Syntax,
   static imports, JSON/link/HTML references and whitespace inspection are safe.
 - Persist source, publication, checks and limits in docs/results/. Mark adapters

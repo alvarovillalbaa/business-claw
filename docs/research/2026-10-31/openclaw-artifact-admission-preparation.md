@@ -28,6 +28,11 @@ Its compact JSON recomputes digests and reports attestation presence with
 signature/provenance/schema/runtime/admission explicitly false. No probe CI was
 activated by this task; a successful probe would still not establish signer trust.
 
+The later [integrated check receipt](../../results/2026/10-31/compute-artifact-journal-checks.md)
+records a successful bounded public CI probe. That new registry observation
+supersedes the local DNS limitation for metadata retrieval only; signer,
+provenance, compatibility and admission remain unverified.
+
 The [admission contract](../../artifact-admission-contract.md) requires a separately
 trusted verification port and reviewed exact digest/schema/protocol policy.
 No production verifier, acceptable publisher identity or capability proof is

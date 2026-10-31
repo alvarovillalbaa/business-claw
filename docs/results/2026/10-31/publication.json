@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "business-claw.publication.v1",
+  "repository": "https://github.com/alvarovillalbaa/business-claw",
+  "sourceCommit": "823295afd764b54ee806d31dd94f242f446e074e",
+  "deployedCommit": "8749c34675ec4c843c453adb148b99404e9283d1",
+  "sourceTreeProof": {
+    "commit": "823295afd764b54ee806d31dd94f242f446e074e",
+    "tree": "eda262586507c63aeec0d492527337a750d6a3ab",
+    "leaves": 23,
+    "allPathsModesTypesBlobsEqual": true
+  },
+  "project": {
+    "id": "prj_wCzxhREM2YFqwo0WCCAnOuM66aO7",
+    "name": "business-claw-alvaro",
+    "teamId": "team_JpdIsOJgYNpX0ywVZ54Zdb7m",
+    "git": {
+      "type": "github",
+      "org": "alvarovillalbaa",
+      "repo": "business-claw"
+    }
+  },
+  "deployment": {
+    "id": "dpl_3pFMunpVzKKsPUAif7cDGGJXGqqS",
+    "state": "READY",
+    "target": "production",
+    "url": "business-claw-alvaro-fg7u394xg-my-team-4f230354.vercel.app",
+    "alias": [
+      "business-claw-alvaro.vercel.app",
+      "business-claw-alvaro-my-team-4f230354.vercel.app",
+      "business-claw-alvaro-git-main-my-team-4f230354.vercel.app"
+    ],
+    "source": "8749c34675ec4c843c453adb148b99404e9283d1"
+  },
+  "hostedBuild": {
+    "node": "26.13.0",
+    "command": "node scripts/check-source.mjs",
+    "kind": "static-source-check",
+    "modules": 2,
+    "relativeImports": 1,
+    "uniqueIds": 68,
+    "productTestsExecuted": 0,
+    "productImportsExecuted": 0,
+    "dependencyInstallation": false
+  },
+  "staticSource": {
+    "javascriptModules": 5,
+    "relativeImports": 2,
+    "allNamedImportsResolved": true,
+    "typescriptParser": "5.9.3",
+    "testsExecuted": 0,
+    "productImportsExecuted": 0,
+    "uniqueTemplateIds": 68,
+    "literalScriptIdReferences": 55,
+    "ariaLabelReferences": 13,
+    "localAssets": 3,
+    "svgParsed": true,
+    "jsonFiles": 4,
+    "utf8Whitespace": true,
+    "literalNetworkOrRawHtmlSinks": 0
+  },
+  "checks": {
+    "domainCases": 14,
+    "domainCasesExecuted": 0,
+    "browserScenarios": 4,
+    "browserScenariosExecuted": 0,
+    "approval": "separate exact scope required; not yet requested at source preparation",
+    "activeWorkflows": 0,
+    "actionsRuns": 0
+  },
+  "publicHttp": {
+    "url": "https://business-claw-alvaro.vercel.app/",
+    "verified": false,
+    "result": "Local DNS resolution failed",
+    "shareLinksCreated": 0
+  },
+  "recovery": "Create/link helper reported schema mismatch with uncertain outcome; name/repo/context readbacks proved one linked project, initially zero deployments. Next result-only Git push triggered the exact READY production build. No duplicate create.",
+  "liveResources": {
+    "gatewayInstances": 0,
+    "identityPolicyApplied": false,
+    "databaseCreated": false,
+    "modelCalls": 0,
+    "remoteMcpConnections": 0,
+    "newAccounts": 0,
+    "newPaidEnrollment": false
+  },
+  "limits": [
+    "This is a browser-local control-plane preview, not a running managed assistant.",
+    "No browser/device/Auth/tenant-isolation/provider/full-product acceptance proof.",
+    "No local install/build/product imports/authored-check execution; low storage reserve respected.",
+    "All live Auth/hosting/secret/provider adapters and policies remain proposed/unbound."
+  ]
+}

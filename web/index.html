@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="A browser-local preview of Business Claw's organization control plane. Prepare and review desired setup without connecting a hosted runtime.">
-  <title>Business Claw · Control-plane preview</title>
+  <meta name="description" content="Business Claw organization workspaces and a separate browser-local control-plane preview. Runtime capabilities remain unconnected.">
+  <title>Business Claw · Organization workspace</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.mjs"></script>
@@ -16,6 +16,8 @@
     <a class="brand" href="#overview" aria-label="Business Claw overview"><span class="brand-mark" aria-hidden="true">bc.</span><span>business<span class="brand-second">claw</span></span></a>
     <p class="rail-label">ORGANIZATION WORKBENCH</p>
     <nav id="primary-nav" class="primary-nav" aria-label="Primary">
+      <a href="#server" data-view="server"><span aria-hidden="true">⌂</span> Server workspace</a>
+      <p class="nav-section-label">LOCAL PREVIEW</p>
       <a href="#overview" data-view="overview" aria-current="page"><span aria-hidden="true">◫</span> Overview</a>
       <a href="#configuration" data-view="configuration"><span aria-hidden="true">≡</span> Desired setup</a>
       <a href="#operations" data-view="operations"><span aria-hidden="true">↗</span> Operation ledger <span id="operation-count" class="nav-count">0</span></a>
@@ -28,12 +30,38 @@
     <header class="topbar">
       <button id="menu-toggle" class="icon-button mobile-only" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">☰</button>
       <p>Control plane <span aria-hidden="true">/</span> <span id="breadcrumb">Overview</span></p>
-      <span class="preview-label">PREVIEW ENVIRONMENT</span>
+      <span id="environment-label" class="preview-label">SERVER WORKSPACE</span>
     </header>
     <main id="main" tabindex="-1">
-      <div class="preview-banner"><span class="banner-symbol" aria-hidden="true">i</span><p><strong>Local preview — no hosted runtime connected.</strong> Records stay in this browser until you save or export them. Proposed commands do not run.</p></div>
+      <div class="preview-banner"><span class="banner-symbol" aria-hidden="true">i</span><p><strong id="environment-title">Server workspace — runtime unconnected.</strong> <span id="environment-copy">Sign in to access organization records. The local preview stays separate on this device.</span></p></div>
       <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
       <div id="error" class="error" role="alert" tabindex="-1" hidden></div>
+      <section id="view-server" class="view server-view" aria-labelledby="server-title">
+        <div class="workspace-heading"><div><p class="eyebrow">ACCOUNT-BACKED ORGANIZATIONS</p><h1 id="server-title">Your server workspace.</h1><p class="lede compact">Manage recorded setup and lifecycle decisions with your current organization access.</p></div><span id="server-connection-status" class="pill neutral" role="status">Checking connection</span></div>
+        <div id="server-error" class="error" role="alert" tabindex="-1" hidden></div>
+        <p id="server-message" class="server-message" role="status" aria-live="polite"></p>
+        <div class="server-session-toolbar"><p id="server-user" class="muted"></p><div><button id="server-refresh-session" class="text-button" type="button">Check sign-in</button><button id="server-logout" class="text-button" type="button" hidden>Sign out</button></div></div>
+        <p id="server-loading" class="inline-note" role="status">Checking the account service…</p>
+        <section id="server-auth-panel" class="server-auth-grid" aria-labelledby="server-auth-title" hidden>
+          <div><p class="eyebrow">YOUR ACCOUNT</p><h2 id="server-auth-title">Sign in.</h2><p id="server-auth-help" class="body-copy">Use an existing confirmed-email account. Signing in does not automatically join an organization.</p><div class="auth-mode-controls" aria-label="Account action"><button type="button" data-auth-mode="login" aria-pressed="true">Sign in</button><button type="button" data-auth-mode="signup" aria-pressed="false">Create account</button><button type="button" data-auth-mode="recover" aria-pressed="false">Recover access</button></div></div>
+          <form id="server-auth-form" class="panel server-auth-form"><label for="server-email">Email</label><input id="server-email" type="email" autocomplete="email" required maxlength="254"><div id="server-password-field"><label for="server-password">Password</label><input id="server-password" type="password" autocomplete="current-password" required></div><button id="server-auth-submit" class="button primary" type="submit">Sign in to server</button><p class="field-note">Credentials go only to this site's account endpoint. Public signup and recovery may remain unavailable until email delivery is qualified.</p></form>
+        </section>
+        <section id="server-recovery-panel" class="panel recovery-panel" aria-labelledby="server-recovery-title" hidden><h2 id="server-recovery-title">Choose a new password.</h2><p class="body-copy">This requires the same-browser recovery session established by your email link.</p><form id="server-password-form"><label for="server-new-password">New password</label><input id="server-new-password" type="password" autocomplete="new-password" required><button id="server-password-submit" class="button primary" type="submit">Update password</button></form></section>
+        <div id="server-authenticated" hidden>
+          <div id="server-pending" class="pending-request" role="alert" hidden><strong>Request outcome unconfirmed</strong><p id="server-pending-text"></p><div><button id="server-retry" class="button secondary" type="button">Retry same request</button><button id="server-check-request" class="text-button" type="button">Check server record</button></div></div>
+          <div class="server-org-toolbar"><div><label for="server-organization">Organization</label><select id="server-organization" aria-describedby="server-org-empty"></select><p id="server-org-empty" class="field-note" hidden>No active organization membership. Create an organization to begin.</p></div><button id="server-reload-record" class="button secondary" type="button">Refresh server record</button></div>
+          <details id="server-create-details" class="panel server-create"><summary>Create an organization</summary><form id="server-create-form"><div><label for="server-create-name">New organization name</label><input id="server-create-name" maxlength="80" required autocomplete="organization"></div><button id="server-create-submit" class="button primary" type="submit">Create organization on server</button></form><p class="field-note">Creates an organization record and its first Owner membership. Its runtime remains unconnected.</p></details>
+          <div id="server-record" hidden>
+            <div class="section-heading"><h2 id="server-organization-name"></h2><span id="server-role" class="pill neutral"></span></div>
+            <dl id="server-record-details" class="detail-list server-record-details"></dl>
+            <div class="section-heading"><h2>Desired setup</h2><span class="pill neutral">Runtime application unverified</span></div>
+            <form id="server-intent-form" class="panel configuration-form"><fieldset id="server-intent-fields"><legend class="visually-hidden">Server organization intent</legend><div id="server-configuration-fields" class="server-field-grid"></div><div class="form-actions"><button id="server-save-intent" class="button primary" type="submit">Save server intent</button><button id="server-reset-intent" class="button secondary" type="button">Discard form edits</button></div></fieldset><p id="server-intent-state" class="field-note" role="status"></p></form>
+            <div class="section-heading"><h2>Operation ledger</h2><span class="pill neutral">Execution unbound</span></div>
+            <form id="server-operation-form" class="operation-composer panel"><div><label for="server-operation-kind">Proposed operation</label><select id="server-operation-kind"></select></div><p id="server-operation-target" class="operation-target"></p><button id="server-request-operation" class="button primary" type="submit">Prepare server proposal</button><p id="server-operation-help" class="field-note"></p></form>
+            <div id="server-operation-list" class="operation-list"></div>
+          </div>
+        </div>
+      </section>
       <section id="welcome" class="welcome" aria-labelledby="welcome-title">
         <div class="welcome-copy"><p class="eyebrow">YOUR ORGANIZATION, FIRST</p><h1 id="welcome-title">A clearer place<br>to start your Claw.</h1><p class="lede">Describe the assistant your team needs. Keep its desired setup, reviewable changes and runtime boundary together.</p><div class="welcome-facts"><p><span>01</span> Create a local organization record</p><p><span>02</span> Shape a bounded setup intent</p><p><span>03</span> Review proposed lifecycle commands</p></div></div>
         <form id="create-form" class="create-form">
@@ -74,6 +102,7 @@
     </main>
   </div>
   <dialog id="review-dialog" aria-labelledby="review-title"><div class="dialog-heading"><div><p class="eyebrow">EXACT LOCAL PROPOSAL</p><h2 id="review-title">Review the change.</h2></div><button id="close-review" type="button" class="icon-button" aria-label="Close review">×</button></div><p id="review-description" class="body-copy"></p><dl id="review-details" class="detail-list"></dl><h3 id="review-plan-title">Recorded operation plan</h3><pre id="review-command" class="command-preview"></pre><p class="inline-note">This records a local workflow decision. No command will run and no permission is granted.</p><form id="review-form"><label class="check-label"><input id="review-acknowledgment" type="checkbox" required><span>I reviewed this exact proposal and understand that nothing will run.</span></label><div class="dialog-actions"><button id="record-review" class="button primary" type="submit">Record local review</button><button id="cancel-review" class="button secondary" type="button">Close</button></div></form></dialog>
+  <dialog id="server-review-dialog" aria-labelledby="server-review-title"><div class="dialog-heading"><div><p class="eyebrow">SERVER ORGANIZATION DECISION</p><h2 id="server-review-title">Review the proposal.</h2></div><button id="server-close-review" type="button" class="icon-button" aria-label="Close server review">×</button></div><dl id="server-review-details" class="detail-list"></dl><pre id="server-review-plan" class="command-preview"></pre><p class="inline-note">This records your decision against the displayed server revision and plan hash. Runtime execution remains unbound.</p><form id="server-review-form"><label class="check-label"><input id="server-review-ack" type="checkbox" required><span>I reviewed this exact organization, target and plan.</span></label><div class="dialog-actions"><button id="server-submit-review" class="button primary" type="submit">Record review</button><button id="server-cancel-review" class="button secondary" type="button">Close</button></div></form></dialog>
   <noscript><p class="noscript">Business Claw's local workspace needs JavaScript. No hosted runtime is connected, and no operation has been performed.</p></noscript>
 </body>
 </html>

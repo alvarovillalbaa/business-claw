@@ -7,10 +7,13 @@
 - web/domain.mjs owns strict portable organization/instance/operation data and
   pure lifecycle transitions. The browser uses that contract without forking
   field names, validation, revisions or ownership checks. Keep it dependency-free.
-- server/policy.mjs owns the source-only access/lifecycle boundary; access.mjs,
-  membership.mjs and data.mjs share its strict adapter DTOs. Current principal,
-  application session and membership checks use trusted ports inside the required
-  atomic transaction. No deployed route or live Auth/store binding exists.
+- server/policy.mjs owns access/lifecycle decisions; access.mjs, membership.mjs
+  and data.mjs share strict DTOs. postgres-store.mjs and db/schema.sql own the
+  private transaction adapter; auth.mjs/http.mjs/api/v1.mjs own Auth and HTTP.
+  Current principal/session/membership checks remain server-owned. The API fails
+  closed while actual production connection/secret/Auth delivery bindings are
+  unavailable. The older identity proposal's SQL is superseded source, not a
+  migration to replay; use the tested schema owner and its activation receipt.
 - Domain review/confirmation records are workflow data, not authentication or a
   grant of execution authority. Provider commands remain data until an approved
   server-side adapter authenticates, authorizes and binds the actual target.

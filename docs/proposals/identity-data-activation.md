@@ -2,6 +2,12 @@
 
 Last updated: 2026-10-31
 
+Implementation update: the later [Postgres store contract](../postgres-store-contract.md)
+and [schema source](../../db/schema.sql) supersede the inactive SQL below. They
+match the implemented policy/Auth DTOs and explicitly retain BFF-owned tenant
+authorization. Do not apply this older example. Actual project/configuration
+status is recorded in [backend activation](../results/2026/10-31/backend-activation.md).
+
 **INACTIVE review packet.** This proposes Supabase Auth + Postgres and a Vercel BFF for [the managed product](../spec.md). The [next source milestone](activation-plan.md) is inactive access-policy code using Node built-ins, the existing domain and injected ports: no dependency/lockfile, CI, migration, deployed API or live Auth change. The complete policy/SQL/broker design below needs later exact activation approval. Nothing is applied here. The [architecture](managed-service-architecture.md) still owns runtime isolation. The sealed 21 source inputs and pending 14-domain/four-browser scopes are unchanged; neither authorizes new checks or activation.
 
 ## Binding and activation prerequisites

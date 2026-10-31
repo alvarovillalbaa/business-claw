@@ -1,8 +1,12 @@
 # Free capacity decision for Business Claw
 
-31 October 2026. **Proposed operational change; not executed.** The approved
-backend-policy source/check milestone is delivered separately. This packet asks
-for the new availability tradeoff needed to provision a dedicated free database.
+31 October 2026. **Approved and executed.** The owner clarified “Approve. Kep”
+as “Means 'Keep going'. Do all the work.” The empty-data recheck passed, Dearweek
+is INACTIVE, and dedicated Business Claw `hmmfkbxhrfrfubqnizxd` is
+ACTIVE_HEALTHY in Clous / Frankfurt at the confirmed $0/month quote.
+Still remains ACTIVE_HEALTHY. No project or data was deleted. The original
+bounded decision and rollback scope below is retained; actual binding evidence
+belongs to [backend activation](../results/2026/10-31/backend-activation.md).
 
 ## Proposed action and cost
 

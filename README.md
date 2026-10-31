@@ -3,10 +3,11 @@
 A managed OpenClaw workspace for customer organizations, with a separate
 isolated runtime boundary per organization. The product is in development.
 
-This repository begins with the organization/instance/lifecycle contracts and a
-browser-local control-plane preview. You can prepare an organization setup,
-review proposed operations and retain your records. No hosted Gateway, account,
-model, chat, Notion connector or provider resource is connected by this preview.
+The source includes a private Postgres store, authenticated same-origin API and
+server-workspace dashboard alongside the browser-local preview. A dedicated
+free Supabase database is provisioned. Actual production environment and Auth
+delivery configuration remain incomplete, so the hosted workspace reports
+setup pending. No Gateway, model, chat, Notion connector or runtime is connected.
 
 The chosen outcome is a managed service. The preview and portable data are its
 foundation; they do not complete that service. See [the product contract](docs/spec.md)
@@ -28,9 +29,11 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory web
 ```
 
 Then visit `http://127.0.0.1:8080`. A static host can serve `web/` directly.
-The Vercel configuration runs syntax/reference validation before serving that
-directory. It installs no packages and does not start a Gateway or background
-service. Commands here are instructions, not claims that they were executed.
+The Vercel configuration installs the pinned PostgreSQL driver from its lock,
+runs static validation, serves that directory and routes `/api/v1` to the BFF.
+It does not start a Gateway or background service. Commands here are
+instructions, not claims that they were executed. A plain local static server
+supports the local preview; it does not emulate the hosted API.
 
 ## Records and boundaries
 
@@ -51,8 +54,12 @@ record upstream evidence and remaining qualification gaps.
 The [server policy boundary](docs/server-policy-contract.md) resolves current
 identity, application session and organization membership through trusted ports.
 It owns role-checked lifecycle, invitation and Owner-transfer decisions with
-transactional revision/audit changes. Those ports are unbound; this source does
-not deploy an API, authenticate a real account or execute a runtime operation.
+transactional revision/audit changes. The [HTTP/Auth boundary](docs/backend-http-contract.md)
+and [Postgres adapter](docs/postgres-store-contract.md) implement those ports;
+the [dashboard](docs/live-dashboard.md) keeps server and local records separate.
+Missing production bindings fail closed. See [configuration](docs/backend-configuration.md)
+and [actual activation evidence](docs/results/2026/10-31/backend-activation.md)
+for what is configured and what remains unverified.
 
 Review and confirmation records describe an intended operation. They cannot
 authenticate a person or authorize a live provider. Hosted adapters must obtain
@@ -60,12 +67,12 @@ their own trusted identity, organization access and exact target binding before
 executing a command. Upstream profiles and operator roles do not establish
 hostile-customer isolation.
 
-The full service still needs approved identity/persistence/hosting/secret
-bindings, real runtimes, revision-checked configuration, org-owned remote Notion
-MCP, memory and reviewed self-building. Those provider policies, accounts,
-resources and Business Claw execution checks are separate from Clero's approved
-72-case run. See [the source/publication evidence](docs/results/2026/10-31/source.md)
-for actual checks and proof limits.
+The full service still needs working production identity/persistence bindings,
+qualified email delivery, real isolated runtimes, revision-checked applied
+configuration, org-owned remote Notion MCP, memory and reviewed self-building.
+Source, fake providers and a successful build do not establish those outcomes.
+Earlier [source/publication evidence](docs/results/2026/10-31/source.md) retains
+its actual historical scope and proof limits.
 
 The [runtime source publication receipt](docs/results/2026/10-31/runtime-publication.md)
 tracks the later data-contract source and its separate execution scope.
@@ -79,7 +86,10 @@ passed at immutable `3b39c2b`. The [policy source and check receipt](docs/result
 owns the separate 32 fake-port cases and their actual execution status.
 
 The [four browser scenarios](docs/results/2026/10-31/browser-checks.md) remain
-approved; their receipt records the supported connection and proof limits.
+approved; one is partial and three unrun after a plugin-worker version failure.
+The [Auth/HTTP receipt](docs/results/2026/10-31/auth-http-checks.md) owns its
+separate focused fake-port results. The latest backend activation receipt links
+hosted dependency, real disposable-Postgres and client checks when completed.
 Later source does not rewrite an earlier checked identity. Static validation
 imports no product module and runs no test controller. The live managed service
 remains unfinished.

@@ -1,12 +1,13 @@
 import {
-  limits, defaultIntent, createWorkspace, parseWorkspace, serializeWorkspace,
+  limits, defaultIntent, createWorkspace, normalizeWorkspace, parseWorkspace, serializeWorkspace,
   updateIntent, requestOperation, reviewOperation, confirmOperation,
   cancelOperation, proposedCommands, workspaceStatus,
 } from "./domain.mjs";
+import { createServerClient, ServerRequestError } from "./server-client.mjs";
 
 const $ = id => document.getElementById(id);
 const STORAGE_KEY = "business-claw.workspace.v1";
-const viewNames = { overview: "Overview", configuration: "Desired setup", operations: "Operation ledger", workspace: "Workspace data" };
+const viewNames = { server: "Server workspace", overview: "Local overview", configuration: "Local desired setup", operations: "Local operation ledger", workspace: "Local workspace data" };
 const kinds = { provision: "Provision instance", configure: "Configure instance", pause: "Pause instance", resume: "Resume instance", delete: "Delete instance" };
 const states = { requested: "Awaiting review", reviewed: "Reviewed locally", confirmed: "Confirmed locally", rejected: "Rejected locally", cancelled: "Cancelled locally", superseded: "Superseded" };
 const choices = {
@@ -23,6 +24,8 @@ let savedRaw = null, storageAvailable = true, savedInvalid = false, storageChang
 let reviewContext = null, importSequence = 0, menuOpen = false;
 const downloads = new Set();
 const mobile = matchMedia("(max-width: 720px)");
+const serverClient = createServerClient();
+const live = { session: null, organizations: [], record: null, orgId: null, identityId: null, busy: false, attempted: false, connected: false, intentDirty: false, createDirty: false, authMode: "login", recovery: false, error: "", message: "", pending: null, review: null, epoch: 0, read: 0, controller: null, allowedKinds: "" };
 
 function node(tag, text = "", className = "") {
   const element = document.createElement(tag);
@@ -96,8 +99,15 @@ function fillIntent() {
   intentDirty = false;
 }
 function render() {
-  $("welcome").hidden = currentView === "workspace" || Boolean(workspace && !creating);
-  $("organization-workspace").hidden = !workspace || creating || currentView === "workspace";
+  const hosted = currentView === "server";
+  $("view-server").hidden = !hosted;
+  $("environment-label").textContent = hosted ? "SERVER WORKSPACE" : "LOCAL PREVIEW";
+  $("environment-title").textContent = hosted ? "Server workspace — runtime unconnected." : "Local preview — no hosted runtime connected.";
+  $("environment-copy").textContent = hosted ? "Organization records use your signed-in account. Local preview records stay separate on this device." : "Records stay in this browser until you save or export them. Proposed commands do not run.";
+  $("notice").hidden = hosted || !$("notice").textContent;
+  $("error").hidden = hosted || !$("error").textContent;
+  $("welcome").hidden = hosted || currentView === "workspace" || Boolean(workspace && !creating);
+  $("organization-workspace").hidden = hosted || !workspace || creating || currentView === "workspace";
   $("view-workspace").hidden = currentView !== "workspace";
   $("cancel-create").hidden = !workspace;
   for (const view of ["overview", "configuration", "operations"]) $("view-" + view).hidden = currentView !== view;
@@ -105,6 +115,7 @@ function render() {
     if (link.dataset.view === currentView) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
   }
   $("breadcrumb").textContent = viewNames[currentView];
+  renderServer();
   $("operation-count").textContent = String(workspace?.operations.length ?? 0);
   $("export-workspace").disabled = !workspace || intentDirty;
   $("save-device").disabled = !workspace || intentDirty;
@@ -162,11 +173,13 @@ function setMenu(open) {
   $("sidebar").inert = mobile.matches && !open;
 }
 function showView(view, updateHash = true) {
-  currentView = Object.hasOwn(viewNames, view) ? view : "overview";
-  if (creating && currentView !== "workspace") currentView = "overview";
+  currentView = Object.hasOwn(viewNames, view) ? view : "server";
+  if (creating && !["workspace", "server"].includes(currentView)) currentView = "overview";
   if (reviewContext) closeReview(false);
+  if (live.review) closeServerReview(false);
   render(); setMenu(false);
   if (updateHash) history.replaceState(null, "", `#${currentView}`);
+  if (currentView === "server" && !live.attempted && !live.busy) void refreshServerSession();
 }
 function openReview(operationId, mode, trigger) {
   if (!workspace || (mode !== "inspect" && !canUseIntent())) return;
@@ -261,6 +274,242 @@ async function importWorkspace(file) {
   finally { if (sequence === importSequence) $("import-file").value = ""; }
 }
 
+function serverError(cause) {
+  const messages = {
+    backend_unconfigured: "Hosted workspace setup is still pending. The local preview remains available.",
+    database_unconfigured: "Hosted workspace setup is still pending. The local preview remains available.",
+    mail_unavailable: "Public account email delivery is not available yet. Existing confirmed accounts can still sign in.",
+    unauthenticated: "Sign in again to continue. Your local preview is unchanged.",
+    email_unconfirmed: "Confirm your email before using the server workspace.",
+    fresh_auth_required: "Sign in again before reviewing this sensitive operation.",
+    request_integrity: "Refresh your sign-in session before trying this action again.",
+    csrf_invalid: "Refresh your sign-in session before trying this action again.",
+    session_required: "Check sign-in to refresh this page's request protection.",
+    not_found: "This organization or record is unavailable to your current account. Refresh your organizations.",
+    forbidden: "Your current organization role does not allow this action.",
+    revision_conflict: "The server record changed. Refresh it before submitting again; your form edits are retained.",
+    generation_conflict: "The target generation changed. Refresh the server record and review the new target.",
+    plan_conflict: "The reviewed plan changed. Refresh the server ledger before making another decision.",
+    domain_conflict: "The proposal or setup changed. Refresh the server record and review its current state.",
+    domain_input_invalid: "Check the purpose and setup choices. Your form edits have been retained.",
+    invalid_response: "The account service returned an unsupported response. No successful change is claimed.",
+    network_unavailable: "The account service could not be reached. The local preview remains available.",
+    request_timeout: "The account service did not respond in time. Check the server record before repeating a change.",
+  };
+  live.error = messages[cause?.code] || "The server could not complete this action. Check sign-in or refresh the record before trying again.";
+  if (cause?.status === 401) { live.session = null; live.record = null; live.connected = false; }
+  renderServer(); if (currentView === "server") $("server-error").focus();
+}
+function assertExecution(value) {
+  if (!value || value.adapter !== "unbound" || value.dispatchAllowed !== false || value.chatAdmissionAllowed !== false || value.ready !== false || value.readiness !== "unproven") throw new ServerRequestError("invalid_response");
+}
+function organizationList(value) {
+  if (!Array.isArray(value) || value.length > 1000 || new Set(value.map(item => item?.id)).size !== value.length) throw new ServerRequestError("invalid_response");
+  for (const item of value) if (!item || !/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/.test(item.id) || typeof item.name !== "string" || !item.name || !["owner", "administrator", "member", "viewer"].includes(item.role) || !Number.isSafeInteger(item.serverRevision) || item.serverRevision < 0) throw new ServerRequestError("invalid_response");
+  return value;
+}
+function acceptServerSession(value) {
+  assertExecution(value.execution);
+  const organizations = organizationList(value.organizations), nextIdentity = value.user?.id ?? null;
+  if (nextIdentity && nextIdentity !== live.identityId) {
+    live.epoch++; live.record = null; live.orgId = null; live.intentDirty = false; live.createDirty = false; live.pending = null;
+    $("server-create-form").reset();
+  }
+  if (nextIdentity) live.identityId = nextIdentity;
+  live.session = value; live.organizations = organizations; live.connected = true;
+  if (!value.authenticated) { live.record = null; return; }
+  if (!organizations.some(item => item.id === live.orgId)) { live.orgId = organizations[0]?.id ?? null; live.record = null; live.intentDirty = false; }
+}
+function acceptServerRecord(value, expectedOrg = live.orgId, fill = false) {
+  assertExecution(value.execution);
+  const canonical = normalizeWorkspace(value.workspace);
+  if (expectedOrg && canonical.organization.id !== expectedOrg || !Number.isSafeInteger(value.serverRevision) || value.serverRevision < canonical.revision || value.organizationState !== "active"
+    || !["owner", "administrator", "member", "viewer"].includes(value.role) || !Array.isArray(value.capabilities) || value.capabilities.some(item => typeof item !== "string")
+    || !Array.isArray(value.operationPreviews) || value.operationPreviews.length !== canonical.operations.length) throw new ServerRequestError("invalid_response");
+  const previews = new Map(value.operationPreviews.map(item => [item.operationId, item]));
+  if (previews.size !== canonical.operations.length || canonical.operations.some(item => !previews.has(item.id) || previews.get(item.id).kind !== item.kind || previews.get(item.id).state !== item.state || !/^[a-f0-9]{64}$/.test(previews.get(item.id).planHash))) throw new ServerRequestError("invalid_response");
+  live.record = Object.freeze({ ...value, workspace: canonical }); live.orgId = canonical.organization.id;
+  const entry = { id: canonical.organization.id, name: canonical.organization.name, role: value.role, serverRevision: value.serverRevision };
+  live.organizations = live.organizations.some(item => item.id === entry.id) ? live.organizations.map(item => item.id === entry.id ? entry : item) : [...live.organizations, entry];
+  if (fill || !live.intentDirty) fillServerIntent();
+}
+function fillServerIntent() {
+  const intent = live.record?.workspace.instance.desiredSetup ?? defaultIntent;
+  for (const field of Object.keys(fieldNames)) $(`server-intent-${field}`).value = intent[field];
+  live.intentDirty = false;
+}
+function serverCapability(capability, kind = null) {
+  if (!live.record?.capabilities.includes(capability)) return false;
+  return !kind || live.record.role === "owner" || live.record.role === "administrator" && ["configure", "pause", "resume"].includes(kind);
+}
+function setupServerFields() {
+  for (const field of Object.keys(fieldNames)) {
+    const row = node("div", "", "form-field"), title = node("label", fieldNames[field]); title.htmlFor = `server-intent-${field}`;
+    const control = node(field === "purpose" ? "input" : "select"); control.id = `server-intent-${field}`; control.name = field;
+    if (field === "purpose") { control.type = "text"; control.maxLength = 280; }
+    else for (const [value, text] of choices[field]) { const option = node("option", text); option.value = value; control.append(option); }
+    row.append(title, control); $("server-configuration-fields").append(row);
+  }
+  fillServerIntent();
+}
+function renderServer() {
+  const authenticated = live.session?.authenticated === true, locked = live.busy || Boolean(live.pending);
+  $("server-connection-status").textContent = live.busy ? "Contacting server" : authenticated ? "Signed in" : live.connected ? "Account service available" : live.attempted ? "Service unavailable" : "Checking connection";
+  $("server-error").textContent = live.error; $("server-error").hidden = !live.error;
+  $("server-message").textContent = live.message;
+  $("server-loading").hidden = !live.busy;
+  $("server-loading").textContent = live.pending ? "Waiting for the server acknowledgment…" : "Checking the account service…";
+  $("server-auth-panel").hidden = !live.session || authenticated;
+  $("server-authenticated").hidden = !authenticated;
+  $("server-recovery-panel").hidden = !authenticated || !live.recovery;
+  $("server-logout").hidden = !authenticated;
+  $("server-user").textContent = authenticated ? `Signed in as ${live.session.user.email}` : "";
+  $("server-refresh-session").disabled = live.busy; $("server-logout").disabled = live.busy;
+  for (const control of $("server-auth-form").querySelectorAll("input,button")) control.disabled = live.busy;
+  $("server-new-password").disabled = live.busy; $("server-password-submit").disabled = live.busy;
+  for (const button of document.querySelectorAll("button[data-auth-mode]")) { button.disabled = live.busy; button.setAttribute("aria-pressed", String(button.dataset.authMode === live.authMode)); }
+  $("server-auth-title").textContent = live.authMode === "signup" ? "Create an account." : live.authMode === "recover" ? "Recover access." : "Sign in.";
+  $("server-auth-help").textContent = live.authMode === "login" ? "Use an existing confirmed-email account. Signing in does not automatically join an organization." : "Public confirmation and recovery email require verified delivery. The server reports availability when you submit.";
+  $("server-password-field").hidden = live.authMode === "recover";
+  $("server-password").required = live.authMode !== "recover"; $("server-password").disabled = live.busy || live.authMode === "recover";
+  $("server-password").autocomplete = live.authMode === "signup" ? "new-password" : "current-password";
+  $("server-auth-submit").textContent = live.authMode === "signup" ? "Request account creation" : live.authMode === "recover" ? "Request recovery email" : "Sign in to server";
+  $("server-pending").hidden = !live.pending;
+  $("server-pending-text").textContent = live.pending ? `Keep request ${live.pending.body.operationId || live.pending.body.requestId || live.pending.kind}. Retrying keeps the same identifiers and payload; checking reads the current server record.` : "";
+  $("server-retry").disabled = live.busy;
+  $("server-check-request").disabled = live.busy;
+  const selector = $("server-organization"); selector.replaceChildren();
+  for (const organization of live.organizations) { const option = node("option", organization.name); option.value = organization.id; selector.append(option); }
+  selector.value = live.orgId || ""; selector.disabled = locked || !live.organizations.length;
+  $("server-org-empty").hidden = live.organizations.length > 0;
+  $("server-reload-record").disabled = live.busy || !live.orgId;
+  $("server-create-name").disabled = locked; $("server-create-submit").disabled = locked;
+  if (!live.organizations.length) $("server-create-details").open = true;
+  $("server-record").hidden = !authenticated || !live.record;
+  if (!live.record) return;
+  const record = live.record, value = record.workspace, canEdit = serverCapability("intent:write");
+  $("server-organization-name").textContent = value.organization.name; $("server-role").textContent = record.role;
+  details($("server-record-details"), [["Organization ID", value.organization.id, true], ["Instance ID", value.instance.id, true], ["Generation", value.instance.generation], ["Server revision", record.serverRevision], ["Desired setup revision", value.instance.revision], ["Runtime", "Unconnected; application unverified"]]);
+  $("server-intent-fields").disabled = locked || !canEdit;
+  $("server-save-intent").disabled = locked || !canEdit || !live.intentDirty;
+  $("server-reset-intent").disabled = locked || !live.intentDirty;
+  $("server-intent-state").textContent = !canEdit ? "Your current role can read this setup. Server authorization is checked on every request." : live.intentDirty ? "Unsubmitted form edits are retained in this tab." : "Showing the acknowledged server intent. No runtime application is claimed.";
+  const available = Object.keys(kinds).filter(kind => serverCapability("operation:request", kind));
+  if (available.join() !== live.allowedKinds) {
+    const previous = $("server-operation-kind").value; $("server-operation-kind").replaceChildren();
+    for (const kind of available) { const option = node("option", kinds[kind]); option.value = kind; $("server-operation-kind").append(option); }
+    if (available.includes(previous)) $("server-operation-kind").value = previous;
+    live.allowedKinds = available.join();
+  }
+  $("server-operation-kind").disabled = locked || !available.length || live.intentDirty;
+  $("server-request-operation").disabled = locked || !available.length || live.intentDirty || value.operations.length >= limits.operations;
+  $("server-operation-target").textContent = `${value.organization.name} · generation ${value.instance.generation} · server revision ${record.serverRevision}`;
+  $("server-operation-help").textContent = !available.length ? "Your current role does not allow lifecycle decisions." : live.intentDirty ? "Save or discard the setup form edits first." : "Provision and delete require a recent sign-in. All commands remain unbound.";
+  renderServerOperations();
+}
+function renderServerOperations() {
+  const list = $("server-operation-list"); list.replaceChildren();
+  if (!live.record.workspace.operations.length) { const empty = node("div", "", "empty-ledger"); empty.append(node("strong", "No server proposals yet."), node("p", "Prepare a proposal for the current organization revision.")); list.append(empty); return; }
+  const statusNames = { requested: "Awaiting review", reviewed: "Reviewed", confirmed: "Confirmed · execution unbound", rejected: "Rejected", cancelled: "Cancelled", superseded: "Superseded" };
+  for (const operation of [...live.record.workspace.operations].reverse()) {
+    const entry = node("article", "", "operation-entry"), copy = node("div");
+    copy.append(node("h4", kinds[operation.kind]), node("p", operation.plan.desiredSetup.purpose || "No purpose recorded in this plan."));
+    const meta = node("div", "", "operation-meta"); meta.append(node("span", formatTime(operation.createdAt)), node("span", operation.id)); copy.append(meta);
+    entry.append(copy, node("span", statusNames[operation.state], "pill neutral"));
+    const actions = node("div", "", "operation-actions"), add = (action, text) => { const button = node("button", text, "text-button"); button.type = "button"; button.dataset.serverOperation = operation.id; button.dataset.serverAction = action; button.disabled = live.busy || Boolean(live.pending); actions.append(button); };
+    add("inspect", "Inspect server plan");
+    if (!live.intentDirty && operation.state === "requested" && serverCapability("operation:review", operation.kind)) { add("review", "Review proposal"); add("reject", "Reject proposal"); }
+    if (!live.intentDirty && operation.state === "reviewed" && serverCapability("operation:confirm", operation.kind)) add("confirm", "Confirm proposal");
+    if (!live.intentDirty && ["requested", "reviewed", "confirmed"].includes(operation.state) && serverCapability("operation:cancel", operation.kind)) add("cancel", "Cancel proposal");
+    entry.append(actions); list.append(entry);
+  }
+}
+async function readSelectedServerRecord(sequence = live.read, epoch = live.epoch) {
+  const orgId = live.orgId; if (!orgId) return;
+  const result = await serverClient.workspace(orgId, { signal: live.controller?.signal });
+  if (sequence !== live.read || epoch !== live.epoch || orgId !== live.orgId) return;
+  acceptServerRecord(result); reconcileServerPending();
+}
+async function refreshServerSession() {
+  if (live.busy) return;
+  live.attempted = true; live.busy = true; live.error = "";
+  const sequence = ++live.read, epoch = live.epoch; live.controller?.abort(); live.controller = new AbortController(); renderServer();
+  try {
+    const result = await serverClient.session({ signal: live.controller.signal });
+    if (sequence !== live.read || epoch !== live.epoch) return;
+    acceptServerSession(result);
+    if (result.authenticated) await readSelectedServerRecord(sequence, live.epoch);
+  } catch (cause) { if (sequence === live.read) serverError(cause); }
+  finally { if (sequence === live.read) { live.busy = false; renderServer(); } }
+}
+async function refreshServerRecord() {
+  if (live.busy || !live.session?.authenticated) return;
+  live.busy = true; live.error = "";
+  const sequence = ++live.read, epoch = live.epoch; live.controller?.abort(); live.controller = new AbortController(); renderServer();
+  try {
+    if (live.orgId) await readSelectedServerRecord(sequence, epoch);
+    else { const result = await serverClient.organizations({ signal: live.controller.signal }); if (sequence === live.read && epoch === live.epoch) live.organizations = organizationList(result.organizations); }
+    if (sequence === live.read && epoch === live.epoch && !live.pending) live.message = live.intentDirty ? "Server record refreshed. Your form edits were retained." : "Current server record loaded.";
+  } catch (cause) { if (sequence === live.read && epoch === live.epoch) serverError(cause); }
+  finally { if (sequence === live.read) { live.busy = false; renderServer(); } }
+}
+function serverTarget(extra = {}) {
+  const record = live.record;
+  return { orgId: record.workspace.organization.id, instanceId: record.workspace.instance.id, expectedRevision: record.serverRevision, expectedGeneration: record.workspace.instance.generation, ...extra };
+}
+function reconcileServerPending() {
+  const pending = live.pending, record = live.record;
+  if (!pending || pending.kind === "bootstrap" || !record || pending.body.orgId !== record.workspace.organization.id || pending.body.instanceId !== record.workspace.instance.id || pending.body.expectedGeneration !== record.workspace.instance.generation) return;
+  const operation = record.workspace.operations.find(item => item.id === pending.body.operationId), preview = record.operationPreviews.find(item => item.operationId === pending.body.operationId);
+  const samePlan = preview?.planHash === pending.body.planHash;
+  const observed = pending.kind === "intent" ? JSON.stringify(record.workspace.instance.desiredSetup) === JSON.stringify(pending.body.intent)
+    : pending.action === "request" ? operation?.actorId === pending.userId && operation.kind === pending.body.kind && operation.plan.instanceRevision === pending.instanceRevision && JSON.stringify(operation.plan.desiredSetup) === JSON.stringify(pending.intent)
+    : samePlan && (pending.action === "review" ? operation?.review?.actorId === pending.userId && operation.review.decision === pending.body.decision : pending.action === "confirm" ? operation?.confirmation?.actorId === pending.userId : operation?.cancellation?.actorId === pending.userId);
+  if (observed || record.serverRevision > pending.body.expectedRevision) {
+    live.pending = null;
+    live.message = observed ? "The current server record contains the requested values or decision. No runtime execution is claimed." : "The server revision advanced. The earlier request outcome remains unconfirmed; review the current record before submitting another change.";
+    if (pending.kind === "intent" && observed) fillServerIntent();
+  }
+}
+async function sendServerPending() {
+  const pending = live.pending; if (!pending || live.busy || live.session?.user?.id !== pending.userId) return;
+  const epoch = live.epoch; live.busy = true; live.error = ""; renderServer();
+  let responseReceived = false;
+  try {
+    const result = pending.kind === "bootstrap" ? await serverClient.bootstrap(pending.body) : pending.kind === "intent" ? await serverClient.intent(pending.body.orgId, pending.body) : await serverClient.operation(pending.body.orgId, pending.body.operationId, pending.action, pending.body);
+    responseReceived = true;
+    if (epoch !== live.epoch || live.session?.user?.id !== pending.userId) return;
+    acceptServerRecord(result, pending.kind === "bootstrap" ? null : pending.body.orgId, pending.kind !== "operation");
+    live.pending = null; live.message = result.replayed ? "The existing server record was recovered without creating another decision." : "Server record acknowledged. Runtime, chat and connectors remain unconnected.";
+    if (pending.kind === "bootstrap") { live.createDirty = false; $("server-create-form").reset(); $("server-create-details").open = false; }
+  } catch (cause) {
+    if (epoch !== live.epoch) return;
+    if (!cause?.uncertain && !responseReceived) live.pending = null;
+    serverError(responseReceived ? new ServerRequestError("invalid_response", 0, true) : cause);
+  } finally { if (epoch === live.epoch) { live.busy = false; renderServer(); } }
+}
+function prepareServerMutation(kind, body, action = null) {
+  if (live.busy || live.pending || !live.session?.authenticated) return;
+  live.pending = Object.freeze({ kind, action, body: structuredClone(body), userId: live.session.user.id, instanceRevision: live.record?.workspace.instance.revision, intent: live.record?.workspace.instance.desiredSetup });
+  void sendServerPending();
+}
+function openServerReview(operationId, mode, trigger) {
+  if (!live.record || live.busy || live.pending || mode !== "inspect" && live.intentDirty) return;
+  const operation = live.record.workspace.operations.find(item => item.id === operationId), preview = live.record.operationPreviews.find(item => item.operationId === operationId);
+  if (!operation || !preview) return;
+  live.review = { operationId, mode, planHash: preview.planHash, epoch: live.epoch, serverRevision: live.record.serverRevision, orgId: live.orgId, trigger };
+  $("server-review-title").textContent = mode === "inspect" ? "Server operation record." : mode === "confirm" ? "Confirm the server proposal." : mode === "cancel" ? "Cancel the server proposal." : mode === "reject" ? "Reject the server proposal." : "Review the server proposal.";
+  details($("server-review-details"), [["Organization", live.record.workspace.organization.name], ["Organization ID", operation.orgId, true], ["Instance ID", operation.instanceId, true], ["Operation ID", operation.id, true], ["Generation", operation.generation], ["Server revision", live.record.serverRevision], ["Plan hash", preview.planHash, true]]);
+  $("server-review-plan").textContent = JSON.stringify({ kind: operation.kind, state: operation.state, plan: operation.plan }, null, 2);
+  $("server-review-form").hidden = mode === "inspect"; $("server-review-ack").checked = false;
+  $("server-submit-review").textContent = mode === "confirm" ? "Confirm proposal" : mode === "cancel" ? "Cancel proposal" : mode === "reject" ? "Record rejection" : "Record review";
+  $("server-review-dialog").showModal();
+}
+function closeServerReview(returnFocus = true) {
+  const trigger = live.review?.trigger; live.review = null; $("server-review-dialog").close();
+  if (returnFocus) { if (trigger?.isConnected) trigger.focus(); else $("main").focus(); }
+}
+
 $("create-form").addEventListener("input", () => { createDirty = true; });
 $("create-form").addEventListener("submit", event => {
   event.preventDefault();
@@ -316,6 +565,95 @@ $("review-form").addEventListener("submit", event => {
 });
 for (const name of ["close-review", "cancel-review"]) $(name).addEventListener("click", () => closeReview());
 $("review-dialog").addEventListener("cancel", event => { event.preventDefault(); closeReview(); });
+for (const button of document.querySelectorAll("button[data-auth-mode]")) button.addEventListener("click", () => {
+  if (live.busy) return; live.authMode = button.dataset.authMode; $("server-password").value = ""; live.error = ""; live.message = ""; renderServer();
+});
+$("server-auth-form").addEventListener("submit", async event => {
+  event.preventDefault(); if (live.busy || !live.session) return;
+  const mode = live.authMode, body = mode === "recover" ? { email: $("server-email").value } : { email: $("server-email").value, password: $("server-password").value };
+  $("server-password").value = ""; live.busy = true; live.error = ""; live.message = ""; renderServer();
+  const epoch = live.epoch;
+  try {
+    const result = await serverClient[mode](body);
+    if (epoch !== live.epoch) return;
+    if (mode === "login") {
+      acceptServerSession(result); acceptServerSession(await serverClient.session());
+      await readSelectedServerRecord(live.read, live.epoch); live.message = "Signed in. Organization access comes from current server membership.";
+    } else {
+      if (result.accepted !== true || result.delivery !== "unverified") throw new ServerRequestError("invalid_response");
+      live.message = "Request accepted. If eligible, use the email link in this browser. Delivery remains unverified.";
+    }
+  } catch (cause) { serverError(cause); }
+  finally { live.busy = false; renderServer(); }
+});
+$("server-password-form").addEventListener("submit", async event => {
+  event.preventDefault(); if (live.busy || !live.session?.authenticated || !live.recovery) return;
+  const body = { password: $("server-new-password").value }; $("server-new-password").value = "";
+  live.busy = true; live.error = ""; renderServer();
+  try {
+    acceptServerSession(await serverClient.password(body)); acceptServerSession(await serverClient.session());
+    live.recovery = false; history.replaceState(null, "", "#server");
+    await readSelectedServerRecord(live.read, live.epoch); live.message = "Password update acknowledged. The account session was refreshed.";
+  } catch (cause) { serverError(cause); }
+  finally { live.busy = false; renderServer(); }
+});
+$("server-logout").addEventListener("click", async () => {
+  if (live.busy) return;
+  if ((live.intentDirty || live.createDirty || live.pending) && !window.confirm("Sign out and discard this tab's server form drafts? An unconfirmed request may still finish on the server; keep its identifier before leaving.")) return;
+  live.epoch++; live.read++; live.controller?.abort(); closeServerReview(false);
+  live.record = null; live.session = null; live.identityId = null; live.orgId = null; live.organizations = []; live.pending = null; live.intentDirty = false; live.createDirty = false;
+  $("server-create-form").reset(); $("server-auth-form").reset(); fillServerIntent();
+  live.busy = true; live.error = ""; live.message = "Confirming sign-out…"; renderServer();
+  try {
+    const result = await serverClient.logout(); acceptServerSession(result); acceptServerSession(await serverClient.session());
+    live.message = result.providerSignout === "confirmed" ? "Signed out of Business Claw and the current provider session." : "Signed out of Business Claw. Provider-session sign-out was not verified.";
+  } catch (cause) { live.message = "Sign-out could not be confirmed. Check sign-in before assuming the session ended."; serverError(cause); }
+  finally { live.busy = false; renderServer(); }
+});
+$("server-refresh-session").addEventListener("click", () => void refreshServerSession());
+$("server-reload-record").addEventListener("click", () => void refreshServerRecord());
+$("server-check-request").addEventListener("click", () => void refreshServerRecord());
+$("server-retry").addEventListener("click", () => void sendServerPending());
+$("server-organization").addEventListener("change", event => {
+  if (live.busy || live.pending) { event.target.value = live.orgId || ""; return; }
+  if (live.intentDirty && !window.confirm("Discard the current organization's unsubmitted setup form and open another organization?")) { event.target.value = live.orgId || ""; return; }
+  live.epoch++; live.orgId = event.target.value; live.record = null; live.intentDirty = false; live.error = ""; live.message = "";
+  void refreshServerRecord();
+});
+$("server-create-form").addEventListener("input", () => { live.createDirty = true; });
+$("server-create-form").addEventListener("submit", event => {
+  event.preventDefault(); if (live.intentDirty) { live.error = "Save or discard the current setup form before creating another organization."; renderServer(); return; }
+  prepareServerMutation("bootstrap", { requestId: id(), name: $("server-create-name").value });
+});
+$("server-intent-form").addEventListener("input", () => { live.intentDirty = true; live.error = ""; renderServer(); });
+$("server-intent-form").addEventListener("submit", event => {
+  event.preventDefault(); if (!live.record || !serverCapability("intent:write")) return;
+  const intent = Object.fromEntries(Object.keys(fieldNames).map(field => [field, $(`server-intent-${field}`).value]));
+  prepareServerMutation("intent", serverTarget({ intent }));
+});
+$("server-reset-intent").addEventListener("click", () => {
+  if (!live.intentDirty || window.confirm("Discard this unsubmitted server setup form and restore the last loaded record?")) { fillServerIntent(); renderServer(); }
+});
+$("server-operation-form").addEventListener("submit", event => {
+  event.preventDefault(); const kind = $("server-operation-kind").value;
+  if (!live.record || live.intentDirty || !serverCapability("operation:request", kind)) return;
+  prepareServerMutation("operation", serverTarget({ operationId: id(), kind }), "request");
+});
+$("server-operation-list").addEventListener("click", event => {
+  const button = event.target instanceof Element ? event.target.closest("button[data-server-operation]") : null;
+  if (button) openServerReview(button.dataset.serverOperation, button.dataset.serverAction, button);
+});
+$("server-review-form").addEventListener("submit", event => {
+  event.preventDefault(); const context = live.review;
+  if (!context || !live.record || !$("server-review-ack").checked || live.busy || live.pending) return;
+  if (context.epoch !== live.epoch || context.orgId !== live.orgId || context.serverRevision !== live.record.serverRevision || live.intentDirty) { closeServerReview(false); live.error = "The server view changed. Refresh and review the current proposal."; renderServer(); return; }
+  const action = ["review", "reject"].includes(context.mode) ? "review" : context.mode;
+  if (!["review", "confirm", "cancel"].includes(action)) return;
+  const body = serverTarget({ operationId: context.operationId, planHash: context.planHash, ...(action === "review" ? { decision: context.mode === "reject" ? "rejected" : "reviewed" } : {}) });
+  closeServerReview(false); prepareServerMutation("operation", body, action);
+});
+for (const name of ["server-close-review", "server-cancel-review"]) $(name).addEventListener("click", () => closeServerReview());
+$("server-review-dialog").addEventListener("cancel", event => { event.preventDefault(); closeServerReview(); });
 $("menu-toggle").addEventListener("click", () => { setMenu(!menuOpen); if (menuOpen) $("primary-nav").querySelector("a[aria-current]").focus(); });
 document.addEventListener("keydown", event => { if (event.key === "Escape" && menuOpen) { setMenu(false); $("menu-toggle").focus(); } });
 document.addEventListener("click", event => {
@@ -330,9 +668,9 @@ $("load-device").addEventListener("click", loadDevice);
 $("clear-device").addEventListener("click", clearDevice);
 $("export-workspace").addEventListener("click", exportWorkspace);
 mobile.addEventListener("change", () => setMenu(false));
-window.addEventListener("hashchange", () => { const view = location.hash.slice(1); if (Object.hasOwn(viewNames, view)) showView(view, false); });
-window.addEventListener("beforeunload", event => { if (workspaceDirty || intentDirty || createDirty) { event.preventDefault(); event.returnValue = ""; } });
+window.addEventListener("hashchange", () => { const view = location.hash.slice(1); if (view === "server-recovery") { live.recovery = true; showView("server", false); } else if (Object.hasOwn(viewNames, view)) showView(view, false); });
+window.addEventListener("beforeunload", event => { if (workspaceDirty || intentDirty || createDirty || live.intentDirty || live.createDirty || live.pending) { event.preventDefault(); event.returnValue = ""; } });
 window.addEventListener("storage", event => { if (event.key === STORAGE_KEY) { storageChanged = true; render(); notice("The saved copy changed in another tab. This tab's workspace and form edits were kept."); } });
-window.addEventListener("pagehide", () => { for (const url of downloads) URL.revokeObjectURL(url); downloads.clear(); });
+window.addEventListener("pagehide", () => { live.controller?.abort(); for (const url of downloads) URL.revokeObjectURL(url); downloads.clear(); });
 
-setupFields(); fillIntent(); inspectDevice(); showView(location.hash.slice(1), false); setMenu(false);
+setupFields(); setupServerFields(); fillIntent(); inspectDevice(); live.recovery = location.hash === "#server-recovery"; showView(live.recovery ? "server" : location.hash.slice(1), false); setMenu(false);

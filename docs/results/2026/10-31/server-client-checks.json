@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "business-claw.server-client-checks.v1",
+  "date": "2026-10-31",
+  "scope": "Focused same-origin browser client checks using only an injected authored fake fetch transport.",
+  "status": "passed",
+  "runtime": {
+    "node": "v26.8.2"
+  },
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-timeout=2000",
+    "tests/server-client.test.mjs"
+  ],
+  "controller": {
+    "deadlineSeconds": 20,
+    "terminationGraceSeconds": 2,
+    "childCloseSeconds": 3,
+    "stdoutLimitBytes": 262144,
+    "stderrLimitBytes": 65536
+  },
+  "exitCode": 0,
+  "stop": null,
+  "durationSeconds": 0.241,
+  "outputBytes": {
+    "stdout": 3203,
+    "stderr": 0
+  },
+  "totals": {
+    "tests": 12,
+    "suites": 0,
+    "pass": 12,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "inputsUnchanged": true,
+  "inputs": {
+    "web/server-client.mjs": {
+      "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe",
+      "bytes": 6075,
+      "mode": "0o644"
+    },
+    "web/app.mjs": {
+      "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672",
+      "bytes": 58579,
+      "mode": "0o644"
+    },
+    "web/index.html": {
+      "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568",
+      "bytes": 20391,
+      "mode": "0o644"
+    },
+    "web/styles.css": {
+      "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7",
+      "bytes": 24304,
+      "mode": "0o644"
+    },
+    "docs/live-dashboard.md": {
+      "sha256": "5bf076aef4d0775c08dfd598bc2f57c9272d053b08e41dfb5b60824391ac3c17",
+      "bytes": 2991,
+      "mode": "0o644"
+    },
+    "tests/server-client.test.mjs": {
+      "sha256": "5b2e50fe61a3b87040a7f3e7001683b63127599956538421da58809c6b7f3133",
+      "bytes": 11840,
+      "mode": "0o644"
+    }
+  },
+  "caseNames": [
+    "construction performs no request and BFF calls retain same-origin credentials and session CSRF",
+    "login logout and password responses rotate only the in-memory CSRF used by later requests",
+    "a session read started before login cannot replace the newer authentication CSRF",
+    "expired-session and request-integrity errors require a fresh session before another mutation",
+    "failed mutations are never retried automatically and an explicit retry preserves caller request identity",
+    "a finite timeout aborts the fake transport and preserves uncertainty for an already dispatched write",
+    "caller cancellation before dispatch is distinct from an interrupted in-flight write",
+    "foreign-shaped targets unsupported actions and invalid local payloads never reach a transport",
+    "malformed UTF-8 JSON and non-record replies fail visibly and a malformed write acknowledgment stays uncertain",
+    "declared and streamed oversized replies are bounded without accepting partial JSON",
+    "redirect refusal missing responders and fixed server errors do not expose transport or provider details",
+    "malformed authentication envelopes clear cached CSRF until another valid session is read"
+  ],
+  "limits": [
+    "No browser, server, database, provider, real identity or network request was used.",
+    "This verifies client behavior with authored responses; it does not prove live Auth, email delivery, PostgreSQL integration, hosted configuration, responsive rendering or runtime execution.",
+    "An earlier invocation's output was not retained after tool-output truncation; only this captured run supports the stated outcome."
+  ]
+}

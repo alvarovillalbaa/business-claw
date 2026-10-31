@@ -1,9 +1,9 @@
 # Approved server policy source and verification
 
-31 October 2026. Source and 32 authored fake-port cases are prepared for exact
-immutable publication and execution under the owner's “I approve everything”.
-**The 32 policy cases have not run yet.** This receipt will retain the actual
-source, controller output and outcomes after execution; preparation is not a pass.
+31 October 2026. Executed under the owner's “I approve everything” at exact
+published source **`11a705117458579c5124dd934ab3c48c6d19056a`**.
+**32/32 policy cases passed on the first run**, with zero failures,
+cancellations, skips, TODOs or suites. The full hosted product remains unfinished.
 
 ## Implemented source
 
@@ -35,6 +35,34 @@ publication. Syntax/import/JSON/link/whitespace inspection is separate from
 executing those cases. Existing14-domain/18-runtime receipts remain pinned to
 their actual sources and already passed. Browser approval is retained; the
 supported transport is unavailable and its separate receipt records attempts.
+
+The [machine result](server-policy-checks.json) retains all32 actual names,
+TAP totals, controller result and seven input/seal fingerprints. Existing
+Node26.8.2 ran the dedicated controller once. Child and controller exited0;
+stderr was empty, with no timeout, signal, interruption or output-cap stop.
+Both exact-source guards passed against all40 sealed non-results inputs.
+Child stdout was8,471 bytes. No fixture file or environment was installed.
+
+The14-domain cases at original1b5dcc8 and18-runtime cases at3b39c2b passed
+separately: **64 passing cases across three pinned scopes**, not one combined
+suite or live service proof. The original14 run's nonfatal macOS Git warnings
+are retained in its separate receipt; no retry hid them.
+
+## Publication and static host
+
+The source tree `ffbede7501bb3a6555cd73d84cee473fa4626152` contains56 leaves;
+the complete40-input source seal accounts for374,620 bytes. Source publication
+used a leased GitHub main fast-forward from3b39c2b, preserving earlier sources.
+
+Exact Vercel production **`dpl_8oomdvHGiWy8tVgDDB22ycUSpSc4`** is READY at
+source11a7051 and [the canonical alias](https://business-claw-alvaro.vercel.app).
+Hosted Node26.13.0 static validation reported **7 modules, 8 relative imports,
+2 builtin imports and68 HTML IDs**, with zero product imports/tests. No API
+route or live Auth/store binding was deployed by that static build.
+
+This receipt/result-only follow-up changes no sealed source input. Any final
+results-only main/deployment still needs its own exact readback; this source
+deployment does not silently prove a different head.
 
 ## Live activation remains open
 

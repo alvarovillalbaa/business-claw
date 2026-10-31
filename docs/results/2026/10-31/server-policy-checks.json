@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "business-claw.server-policy-checks.v1",
+  "approval": "Owner: I approve everything",
+  "source": "11a705117458579c5124dd934ab3c48c6d19056a",
+  "recordedAt": "2026-10-31T17:46:39.604Z",
+  "node": "v26.8.2",
+  "cases": [
+    "missing trusted ports fail closed and exposed capability ceilings never admit chat or dispatch",
+    "admission requires a confirmed trusted principal rather than caller identity fields",
+    "application sessions must match the verified handle subject and provider session independently",
+    "revoked expired future-authenticated and overlong application sessions deny admission",
+    "mutation integrity is checked with the verified handle while admitted reads remain available",
+    "active organization and current membership rows are re-read after revocation and role changes",
+    "the role and operation-kind matrix denies member viewer and administrator retirement paths",
+    "foreign organization instance and operation identifiers return no cross-organization workspace",
+    "provision and delete require Owner authentication within five minutes including the exact boundary",
+    "bootstrap generates authoritative organization instance and Owner actor records in one audit",
+    "stable bootstrap retries recover only the same principal request and name without another audit",
+    "bootstrap replay cannot restore a revoked first Owner membership",
+    "request self-review and separate confirmation retain one immutable plan hash across current CAS values",
+    "stale server revisions generations and changed review hashes cannot mutate a current plan",
+    "exact operation and terminal retries require current CAS and do not create duplicate audit records",
+    "intent changes supersede active reviewed plans and identical intent saves add no audit",
+    "CAS refusal and audit failure roll back the domain mutation and its server revision together",
+    "independent serialized transactions permit one concurrent CAS winner and retain exactly one mutation audit",
+    "public records and submitted audits are frozen detached data with server-only actor and minimal metadata",
+    "strict caller records reject authority extras prototypes accessors and malformed targets without getter reads",
+    "invitation plaintext appears only in its first private unbound delivery envelope and never the store or audit",
+    "only a current Owner may invite or alter membership and no direct path can grant Owner",
+    "invite acceptance binds the exact token and confirmed recipient email before any membership write",
+    "expired revoked and inactive-issuer invitations cannot admit a recipient",
+    "a matching invite creates only its specified organization role and returns an idempotent acknowledgment",
+    "accepted token replay cannot restore revocation and re-admission needs a strictly newer invite",
+    "invite acceptance cannot overwrite an active role and explicit role changes or revocation affect the next request",
+    "the last active Owner cannot be demoted or revoked while removing an additional Owner is permitted",
+    "Owner transfer changes both roles only on exact recipient acceptance and replay adds no audit",
+    "Owner transfer rechecks recipient issuer role issuer session and five-minute authentication freshness",
+    "membership invitation and two-role transfer effects roll back atomically when a later write or audit fails",
+    "membership bodies retain current CAS exact foreign-target fences and acknowledgment-only responses"
+  ],
+  "totals": {
+    "tests": 32,
+    "suites": 0,
+    "pass": 32,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "controller": {
+    "source": "11a705117458579c5124dd934ab3c48c6d19056a",
+    "started": true,
+    "exitCode": 0,
+    "signal": null,
+    "interrupted": null,
+    "timedOut": false,
+    "stop": null,
+    "stdoutBytes": 8471,
+    "stderrBytes": 0,
+    "expectedCount": 32,
+    "totals": {
+      "tests": 32,
+      "suites": 0,
+      "pass": 32,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "sourceGuardPassed": true,
+    "failed": false
+  },
+  "controllerExitCode": 0,
+  "inputs": [
+    {
+      "path": "server/data.mjs",
+      "bytes": 3726,
+      "sha256": "d2dafa19b13509db190f43d8806b9bec0f262ba5d501b77fa6fa25b08453571e"
+    },
+    {
+      "path": "server/access.mjs",
+      "bytes": 3603,
+      "sha256": "f99cfe3a6bf9e41f5e1354fe8438d7e961ba28fc84daad2a218ce73fcff1bf6f"
+    },
+    {
+      "path": "server/policy.mjs",
+      "bytes": 12062,
+      "sha256": "d4de65f8b5b356c8734511ad405c1ea91ed5e63f90eca3e299313c01493df938"
+    },
+    {
+      "path": "server/membership.mjs",
+      "bytes": 16209,
+      "sha256": "b66226561c69c1760f148782f894091b65e36ae711ca5ed3b9bea57c78f3d3db"
+    },
+    {
+      "path": "tests/server-policy.test.mjs",
+      "bytes": 37227,
+      "sha256": "93825db0ca580c2aebbd3d6bfbb8ce014b50685be86fd7f8cc6dc730f8fe14ba"
+    },
+    {
+      "path": "scripts/run-policy-checks.mjs",
+      "bytes": 8488,
+      "sha256": "508803aa0b1aec7d8ca3a14e21557c561062bb61ab45a59f91fe8424e8dd9e7a"
+    },
+    {
+      "path": "docs/results/2026/10-31/server-policy-source.json",
+      "bytes": 16487,
+      "sha256": "ed60f5217e04f56f16285f744c031d261df3b27cfb62b481a0c6e6cdd4aa3714"
+    }
+  ],
+  "limits": [
+    "Independent authored fake ports, not live identity/database/locking/RLS/email proof",
+    "No installation, CI, network, real Auth, SQL, Gateway, provider/model or paid action",
+    "Browser four-scenario acceptance remains unrun due supported connection failure"
+  ]
+}

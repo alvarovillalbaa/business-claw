@@ -1,0 +1,652 @@
+{
+  "schemaVersion": "business-claw.hosted-preview-browser.v1",
+  "sourceCommit": "537c5dc998ad038b5fb7aa10cbab7f3d75e93752",
+  "target": "https://business-claw-alvaro.vercel.app",
+  "node": "v24.22.2",
+  "selection": [
+    "B01",
+    "B02",
+    "B03",
+    "B04"
+  ],
+  "cases": [
+    {
+      "id": "B01",
+      "passed": true,
+      "profile": "1440x1000",
+      "boundary": {
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 20391,
+            "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568"
+          },
+          {
+            "method": "GET",
+            "path": "/styles.css",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 24304,
+            "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7"
+          },
+          {
+            "method": "GET",
+            "path": "/app.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 58579,
+            "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672"
+          },
+          {
+            "method": "GET",
+            "path": "/domain.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 17481,
+            "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+          },
+          {
+            "method": "GET",
+            "path": "/server-client.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 6075,
+            "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe"
+          }
+        ],
+        "violations": [],
+        "pageErrors": [],
+        "consoleErrors": [],
+        "dialogs": [
+          {
+            "type": "confirm",
+            "message": "Cancel the local provision instance proposal 5c8f95d8-0486-4275-98db-bbb996828c76? Its history will be retained. No runtime action is performed.",
+            "expected": true
+          }
+        ],
+        "websockets": 0
+      },
+      "downloads": [
+        {
+          "path": "downloads/B01-cancelled.json",
+          "bytes": 1887,
+          "sha256": "44e936e975a34617c7e50f8b6cc1b6e8b5c2a14ccc43c87511e543fac06b5eee",
+          "suggestedFilename": "bc-browser-review-2026-11-11-workspace.json"
+        }
+      ],
+      "stages": [
+        "six_intent_fields_revision2",
+        "exact_review_and_confirmation",
+        "unbound_command_identity",
+        "actual_cancel_history_revision6"
+      ],
+      "cleanup": {
+        "contextClosed": true,
+        "pagesClosed": true,
+        "networkDrained": true
+      },
+      "target": {
+        "organization": "7497da31-70e3-4403-8273-4accbac026f5",
+        "instance": "25cb7303-c7fd-43cb-b984-0f9b6622bb76",
+        "operation": "5c8f95d8-0486-4275-98db-bbb996828c76",
+        "generation": 1,
+        "workspaceRevision": 6
+      },
+      "screenshot": "B01.png"
+    },
+    {
+      "id": "B02",
+      "passed": true,
+      "profile": "390x844_mouse_keyboard",
+      "boundary": {
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 20391,
+            "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568"
+          },
+          {
+            "method": "GET",
+            "path": "/styles.css",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 24304,
+            "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7"
+          },
+          {
+            "method": "GET",
+            "path": "/app.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 58579,
+            "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672"
+          },
+          {
+            "method": "GET",
+            "path": "/domain.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 17481,
+            "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+          },
+          {
+            "method": "GET",
+            "path": "/server-client.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 6075,
+            "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe"
+          }
+        ],
+        "violations": [],
+        "pageErrors": [],
+        "consoleErrors": [],
+        "dialogs": [],
+        "websockets": 0
+      },
+      "downloads": [],
+      "stages": [
+        "keyboard_navigation",
+        "dialog_focus_escape_restore",
+        "unapplied_draft_retained",
+        "superseded_plan_unconfirmable",
+        "no_horizontal_overflow"
+      ],
+      "cleanup": {
+        "contextClosed": true,
+        "pagesClosed": true,
+        "networkDrained": true
+      },
+      "screenshot": "B02.png"
+    },
+    {
+      "id": "B03",
+      "passed": true,
+      "profile": "1440x1000",
+      "boundary": {
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 20391,
+            "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568"
+          },
+          {
+            "method": "GET",
+            "path": "/styles.css",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 24304,
+            "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7"
+          },
+          {
+            "method": "GET",
+            "path": "/app.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 58579,
+            "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672"
+          },
+          {
+            "method": "GET",
+            "path": "/domain.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 17481,
+            "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+          },
+          {
+            "method": "GET",
+            "path": "/server-client.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 6075,
+            "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe"
+          }
+        ],
+        "violations": [],
+        "pageErrors": [],
+        "consoleErrors": [],
+        "dialogs": [
+          {
+            "type": "confirm",
+            "message": "Replace this tab's workspace and form edits? Save or export the current workspace first if you want to keep it.",
+            "expected": true
+          }
+        ],
+        "websockets": 0
+      },
+      "downloads": [
+        {
+          "path": "downloads/B03-roundtrip.json",
+          "bytes": 697,
+          "sha256": "800c0258d95201d222325d5f8b2c31a46f39e2db1c7c8000cd4e075329a0e84c",
+          "suggestedFilename": "authored-workspace-workspace.json"
+        },
+        {
+          "path": "downloads/B03-reimported.json",
+          "bytes": 697,
+          "sha256": "800c0258d95201d222325d5f8b2c31a46f39e2db1c7c8000cd4e075329a0e84c",
+          "suggestedFilename": "authored-workspace-workspace.json"
+        }
+      ],
+      "stages": [
+        "actual_file_chooser",
+        "angle_bracket_label_literal",
+        "actual_download_reimport_identity",
+        "invalid_import_preserves_record_and_draft"
+      ],
+      "cleanup": {
+        "contextClosed": true,
+        "pagesClosed": true,
+        "networkDrained": true
+      },
+      "screenshot": "B03.png"
+    },
+    {
+      "id": "B04",
+      "passed": true,
+      "profile": "1440x1000",
+      "boundary": {
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 20391,
+            "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568"
+          },
+          {
+            "method": "GET",
+            "path": "/styles.css",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 24304,
+            "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7"
+          },
+          {
+            "method": "GET",
+            "path": "/app.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 58579,
+            "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672"
+          },
+          {
+            "method": "GET",
+            "path": "/domain.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 17481,
+            "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+          },
+          {
+            "method": "GET",
+            "path": "/server-client.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 6075,
+            "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe"
+          },
+          {
+            "method": "GET",
+            "path": "/",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 20391,
+            "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568"
+          },
+          {
+            "method": "GET",
+            "path": "/styles.css",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 24304,
+            "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7"
+          },
+          {
+            "method": "GET",
+            "path": "/app.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 58579,
+            "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672"
+          },
+          {
+            "method": "GET",
+            "path": "/domain.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 17481,
+            "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+          },
+          {
+            "method": "GET",
+            "path": "/server-client.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 6075,
+            "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe"
+          },
+          {
+            "method": "GET",
+            "path": "/",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 20391,
+            "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568"
+          },
+          {
+            "method": "GET",
+            "path": "/styles.css",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 24304,
+            "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7"
+          },
+          {
+            "method": "GET",
+            "path": "/app.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 58579,
+            "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672"
+          },
+          {
+            "method": "GET",
+            "path": "/domain.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 17481,
+            "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a"
+          },
+          {
+            "method": "GET",
+            "path": "/server-client.mjs",
+            "status": 200,
+            "finished": true,
+            "failed": false,
+            "bodyBound": true,
+            "bytes": 6075,
+            "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe"
+          }
+        ],
+        "violations": [],
+        "pageErrors": [],
+        "consoleErrors": [],
+        "dialogs": [
+          {
+            "type": "confirm",
+            "message": "Replace Business Claw's saved workspace on this device? Other browser data will be kept.",
+            "expected": true
+          },
+          {
+            "type": "confirm",
+            "message": "Replace this tab's workspace and form edits? Save or export the current workspace first if you want to keep it.",
+            "expected": true
+          },
+          {
+            "type": "confirm",
+            "message": "Remove only Business Claw's saved workspace on this device? This tab's current records will remain open.",
+            "expected": true
+          }
+        ],
+        "websockets": 0
+      },
+      "downloads": [
+        {
+          "path": "downloads/B04-original.json",
+          "bytes": 1675,
+          "sha256": "29ee0fda119782f4746ed726f95ee72b1be6496af1b26fd64ddaf5ca2db12fc8",
+          "suggestedFilename": "bc-browser-retention-2026-11-11-workspace.json"
+        },
+        {
+          "path": "downloads/B04-reopened.json",
+          "bytes": 1675,
+          "sha256": "29ee0fda119782f4746ed726f95ee72b1be6496af1b26fd64ddaf5ca2db12fc8",
+          "suggestedFilename": "bc-browser-retention-2026-11-11-workspace.json"
+        },
+        {
+          "path": "downloads/B04-first-tab-stale.json",
+          "bytes": 2500,
+          "sha256": "7597267fcb485411f657af9cccb0535652c0531f1c96574c44e39025de6005f0",
+          "suggestedFilename": "bc-browser-retention-2026-11-11-workspace.json"
+        },
+        {
+          "path": "downloads/B04-guard-retained.json",
+          "bytes": 2500,
+          "sha256": "7597267fcb485411f657af9cccb0535652c0531f1c96574c44e39025de6005f0",
+          "suggestedFilename": "bc-browser-retention-2026-11-11-workspace.json"
+        },
+        {
+          "path": "downloads/B04-explicit-new-copy.json",
+          "bytes": 1686,
+          "sha256": "8b08e32a48f97fd283de8aa1d0c08595a3ae269c968f723b93578364617e8aab",
+          "suggestedFilename": "bc-browser-retention-2026-11-11-workspace.json"
+        }
+      ],
+      "stages": [
+        "explicit_save_readback",
+        "reload_requires_explicit_load",
+        "ids_revisions_history_roundtrip",
+        "second_tab_conflict_guard",
+        "explicit_replacement",
+        "fixture_copy_removed_both_tabs"
+      ],
+      "cleanup": {
+        "contextClosed": true,
+        "pagesClosed": true,
+        "networkDrained": true
+      },
+      "screenshot": "B04.png"
+    }
+  ],
+  "errors": [],
+  "assetBindings": [
+    {
+      "stage": "before",
+      "url": "https://business-claw-alvaro.vercel.app/",
+      "status": 200,
+      "bytes": 20391,
+      "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568",
+      "original": "assets-before/index.html"
+    },
+    {
+      "stage": "before",
+      "url": "https://business-claw-alvaro.vercel.app/app.mjs",
+      "status": 200,
+      "bytes": 58579,
+      "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672",
+      "original": "assets-before/app.mjs"
+    },
+    {
+      "stage": "before",
+      "url": "https://business-claw-alvaro.vercel.app/domain.mjs",
+      "status": 200,
+      "bytes": 17481,
+      "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a",
+      "original": "assets-before/domain.mjs"
+    },
+    {
+      "stage": "before",
+      "url": "https://business-claw-alvaro.vercel.app/server-client.mjs",
+      "status": 200,
+      "bytes": 6075,
+      "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe",
+      "original": "assets-before/server-client.mjs"
+    },
+    {
+      "stage": "before",
+      "url": "https://business-claw-alvaro.vercel.app/styles.css",
+      "status": 200,
+      "bytes": 24304,
+      "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7",
+      "original": "assets-before/styles.css"
+    },
+    {
+      "stage": "before",
+      "url": "https://business-claw-alvaro.vercel.app/favicon.svg",
+      "status": 200,
+      "bytes": 270,
+      "sha256": "fd929d179d87be1d6a01c7daea4005a3c0a69ed8cc237b9e200f4e9b9c2f7334",
+      "original": "assets-before/favicon.svg"
+    },
+    {
+      "stage": "after",
+      "url": "https://business-claw-alvaro.vercel.app/",
+      "status": 200,
+      "bytes": 20391,
+      "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568",
+      "original": "assets-after/index.html"
+    },
+    {
+      "stage": "after",
+      "url": "https://business-claw-alvaro.vercel.app/app.mjs",
+      "status": 200,
+      "bytes": 58579,
+      "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672",
+      "original": "assets-after/app.mjs"
+    },
+    {
+      "stage": "after",
+      "url": "https://business-claw-alvaro.vercel.app/domain.mjs",
+      "status": 200,
+      "bytes": 17481,
+      "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a",
+      "original": "assets-after/domain.mjs"
+    },
+    {
+      "stage": "after",
+      "url": "https://business-claw-alvaro.vercel.app/server-client.mjs",
+      "status": 200,
+      "bytes": 6075,
+      "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe",
+      "original": "assets-after/server-client.mjs"
+    },
+    {
+      "stage": "after",
+      "url": "https://business-claw-alvaro.vercel.app/styles.css",
+      "status": 200,
+      "bytes": 24304,
+      "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7",
+      "original": "assets-after/styles.css"
+    },
+    {
+      "stage": "after",
+      "url": "https://business-claw-alvaro.vercel.app/favicon.svg",
+      "status": 200,
+      "bytes": 270,
+      "sha256": "fd929d179d87be1d6a01c7daea4005a3c0a69ed8cc237b9e200f4e9b9c2f7334",
+      "original": "assets-after/favicon.svg"
+    }
+  ],
+  "passed": true,
+  "applicationInputs": {
+    "/": {
+      "path": "web/index.html",
+      "sha256": "413f07c12fd8707329015005eccae30cc47cb9cf9084da48ebf6cc47306df568",
+      "bytes": 20391
+    },
+    "/app.mjs": {
+      "path": "web/app.mjs",
+      "sha256": "d18645aa987dda6b8222f17dd584a649d2676ba10dabae8d7708b1f9acc18672",
+      "bytes": 58579
+    },
+    "/domain.mjs": {
+      "path": "web/domain.mjs",
+      "sha256": "961383edb109822d482e5a9ac420a85997e35546975f7ff9774507d33cdf9f1a",
+      "bytes": 17481
+    },
+    "/server-client.mjs": {
+      "path": "web/server-client.mjs",
+      "sha256": "836e66165c772f5584ef8f1ce4a04a4f7f0cf70aa2d09bb09481c2442a1c13fe",
+      "bytes": 6075
+    },
+    "/styles.css": {
+      "path": "web/styles.css",
+      "sha256": "a14837612a9ebf92de1b4100a6ac42dbed83112b5a0febd15c6c5dd869ea05d7",
+      "bytes": 24304
+    },
+    "/favicon.svg": {
+      "path": "web/favicon.svg",
+      "sha256": "fd929d179d87be1d6a01c7daea4005a3c0a69ed8cc237b9e200f4e9b9c2f7334",
+      "bytes": 270
+    }
+  },
+  "proofLimits": [
+    "Separate CI Chromium profile; original manual Chrome attempt remains partial/unrun.",
+    "Actual hosted browser-local preview only: no server-account/Auth/database/provider/runtime qualification.",
+    "Narrow uses mouse/keyboard at390x844; no physical touch, native phone, screen-reader or pixel-perfect proof.",
+    "Only authored records in fresh contexts. Storage is checked via UI/export/readback, never raw storage APIs.",
+    "Static response-body bindings cover six served assets, not provider internals or continuous hosting identity."
+  ],
+  "browser": "158.0.8127.18",
+  "browserClosed": true
+}

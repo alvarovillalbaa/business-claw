@@ -1,0 +1,25 @@
+{
+  "total_count": 1,
+  "artifacts": [
+    {
+      "id": 13886081669,
+      "node_id": "MDg6QXJ0aWZhY3QxMzg4NjA4MTY2OQ==",
+      "name": "preview-browser-checks-43085207121",
+      "size_in_bytes": 645067,
+      "url": "https://api.github.com/repos/alvarovillalbaa/business-claw/actions/artifacts/13886081669",
+      "archive_download_url": "https://api.github.com/repos/alvarovillalbaa/business-claw/actions/artifacts/13886081669/zip",
+      "expired": false,
+      "digest": "sha256:5c5193f960c2688c1eec6a95af945fafc04e407c6732ff801c0b7fb7691331f0",
+      "created_at": "2026-11-11T19:14:03Z",
+      "updated_at": "2026-11-11T19:14:03Z",
+      "expires_at": "2026-11-12T19:14:02Z",
+      "workflow_run": {
+        "id": 43085207121,
+        "repository_id": 1440645435,
+        "head_repository_id": 1440645435,
+        "head_branch": "qa/business-claw-preview-browser-20261111-1",
+        "head_sha": "27d2cb179b4571db03c6fb7425bc56d7ad38be56"
+      }
+    }
+  ]
+}

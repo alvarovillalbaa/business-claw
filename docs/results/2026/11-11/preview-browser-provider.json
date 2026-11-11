@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "business-claw.provider-observation.v1",
+  "observedDate": "2026-11-11",
+  "observation": "Fresh pre-run connected Vercel get_deployment read; exact clock time not retained",
+  "canonicalHost": "business-claw-alvaro.vercel.app",
+  "deployment": {
+    "id": "dpl_Mwjkgw78gED3QQK2gR8zLPJH4BLj",
+    "url": "business-claw-alvaro-hdyce4qb2-my-team-4f230354.vercel.app",
+    "state": "READY",
+    "target": "production",
+    "projectId": "prj_wCzxhREM2YFqwo0WCCAnOuM66aO7",
+    "projectName": "business-claw-alvaro",
+    "githubCommitSha": "ec2521fe30249fc8d950544cf57532e74749e126",
+    "githubCommitRef": "main",
+    "aliases": [
+      "business-claw-alvaro.vercel.app",
+      "business-claw-alvaro-my-team-4f230354.vercel.app",
+      "business-claw-alvaro-git-main-my-team-4f230354.vercel.app"
+    ]
+  },
+  "proofLimit": "Provider metadata is separate from the run's actual HTTP body and browser observations. No production Auth/env/database/runtime claim."
+}

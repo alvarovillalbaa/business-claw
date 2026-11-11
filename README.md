@@ -92,8 +92,14 @@ passed at immutable `1b5dcc8`; the [18 runtime-data cases](docs/results/2026/10-
 passed at immutable `3b39c2b`. The [policy source and check receipt](docs/results/2026/10-31/server-policy-checks.md)
 owns the separate 32 fake-port cases and their actual execution status.
 
-The [four browser scenarios](docs/results/2026/10-31/browser-checks.md) remain
-approved; one is partial and three unrun after a plugin-worker version failure.
+The original [manual Chrome result](docs/results/2026/10-31/browser-checks.md)
+retains one partial/three unrun scenarios after its transport interruption.
+The separate [hosted Chromium CI profile](docs/results/2026/11-11/preview-browser.md)
+now passed all four functional journeys: exact review/confirmation/cancellation,
+narrow stale-intent navigation, actual chooser/download round-trip and explicit
+two-tab retention/conflict/removal. Four inspected PNGs, eight actual JSON
+downloads and complete source/network/cleanup evidence are retained. This
+qualifies the hosted browser-local preview; it does not complete the managed service.
 The [Auth/HTTP receipt](docs/results/2026/10-31/auth-http-checks.md) owns its
 separate focused fake-port results. The latest
 [backend activation receipt](docs/results/2026/10-31/backend-activation.md)

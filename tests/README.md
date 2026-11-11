@@ -22,3 +22,10 @@ graph. Their two package versions, registry URLs and SRI values match the earlie
 accepted tool lock and public registry; root name/direct version are explicit.
 Actual outcomes, originals and provider metadata determine acceptance. Static
 checks and authored test source do not establish a browser pass.
+
+B01–B04 passed once at `537c5dc998ad038b5fb7aa10cbab7f3d75e93752`,
+run43085207121/job130747659483. The [accepted receipt](../docs/results/2026/11-11/preview-browser.md)
+retains108 exact original members, four viewable PNGs, eight actual downloads,
+all body/source bindings and verified task/proof-directory retirement. This CI
+scope is closed; do not repeat unchanged accepted cases. Original manual Chrome
+and managed-service/Auth/DB/provider/tenant qualification remain separate.

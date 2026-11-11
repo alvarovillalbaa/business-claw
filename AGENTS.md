@@ -77,3 +77,11 @@ with marker/inode/source/no-opener/absence checks. Missing upload/cleanup does
 not become accepted evidence. Disable/retire only the exact owned controls after
 publication. This is hosted local-preview qualification, not managed-service,
 Auth/DB/compute/tenant isolation, physical touch or whole-product acceptance.
+
+The [first CI profile](docs/results/2026/11-11/preview-browser.md) now passed all
+four fresh B01–B04 journeys at537c5dc998ad038b5fb7aa10cbab7f3d75e93752.
+108original members, four PNGs/eight downloads, five identical source guards,
+complete streams and owned task/proof-directory cleanup passed. This scope is
+CLOSED; no unchanged accepted-case retry. The old manual Chrome interruption and
+all managed-service gates remain. Publish unchanged originals and retire only
+the exact one owned QA ref/disabled workflow; app/dependency bytes stay unchanged.

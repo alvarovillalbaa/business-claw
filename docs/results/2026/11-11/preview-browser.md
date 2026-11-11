@@ -43,7 +43,8 @@ native bodies, vectorSHA256
 Only nine source files were exported. Pinned Node24.22.2/Playwright1.65.0 launched
 actual Chromium158.0.8127.18; tool/executable identities and unchanged exports/
 tools/binaries were verified. All40outer commands/80streams were complete,
-reaped and normally closed. No app dependency install/build or old backend suite ran.
+reaped and normally closed. The existing source-only validator ran directly;
+no application dependency installation, bundler, service or old backend test suite ran.
 
 Each case closed pages/context and drained network observations. All observed
 owned children/groups were absent before task-root deletion and on final readback.
@@ -66,7 +67,8 @@ container with generic0644 modes, not the GitHub ZIP or CI permission identity.
 viewable PNGs are adjacent. The tool-decoded job log `.raw.log.gz` preserves
 211351UTF-8 bytes/SHA256
 `d2bf5f5df3c0dd37a85684928d06e17d010161ce3355c715b9bf23589729c151`.
-Publication/temporary-control retirement are recorded separately.
+[Publication and temporary-control retirement](preview-browser-publication.json)
+are recorded separately.
 
 Application and app dependency bytes stayed unchanged. This establishes the
 tested local-record UI on a public host, not working managed Auth/email/

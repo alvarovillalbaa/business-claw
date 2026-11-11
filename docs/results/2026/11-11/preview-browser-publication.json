@@ -1,0 +1,101 @@
+{
+  "schema": "business-claw.preview-browser-publication.v1",
+  "scope": "Four hosted local-record UI journeys; separate public CI profile",
+  "scopeClosed": true,
+  "fullManagedServiceAccepted": false,
+  "checkedSource": {
+    "commit": "537c5dc998ad038b5fb7aa10cbab7f3d75e93752",
+    "tree": "90a0f566b9d21f65202d8abd02fa0b7cf7cf437a",
+    "files": 103,
+    "bytes": 927520,
+    "identicalSourceGuards": 5,
+    "fileVectorSha256": "fd7f9673e623017d38991a509d99d2bae8af2628ac519d6be38df0799328d7d3",
+    "activationCommit": "27d2cb179b4571db03c6fb7425bc56d7ad38be56",
+    "existingSourceOnlyValidatorRanDirectly": true,
+    "appDependencyInstallationOrBundlerOrService": false
+  },
+  "execution": {
+    "runId": 43085207121,
+    "jobId": 130747659483,
+    "url": "https://github.com/alvarovillalbaa/business-claw/actions/runs/43085207121",
+    "conclusion": "success",
+    "invocations": 1,
+    "freshCasesPassed": ["B01", "B02", "B03", "B04"],
+    "completeCommands": 40,
+    "completeStreams": 80,
+    "completedBrowserResponseBodies": 30,
+    "separateCompleteBeforeAfterHttpBodies": 12,
+    "servedGitFilesBound": 6,
+    "actualJsonDownloads": 8,
+    "inspectedPngs": 4,
+    "networkViolations": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "websockets": 0,
+    "allCasePageContextAndNetworkCleanupPassed": true,
+    "ownedTaskRootAbsentOnFinalReadback": true,
+    "uploadedProofRetired": {"entries": 112, "bytes": 1129287, "noOpenersAndIdentityVerified": true, "absenceReadBack": true}
+  },
+  "originals": {
+    "artifactId": 13886081669,
+    "artifactBytesFromServerMetadata": 645067,
+    "artifactDigestFromServerMetadata": "sha256:5c5193f960c2688c1eec6a95af945fafc04e407c6732ff801c0b7fb7691331f0",
+    "exactExtractedMembers": 108,
+    "exactExtractedMemberBytes": 1129255,
+    "allMembersRehashedAgainstControllerCatalog": true,
+    "packet": "preview-browser-originals.zip",
+    "index": "preview-browser-originals.index.json",
+    "packetBytes": 646127,
+    "packetSha256": "d2a1257457f1aac204106e9d87ca83295dab026ff00be571cdae2636e6e6de85",
+    "containerQualification": "Data-only repack preserving exact member bytes; not GitHub ZIP byte identity or CI permission identity",
+    "toolDecodedJobLogUtf8Bytes": 211351,
+    "toolDecodedJobLogSha256": "d2bf5f5df3c0dd37a85684928d06e17d010161ce3355c715b9bf23589729c151"
+  },
+  "publishedEvidence": {
+    "commit": "55c26413213967b79bbf88d40dfe3af3ae24a366",
+    "tree": "34857277f8b4579ea940a4a6930b417e6a6c43e5",
+    "files": 116,
+    "bytes": 2171241,
+    "githubMainAndRecursiveTreeReadBack": true,
+    "nativeHeadOriginAndIndexMatched": true,
+    "allNativeBlobsAndModesMatched": true,
+    "nativeStatusCleanBeforeThisMetadataReceipt": true,
+    "applicationAndAppDependencyBytesUnchanged": true,
+    "thisReceipt": "Subsequent metadata-only publication; its final commit and native adoption are recorded in the owning delivery notes"
+  },
+  "temporaryControls": {
+    "workflowId": 415058494,
+    "workflowStateReadBack": "disabled_manually",
+    "branch": "qa/business-claw-preview-browser-20261111-1",
+    "expectedBranchHead": "27d2cb179b4571db03c6fb7425bc56d7ad38be56",
+    "onlyOwnedBranchDeleted": true,
+    "deletedBranchReadbackStatus": 404,
+    "workflowInMain": false
+  },
+  "localDuplicateCleanup": {
+    "completedAt": "2026-11-11T19:35:44.189906+00:00",
+    "removedFiles": 124,
+    "removedBytes": 2806375,
+    "uploadPayloads": 16,
+    "publishedOriginalDuplicates": 108,
+    "exactIdentityAndCanonicalBytesVerified": true,
+    "scopedNoOpenerCheck": true,
+    "allRemovedPathsAbsent": true,
+    "canonicalEvidencePreserved": true
+  },
+  "providerObservationsSeparateFromBrowserEvidence": {
+    "canonicalAlias": "business-claw-alvaro.vercel.app",
+    "beforeRun": {"id": "dpl_Mwjkgw78gED3QQK2gR8zLPJH4BLj", "state": "READY", "commit": "ec2521fe30249fc8d950544cf57532e74749e126"},
+    "afterEvidencePublication": {"id": "dpl_5Z6noqwNfbgah9ewDdCFtZo4YVur", "state": "READY", "commit": "55c26413213967b79bbf88d40dfe3af3ae24a366"},
+    "applicationInputsEqualToTestedDeployment": true,
+    "freshBrowserReplayOfMetadataPublication": false
+  },
+  "proofLimits": [
+    "Original manual Chrome packet remains one partial and three unrun; unavailable browser host was not bypassed",
+    "Narrow case uses mouse and keyboard, not physical touch",
+    "PNG focus and fixed-element offsets are retained; no pixel-perfect, layout-wide or assistive-technology acceptance",
+    "No managed Auth, email, Postgres, compute, Gateway, Notion, memory, self-building or hostile-tenant-isolation acceptance",
+    "No account, provider/model call, paid resource, existing user data or secret used",
+    "No global host, vendor/action-cache or external runner teardown attestation"
+  ]
+}

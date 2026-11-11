@@ -56,3 +56,24 @@
 - Persist source, publication, checks and limits in docs/results/. Mark adapters
   and policies proposed until actually approved/bound. A successful static build
   does not prove hosted managed-service, organization isolation or full delivery.
+
+## Separate hosted-preview Chromium CI — 11 November 2026
+
+The owner's current all-work/checks/temporary-CI authority covers this app's
+new [four-case CI profile](docs/proposals/preview-browser-ci.md). Original manual
+Chrome statuses remain unchanged; no recovery/alternate desktop surface is used.
+Use exact public source/Node24.22.2/Playwright1.65.0, one free Ubuntu job capped
+20minutes, six hosted static asset bindings, authored records and fresh browser
+contexts. No app dependency/build/install, backend suite, account, API write,
+provider, secret, runtime activation or payment. Local Storage Guard fails at
+2.4GiB/34required; syntax/data-only local checks, heavy steps only in owned CI.
+
+Preserve the full old AGENTS/inputs, exact source/index/tool/export guards and
+all original failed outputs. B01–B04 must use actual UI/dialog/chooser/download/
+retention behavior, never raw storage or response substitution. Bound every
+process/stream/proof file and reserve cleanup. Verify task-root deletion, upload
+original PNG/JSON/static-response proof, then retire that owned proof directory
+with marker/inode/source/no-opener/absence checks. Missing upload/cleanup does
+not become accepted evidence. Disable/retire only the exact owned controls after
+publication. This is hosted local-preview qualification, not managed-service,
+Auth/DB/compute/tenant isolation, physical touch or whole-product acceptance.

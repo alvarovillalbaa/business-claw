@@ -1,0 +1,47 @@
+# INACTIVE. Pin exact reviewed source only on the named QA branch.
+name: Temporary Business Claw hosted preview browser checks
+on:
+  push:
+    branches: [qa/business-claw-preview-browser-20261111-1]
+    paths: [.github/workflows/preview-browser-ci.yml]
+permissions:
+  contents: read
+concurrency:
+  group: business-claw-preview-browser-20261111-1
+  cancel-in-progress: false
+jobs:
+  preview-browser:
+    if: github.repository == 'alvarovillalbaa/business-claw' && github.event.repository.private == false && github.ref == 'refs/heads/qa/business-claw-preview-browser-20261111-1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      SOURCE_COMMIT: REVIEWED_SOURCE_COMMIT
+    steps:
+      - name: Record earliest owned time
+        shell: bash
+        run: echo "BC_BROWSER_JOB_STARTED_MS=$(python3 -I -B -S -c 'import time;print(int(time.time()*1000))')" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ env.SOURCE_COMMIT }}
+          fetch-depth: 2
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24.22.2'
+      - name: Four hosted-preview journeys and owned teardown
+        shell: bash
+        run: python3 -I -B -S tests/support/run-preview-browser.py --source-commit "$SOURCE_COMMIT"
+      - name: Retain complete original proof
+        id: proof-upload
+        if: always() && env.BC_BROWSER_PROOF_PATH != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: preview-browser-checks-${{ github.run_id }}
+          path: ${{ env.BC_BROWSER_PROOF_PATH }}
+          retention-days: 1
+          if-no-files-found: error
+      - name: Verify and retire uploaded proof directory
+        if: always() && steps.proof-upload.outcome == 'success'
+        shell: bash
+        run: python3 -I -B -S tests/support/run-preview-browser.py --cleanup-proof
